@@ -9,7 +9,7 @@ Then, let's code 🙂
 ## 1. Create a new project
 You must install [Git](https://git-scm.com/) on your computer, and create an account on [Github](https://github.com/) if you do not have one.
 
-Then, you need a repository for you game. You can either wait for us to create one, or use [our template on Github](https://github.com/gamepark/board-game-template) to [create a new repository](https://docs.github.com/fr/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+Then, you need a repository for you game. You can either wait for us to create one, or use [our template on Github](https://github.com/gamepark/board-soltis) to [create a new repository](https://docs.github.com/fr/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
 
 We recommend to use this syntax to name the repository: "name-of-your-game"
 
@@ -43,9 +43,9 @@ The app part contains a [React](https://react.dev/) application, that will creat
 ### 3.0 Rename the default values in the template
 
 Search and replace in **every file**:
-- `Game Template` => `Name of your Game`
+- `Solstis` => `Name of your Game`
 - `GameTemplate` => `NameOfYourGame`
-- `game-template` => `name-of-your-game`
+- `soltis` => `name-of-your-game`
 
 ### 3.1 The Material
 
@@ -84,7 +84,7 @@ export const CardsDescription: CardMaterialDescription = {
       image: back
     },
     front: {
-      image: {
+      images: {
         [TheCardEnumId.SomeId1]: card1,
         [TheCardEnumId.SomeId2]: card2,
         [TheCardEnumId.SomeId3]: card3
@@ -121,7 +121,7 @@ export class PlayerHandLocator extends HandLocator<PlayerColor, MaterialType, Lo
 
 ### 3.3 The setup
 
-Once you have one Material type and one Location type, you can start to setup a new game in [GameTemplateRules.ts](/rules/src/GameTemplateRules.ts)
+Once you have one Material type and one Location type, you can start to setup a new game in [GameTemplateRules.ts](/rules/src/SolstisRules.ts)
 
 You can easily create and manipulate the material in the setup:
 
@@ -164,7 +164,7 @@ Then, run:
 ```
 rclone config
 > n (For "New remote)
-name> game-template
+name> soltis
 Storage> s3 (Amazon S3 Compliant Storage Provider)
 provider> Other
 env_auth> false

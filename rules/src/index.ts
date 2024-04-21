@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameTemplateOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { SolstisRules } from './SolstisRules'
+export { SolstisOptionsSpec } from './SolstisOptions'
+export { SolstisSetup } from './SolstisSetup'
