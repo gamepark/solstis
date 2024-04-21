@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/soltis/PlayerColor'
+import { PlayerId } from '@gamepark/soltis/PlayerId'
 import { PlayerPanel, usePlayers } from '@gamepark/react-game'
 import { FC } from 'react'
 
@@ -22,9 +22,9 @@ const panelPosition = (index: number) => css`
   height: 14em;
 `
 
-export const playerColorCode: Record<PlayerColor, string> = {
-  [PlayerColor.Red]: 'red',
-  [PlayerColor.Blue]: 'blue',
-  [PlayerColor.Green]: 'green',
-  [PlayerColor.Yellow]: 'yellow'
+export const playerColorCode: Record<PlayerId, string> = {
+  [PlayerId.Red]: 'red',
+  [PlayerId.Blue]: 'blue',
+  [PlayerId.Green]: 'green',
+  [PlayerId.Yellow]: 'yellow'
 }
