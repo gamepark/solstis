@@ -2,6 +2,7 @@ import { MaterialGameSetup } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { MountainLandscape, mountainLandscapes } from './material/MountainLandscape'
+import { spirits } from './material/Spirit'
 import { PlayerId } from './PlayerId'
 import { RuleId } from './rules/RuleId'
 import { SolstisOptions } from './SolstisOptions'
@@ -17,6 +18,7 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
     this.setupLandscapes()
     this.setupRainbows()
     this.setupQueue()
+    this.setupSpirits()
   }
 
   setupLandscapes() {
@@ -50,6 +52,20 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
     }))
 
     this.material(MaterialType.LandscapeTile).createItems(rainbows)
+  }
+
+  setupSpirits() {
+    const items = spirits.map((s) => ({
+      id: s,
+      location: {
+        type: LocationType.SpiritDeck
+      }
+    }))
+
+    this.material(MaterialType.SpiritTile).createItems(items)
+    this.material(MaterialType.SpiritTile).shuffle()
+
+    this.material(MaterialType.SpiritTile).limit(8).moveItems({ type: LocationType.SpiritLine })
   }
 
   start() {

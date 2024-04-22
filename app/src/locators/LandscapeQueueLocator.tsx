@@ -7,9 +7,9 @@ import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 
 export class LandscapeQueueLocator extends LineLocator {
   deltaX = landscapeTileDescription.width + 0.2
-  deltaY = 0.3 * landscapeTileDescription.height
+  deltaY = 0.25 * landscapeTileDescription.height
   getCoordinates(item: MaterialItem, _context: ItemContext): Coordinates {
-    const baseCoordinates = { x: 13, y: -22, z: 0}
+    const baseCoordinates = { x: -20.5, y: -20.5, z: 0}
 
     return {
       x: baseCoordinates.x + (item.location.x! * this.deltaX),

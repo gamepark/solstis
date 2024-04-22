@@ -6,10 +6,14 @@ import { landscapeDeckLocator } from './LandscapeDeckLocator'
 import { landscapeQueueLocator } from './LandscapeQueueLocator'
 import { panoramaLocator } from './PanoramaLocator'
 import { rainbowDeckLocator } from './RainbowDeckLocator'
+import { spiritDeckLocator } from './SpiritDeckLocator'
+import { spiritLineLocator } from './SpiritLineLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, MaterialType, LocationType>>> = {
   [LocationType.LandscapeDeck]: landscapeDeckLocator,
   [LocationType.RainbowDeck]: rainbowDeckLocator,
   [LocationType.Panorama]: panoramaLocator,
-  [LocationType.LandscapeQueue]: landscapeQueueLocator
+  [LocationType.LandscapeQueue]: landscapeQueueLocator,
+  [LocationType.SpiritDeck]: spiritDeckLocator,
+  [LocationType.SpiritLine]: spiritLineLocator
 }

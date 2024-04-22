@@ -19,6 +19,10 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: new PositiveSequenceStrategy(),
       [LocationType.RainbowDeck]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.SpiritTile]: {
+      [LocationType.SpiritDeck]: new PositiveSequenceStrategy(),
+      [LocationType.SpiritLine]: new PositiveSequenceStrategy()
     }
   }
 
@@ -26,6 +30,9 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: hideItemId,
       [LocationType.LandscapeQueue]: (item: MaterialItem) => !!item.location?.rotation ? ['id'] : [],
+    },
+    [MaterialType.SpiritTile]: {
+      [LocationType.SpiritDeck]: hideItemId
     }
   }
 }

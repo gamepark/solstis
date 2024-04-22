@@ -3,7 +3,7 @@ import { DeckLocator } from '@gamepark/react-game'
 
 
 export class RainbowDeckLocator extends DeckLocator {
-  coordinates = { x: 5, y: 8, z: 0}
+  coordinates = { x: -32, y: -12.7, z: 0}
   delta = { x: -0.03, y: -0.03, z: 0.05 }
 }
 
