@@ -64,8 +64,6 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
 
     this.material(MaterialType.SpiritTile).createItems(items)
     this.material(MaterialType.SpiritTile).shuffle()
-
-    this.material(MaterialType.SpiritTile).limit(8).moveItems({ type: LocationType.SpiritLine })
   }
 
   start() {
