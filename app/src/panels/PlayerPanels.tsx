@@ -1,22 +1,38 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerPanel, usePlayers } from '@gamepark/react-game'
+import { StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
+import { SolstisRules } from '@gamepark/soltis/SolstisRules'
 import { FC } from 'react'
+import { createPortal } from 'react-dom'
 
 export const PlayerPanels: FC<any> = () => {
   const players = usePlayers({ sortFromMe: true })
-  return (
+  const rules = useRules<SolstisRules>()!
+  const playerId = usePlayerId()
+  const root = document.getElementById('root')
+  if (!root) {
+    return null
+  }
+
+  return createPortal(
     <>
-      {players.map((player, index) =>
-        <PlayerPanel key={player.id} playerId={player.id} css={panelPosition(index)}/>
+      {players.map((player) =>
+        <StyledPlayerPanel key={player.id} player={player} css={(player.id === (playerId ?? rules.players[0]))? leftCss: rightCss} timerOnRight/>
       )}
-    </>
+    </>,
+    root
   )
 }
-const panelPosition = (index: number) => css`
+
+const rightCss = css`
   position: absolute;
+  top: 8.5em;
   right: 1em;
-  top: ${8.5 + index * 16}em;
-  width: 28em;
-  height: 14em;
+`
+
+
+const leftCss = css`
+  position: absolute;
+  top: 8.5em;
+  left: 1em;
 `
