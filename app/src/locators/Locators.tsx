@@ -3,11 +3,13 @@ import { LocationType } from '@gamepark/soltis/material/LocationType'
 import { MaterialType } from '@gamepark/soltis/material/MaterialType'
 import { PlayerId } from '@gamepark/soltis/PlayerId'
 import { landscapeDeckLocator } from './LandscapeDeckLocator'
+import { landscapeQueueLocator } from './LandscapeQueueLocator'
 import { panoramaLocator } from './PanoramaLocator'
 import { rainbowDeckLocator } from './RainbowDeckLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, MaterialType, LocationType>>> = {
   [LocationType.LandscapeDeck]: landscapeDeckLocator,
   [LocationType.RainbowDeck]: rainbowDeckLocator,
-  [LocationType.Panorama]: panoramaLocator
+  [LocationType.Panorama]: panoramaLocator,
+  [LocationType.LandscapeQueue]: landscapeQueueLocator
 }

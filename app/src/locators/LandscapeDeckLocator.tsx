@@ -1,10 +1,28 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator } from '@gamepark/react-game'
+import { css } from '@emotion/react'
+import { LocationDescription, PileLocator } from '@gamepark/react-game'
+import { LocationType } from '@gamepark/soltis/material/LocationType'
+import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 
 
-export class LandscapeDeckLocator extends DeckLocator {
-  coordinates = { x: -4, y: -25, z: 0}
+export class LandscapeDeckLocator extends PileLocator {
+  locationDescription = new LandscapeDescription()
+
+  coordinates = { x: 4.85, y: -8, z: 0}
   delta = { x: -0.03, y: -0.03, z: 0.05 }
+
+  radius = 5.5
+  maxAngle = 90
+}
+
+class LandscapeDescription extends LocationDescription {
+  height = 11 + landscapeTileDescription.height
+  width = 11 + landscapeTileDescription.height
+  extraCss = css`background-color: rgba(255, 255, 255, 0.5)`
+  coordinates = { x: 4.85, y: -8, z: 50}
+  //alwaysVisible = true
+  location = { type: LocationType.LandscapeDeck }
+
 }
 
 export const landscapeDeckLocator = new LandscapeDeckLocator()

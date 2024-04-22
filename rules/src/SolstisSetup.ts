@@ -16,6 +16,7 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
   setupMaterial(_options: SolstisOptions) {
     this.setupLandscapes()
     this.setupRainbows()
+    this.setupQueue()
   }
 
   setupLandscapes() {
@@ -30,6 +31,14 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
 
     this.material(MaterialType.LandscapeTile).createItems(landscapes)
     this.material(MaterialType.LandscapeTile).shuffle()
+  }
+
+  setupQueue() {
+    const deck = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).deck()
+    for (let x = 0; x < 6; x++) {
+      deck.dealOne({ type: LocationType.LandscapeQueue, x, y: 0, rotation: true })
+      deck.dealOne({ type: LocationType.LandscapeQueue, x, y: 1})
+    }
   }
 
   setupRainbows() {

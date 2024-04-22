@@ -1,4 +1,4 @@
-import { hideItemId, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
+import { hideItemId, MaterialItem, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
@@ -17,13 +17,15 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
 
   locationsStrategies = {
     [MaterialType.LandscapeTile]: {
-      [LocationType.LandscapeDeck]: new PositiveSequenceStrategy()
+      [LocationType.LandscapeDeck]: new PositiveSequenceStrategy(),
+      [LocationType.RainbowDeck]: new PositiveSequenceStrategy()
     }
   }
 
   hidingStrategies = {
     [MaterialType.LandscapeTile]: {
-      [LocationType.LandscapeDeck]: hideItemId
+      [LocationType.LandscapeDeck]: hideItemId,
+      [LocationType.LandscapeQueue]: (item: MaterialItem) => !!item.location?.rotation ? ['id'] : [],
     }
   }
 }
