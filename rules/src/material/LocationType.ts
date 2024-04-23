@@ -6,5 +6,6 @@ export enum LocationType {
   Hand,
   SpiritDeck,
   SpiritLine,
-  SpiritInMountain
+  SpiritInMountain,
+
 }

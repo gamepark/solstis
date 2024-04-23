@@ -5,6 +5,7 @@ import { PlayerId } from '@gamepark/soltis/PlayerId'
 import { landscapeDeckLocator } from './LandscapeDeckLocator'
 import { landscapeQueueLocator } from './LandscapeQueueLocator'
 import { panoramaLocator } from './PanoramaLocator'
+import { playerHandLocator } from './PlayerHandLocator'
 import { rainbowDeckLocator } from './RainbowDeckLocator'
 import { spiritDeckLocator } from './SpiritDeckLocator'
 import { spiritLineLocator } from './SpiritLineLocator'
@@ -15,5 +16,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.Panorama]: panoramaLocator,
   [LocationType.LandscapeQueue]: landscapeQueueLocator,
   [LocationType.SpiritDeck]: spiritDeckLocator,
-  [LocationType.SpiritLine]: spiritLineLocator
+  [LocationType.SpiritLine]: spiritLineLocator,
+  [LocationType.Hand]: playerHandLocator
 }

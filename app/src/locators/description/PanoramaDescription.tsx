@@ -31,7 +31,6 @@ export class PanoramaDescription extends LocationDescription {
       }
     }
 
-    console.log(locations)
     return locations
   }
 
@@ -47,12 +46,11 @@ export class PanoramaDescription extends LocationDescription {
 
   getLandscapePosition(location: Location, context: LocationContext) {
     const { rules, player } = context
-    const leftPlayer = location.player === player ?? rules.players[0]
+    const leftPlayer = location.player === (player ?? rules.players[0])
     return { x: leftPlayer? -32: 12, y: 12, z: 0}
   }
 
   getExtraCss(location: Location, _context: LocationContext): Interpolation<Theme> {
-    console.log(location)
     return css`
       background-image: url(${landscapeTileDescription.images[panoramaLandscapes[location.x!][location.y!]]});
       background-repeat: no-repeat;

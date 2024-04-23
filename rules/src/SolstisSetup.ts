@@ -14,11 +14,12 @@ import { SolstisRules } from './SolstisRules'
 export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, LocationType, SolstisOptions> {
   Rules = SolstisRules
 
-  setupMaterial(_options: SolstisOptions) {
+  setupMaterial(options: SolstisOptions) {
     this.setupLandscapes()
     this.setupRainbows()
     this.setupQueue()
     this.setupSpirits()
+    this.setupPlayers(options)
   }
 
   setupLandscapes() {
@@ -64,11 +65,20 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
 
     this.material(MaterialType.SpiritTile).createItems(items)
     this.material(MaterialType.SpiritTile).shuffle()
-
-    this.material(MaterialType.SpiritTile).limit(10).moveItems({ type: LocationType.SpiritLine })
   }
 
   start() {
-    this.startPlayerTurn(RuleId.PlayerTurn, this.game.players[0])
+    this.startPlayerTurn(RuleId.SelectHandTile, this.game.players[0])
+  }
+
+  setupPlayers(options: SolstisOptions) {
+    const deck = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).deck()
+    for (let player = 1; player <= options.players; player++) {
+      deck.deal({
+        type: LocationType.Hand,
+        player
+      }, 3)
+    }
+
   }
 }

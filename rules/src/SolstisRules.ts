@@ -1,8 +1,8 @@
-import { hideItemId, MaterialItem, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
+import { hideItemId, hideItemIdToOthers, MaterialItem, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
-import { PlayerTurn } from './rules/PlayerTurn'
+import { SelectHandTileRule } from './rules/SelectHandTileRule'
 import { RuleId } from './rules/RuleId'
 
 
@@ -12,13 +12,14 @@ import { RuleId } from './rules/RuleId'
  */
 export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, LocationType> {
   rules = {
-    [RuleId.PlayerTurn]: PlayerTurn
+    [RuleId.SelectHandTile]: SelectHandTileRule
   }
 
   locationsStrategies = {
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: new PositiveSequenceStrategy(),
-      [LocationType.RainbowDeck]: new PositiveSequenceStrategy()
+      [LocationType.RainbowDeck]: new PositiveSequenceStrategy(),
+      [LocationType.Hand]: new PositiveSequenceStrategy()
     },
     [MaterialType.SpiritTile]: {
       [LocationType.SpiritDeck]: new PositiveSequenceStrategy(),
@@ -30,6 +31,7 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: hideItemId,
       [LocationType.LandscapeQueue]: (item: MaterialItem) => !!item.location?.rotation ? ['id'] : [],
+      [LocationType.Hand]: hideItemIdToOthers,
     },
     [MaterialType.SpiritTile]: {
       [LocationType.SpiritDeck]: hideItemId

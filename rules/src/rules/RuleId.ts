@@ -1,3 +1,7 @@
 export enum RuleId {
-  PlayerTurn = 1
+  SelectHandTile = 1,
+  Capture,
+  Reconstitute,
+  MeetSpirit,
+  RefillHand
 }
