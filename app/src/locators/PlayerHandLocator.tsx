@@ -18,17 +18,17 @@ export class PlayerHandLocator extends HandLocator {
     return { x: 41, y: -12, z: 0 }
   }
 
-  getMaxAngle(item: MaterialItem, context: ItemContext): number {
+  getGapMaxAngle(item: MaterialItem, context: ItemContext): number {
     const { rules, player } = context
     if (!player && rules.players[0] === item.location.player) {
-      return 3
+      return 1
     }
 
     if (item.location.player === (player ?? rules.players[0])) {
-      return 3.5
+      return 1.85
     }
 
-    return 3
+    return 1
   }
 
   getBaseAngle(item: MaterialItem, context: ItemContext) {

@@ -7,5 +7,6 @@ export enum LocationType {
   SpiritDeck,
   SpiritLine,
   SpiritInMountain,
+  PlayArea
 
 }
