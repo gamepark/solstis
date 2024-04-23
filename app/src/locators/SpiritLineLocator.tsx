@@ -4,10 +4,10 @@ import { spiritTileDescription } from '../material/SpiritTileDescription'
 
 
 export class SpiritLineLocator extends GridLocator {
-  itemsPerLine = 3
-  itemsGap = { x: spiritTileDescription.width + 0.2 }
-  linesGap = { y: spiritTileDescription.height + 0.2 }
-  coordinates = { x: 3.6, y: 1.7, z: 0}
+  itemsPerLine = 5
+  itemsGap = { x: spiritTileDescription.width + 0.3 }
+  linesGap = { y: spiritTileDescription.height + 0.3}
+  coordinates = { x: 20.5, y: -22, z: 0}
 }
 
 export const spiritLineLocator = new SpiritLineLocator()

@@ -8,7 +8,7 @@ import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 export class LandscapeDeckLocator extends PileLocator {
   locationDescription = new LandscapeDescription()
 
-  coordinates = { x: 4.85, y: -9, z: 0}
+  coordinates = { x: 4.85, y: -9.5, z: 0}
   delta = { x: -0.03, y: -0.03, z: 0.05 }
 
   radius = 5.5
@@ -19,7 +19,7 @@ class LandscapeDescription extends LocationDescription {
   height = 11 + landscapeTileDescription.height
   width = 11 + landscapeTileDescription.height
   extraCss = css`background-color: rgba(255, 255, 255, 0.5)`
-  coordinates = { x: 4.85, y: -9, z: 50}
+  coordinates = { x: 4.85, y: -9.5, z: 50}
   //alwaysVisible = true
   location = { type: LocationType.LandscapeDeck }
 
