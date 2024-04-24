@@ -52,12 +52,21 @@ export class PanoramaDescription extends LocationDescription {
 
   getExtraCss(location: Location, _context: LocationContext): Interpolation<Theme> {
     return css`
-      background-image: url(${landscapeTileDescription.images[panoramaLandscapes[location.x!][location.y!]]});
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 0.4;
+      &:before {
+        content: '';
+        background-image: url(${landscapeTileDescription.images[panoramaLandscapes[location.x!][location.y!]]});
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.4;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      
     `
   }
 
-
+  canLongClick() {
+    return false
+  }
 }
