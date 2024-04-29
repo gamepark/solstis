@@ -49,6 +49,7 @@ export class PanoramaDescription extends LocationDescription {
     const leftPlayer = location.player === (player ?? rules.players[0])
     return { x: leftPlayer? -32: 12, y: 12, z: 0}
   }
+
   getExtraCss(location: Location, _context: LocationContext): Interpolation<Theme> {
     return css`
       &:before {

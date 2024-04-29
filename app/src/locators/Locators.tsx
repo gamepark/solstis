@@ -9,6 +9,7 @@ import { playAreaLocator } from './PlayAreaLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { rainbowDeckLocator } from './RainbowDeckLocator'
 import { spiritDeckLocator } from './SpiritDeckLocator'
+import { spiritInMountainLocator } from './SpiritInMountainLocator'
 import { spiritLineLocator } from './SpiritLineLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, MaterialType, LocationType>>> = {
@@ -19,5 +20,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.SpiritDeck]: spiritDeckLocator,
   [LocationType.SpiritLine]: spiritLineLocator,
   [LocationType.Hand]: playerHandLocator,
-  [LocationType.PlayArea]: playAreaLocator
+  [LocationType.PlayArea]: playAreaLocator,
+  [LocationType.SpiritInMountain]: spiritInMountainLocator
 }

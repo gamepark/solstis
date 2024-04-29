@@ -1,6 +1,7 @@
 import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class RefillHandRule extends PlayerTurnRule {
@@ -9,7 +10,7 @@ export class RefillHandRule extends PlayerTurnRule {
     const hand = this.hand
 
 
-
+    this.forget(Memory.SpiritEncountered)
     return [
       ...this.deck.limit(3 - hand.length).moveItems({
         type: LocationType.Hand,
@@ -44,5 +45,11 @@ export class RefillHandRule extends PlayerTurnRule {
       .material(MaterialType.LandscapeTile)
       .location(LocationType.Hand)
       .player(this.player)
+  }
+
+  onRuleEnd() {
+    this.forget(Memory.QueueCardPlaced)
+    this.forget(Memory.PlayedCard)
+    return []
   }
 }

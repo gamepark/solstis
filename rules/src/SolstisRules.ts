@@ -1,8 +1,9 @@
-import { hideItemId, hideItemIdToOthers, MaterialItem, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
+import { FillGapStrategy, hideItemId, hideItemIdToOthers, MaterialItem, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
+import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
@@ -20,12 +21,13 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.Capture]: CaptureRule,
     [RuleId.SecondChance]: SecondChanceRule,
     [RuleId.PlaceRainbow]: PlaceRainbowRule,
-    [RuleId.RefillHand]: RefillHandRule
+    [RuleId.RefillHand]: RefillHandRule,
+    [RuleId.EncounterSpirit]: EncounterSpiritRule
   }
 
   locationsStrategies = {
     [MaterialType.LandscapeTile]: {
-      [LocationType.LandscapeDeck]: new PositiveSequenceStrategy(),
+      [LocationType.LandscapeDeck]: new FillGapStrategy(),
       [LocationType.RainbowDeck]: new PositiveSequenceStrategy(),
       [LocationType.Hand]: new PositiveSequenceStrategy()
     },

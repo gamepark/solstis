@@ -3,6 +3,6 @@ export enum RuleId {
   Capture,
   SecondChance,
   PlaceRainbow,
-  MeetSpirit,
+  EncounterSpirit,
   RefillHand
 }

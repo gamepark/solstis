@@ -1,7 +1,9 @@
-import { getDistanceBetweenSquares, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { getDistanceBetweenSquares, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { SquareHelper } from './helper/SquareHelper'
 import { panoramaLandscapes } from './PanoramaLandscapes'
+import { RuleId } from './RuleId'
 
 export class PlaceRainbowRule extends PlayerTurnRule {
 
@@ -24,6 +26,16 @@ export class PlaceRainbowRule extends PlayerTurnRule {
     }
 
     return moves
+  }
+
+  afterItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
+    const encounterMoves = new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
+    if (encounterMoves.length) {
+      return encounterMoves
+    }
+
+    return [this.rules().startRule(RuleId.Capture)]
   }
 
   get rainbowCard() {
