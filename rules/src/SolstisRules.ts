@@ -3,8 +3,11 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
-import { SelectHandTileRule } from './rules/SelectHandTileRule'
+import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
+import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
+import { SecondChanceRule } from './rules/SecondChanceRule'
+import { SelectHandTileRule } from './rules/SelectHandTileRule'
 
 
 /**
@@ -14,7 +17,10 @@ import { RuleId } from './rules/RuleId'
 export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, LocationType> {
   rules = {
     [RuleId.SelectHandTile]: SelectHandTileRule,
-    [RuleId.Capture]: CaptureRule
+    [RuleId.Capture]: CaptureRule,
+    [RuleId.SecondChance]: SecondChanceRule,
+    [RuleId.PlaceRainbow]: PlaceRainbowRule,
+    [RuleId.RefillHand]: RefillHandRule
   }
 
   locationsStrategies = {

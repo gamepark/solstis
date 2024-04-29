@@ -6,6 +6,7 @@ import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 
 
 export class LandscapeDeckLocator extends PileLocator {
+  limit = 100
   locationDescription = new LandscapeDescription()
 
   coordinates = { x: 4.85, y: -9.5, z: 0}

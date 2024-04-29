@@ -4,6 +4,7 @@ import { MaterialType } from '../material/MaterialType'
 import { getLine, getValue, MountainLandscape } from '../material/MountainLandscape'
 import { Memory } from './Memory'
 import { panoramaLandscapes } from './PanoramaLandscapes'
+import { RuleId } from './RuleId'
 
 export class CaptureRule extends PlayerTurnRule {
   getPlayerMoves() {
@@ -11,8 +12,21 @@ export class CaptureRule extends PlayerTurnRule {
   }
 
   onRuleStart() {
-    // TODO: if no card to choose => Second chance
-    return []
+    if (this.getPlayerMoves().length > 1) return []
+    console.log("Gere", this.getPlayerMoves())
+    const x = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).maxBy((item) => item.location.x!).getItem()!.location.x ?? 0
+    return [
+      this.playAreaCard.moveItem({
+        type: LocationType.LandscapeQueue,
+        x: x + 1,
+        y: 0
+      }),
+      this.rules().startRule(this.isSecondChance? RuleId.PlaceRainbow: RuleId.SecondChance)
+    ]
+  }
+
+  get isSecondChance() {
+    return !!this.remind(Memory.SecondChance)
   }
 
   get captureMoves() {
@@ -24,7 +38,17 @@ export class CaptureRule extends PlayerTurnRule {
       ...this.getCardPositionInPanorama(this.playedCard)
     })
 
+    console.log(JSON.parse(JSON.stringify(moves)))
+
     if (!this.hasPlacedQueueCard) {
+      console.log("HAS PLACED QUEUE CARD ?", queue
+        .filter((item) => {
+          !item.location.rotation &&console.log(getLine(this.playedCard), this.playedCard, getLine(item.id))
+          return !item.location.rotation && (
+            getLine(this.playedCard) === getLine(item.id) ||
+            getValue(this.playedCard) === getValue(item.id)
+          )
+        }))
       moves.push(
         ...queue
           .filter((item) => !item.location.rotation && (
@@ -47,11 +71,18 @@ export class CaptureRule extends PlayerTurnRule {
   }
 
   beforeItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return []
+    if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
     if (this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)?.location?.type !== LocationType.LandscapeQueue) return []
     this.memorize(Memory.QueueCardPlaced, move.itemIndex)
     return []
   }
+
+  afterItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
+    if (!this.getPlayerMoves().length) return [this.rules().startRule(RuleId.RefillHand)]
+    return []
+  }
+
 
   getCardPositionInPanorama(id: MountainLandscape) {
     for (let columnIndex = 0; columnIndex < panoramaLandscapes.length; columnIndex++) {
@@ -86,6 +117,7 @@ export class CaptureRule extends PlayerTurnRule {
   onRuleEnd() {
     this.forget(Memory.QueueCardPlaced)
     this.forget(Memory.PlayedCard)
+    this.forget(Memory.SecondChance)
     return []
   }
 }

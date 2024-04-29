@@ -2,7 +2,7 @@ export enum RuleId {
   SelectHandTile = 1,
   Capture,
   SecondChance,
-  Reconstitute,
+  PlaceRainbow,
   MeetSpirit,
   RefillHand
 }
