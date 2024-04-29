@@ -13,7 +13,6 @@ export class CaptureRule extends PlayerTurnRule {
 
   onRuleStart() {
     if (this.getPlayerMoves().length > 1) return []
-    console.log("Gere", this.getPlayerMoves())
     const x = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).maxBy((item) => item.location.x!).getItem()!.location.x ?? 0
     return [
       this.playAreaCard.moveItem({
@@ -38,17 +37,7 @@ export class CaptureRule extends PlayerTurnRule {
       ...this.getCardPositionInPanorama(this.playedCard)
     })
 
-    console.log(JSON.parse(JSON.stringify(moves)))
-
     if (!this.hasPlacedQueueCard) {
-      console.log("HAS PLACED QUEUE CARD ?", queue
-        .filter((item) => {
-          !item.location.rotation &&console.log(getLine(this.playedCard), this.playedCard, getLine(item.id))
-          return !item.location.rotation && (
-            getLine(this.playedCard) === getLine(item.id) ||
-            getValue(this.playedCard) === getValue(item.id)
-          )
-        }))
       moves.push(
         ...queue
           .filter((item) => !item.location.rotation && (
