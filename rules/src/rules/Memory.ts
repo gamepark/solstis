@@ -3,5 +3,6 @@ export enum Memory {
   QueueCardPlaced,
   SecondChance,
   SpiritEncountered,
-  MustEncounterSpiritOn
+  MustEncounterSpiritOn,
+  EncounterChoice
 }

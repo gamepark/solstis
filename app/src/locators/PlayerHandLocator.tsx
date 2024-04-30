@@ -24,13 +24,19 @@ export class PlayerHandLocator extends HandLocator {
       return { x: -30, y: -15, z: 0 }
     }
 
-    return { x: 41, y: -12, z: 0 }
+    return { x: 41, y: -13, z: 0 }
   }
 
-  getSpiritCoordinates(location: Location, context: ItemContext) {
-    const coordinates = this.getLandscapeCoordinates(location, context)
-    coordinates.y += 6
-    return coordinates
+  getSpiritCoordinates(location: Location, context: ItemContext) {const { rules, player } = context
+    if (!player && rules.players[0] === location.player) {
+      return { x: -31, y: -6, z: 0 }
+    }
+
+    if (location.player === (player ?? rules.players[0])) {
+      return { x: -30, y: -9, z: 0 }
+    }
+
+    return { x: 41, y: -8, z: 0 }
   }
 
   getGapMaxAngle(item: MaterialItem, context: ItemContext): number {
@@ -51,7 +57,7 @@ export class PlayerHandLocator extends HandLocator {
       return 1.85
     }
 
-    return 1
+    return 0.9
   }
 
   getSpiritGapMaxAngle(item: MaterialItem, context: ItemContext) {

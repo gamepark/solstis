@@ -14,6 +14,7 @@ export class SquareHelper extends MaterialRulesPart {
   }
 
   get encounterSpiritMoves(): MaterialMove[] {
+    if (this.remind(Memory.SpiritEncountered)) return []
     const topLeftSquare = this.topLeftSquare
     const bottomLeftSquare = this.bottomLeftSquare
     const topRightSquare = this.topRightSquare
