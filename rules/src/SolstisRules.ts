@@ -4,6 +4,7 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
+import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
@@ -29,11 +30,13 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: new FillGapStrategy(),
       [LocationType.RainbowDeck]: new PositiveSequenceStrategy(),
-      [LocationType.Hand]: new PositiveSequenceStrategy()
+      [LocationType.Hand]: new PositiveSequenceStrategy(),
+      [LocationType.LandscapeQueue]: new FillQueueGapStrategy()
     },
     [MaterialType.SpiritTile]: {
       [LocationType.SpiritDeck]: new PositiveSequenceStrategy(),
-      [LocationType.SpiritLine]: new PositiveSequenceStrategy()
+      [LocationType.SpiritLine]: new PositiveSequenceStrategy(),
+      [LocationType.Hand]: new PositiveSequenceStrategy()
     }
   }
 
@@ -44,7 +47,8 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
       [LocationType.Hand]: hideItemIdToOthers,
     },
     [MaterialType.SpiritTile]: {
-      [LocationType.SpiritDeck]: hideItemId
+      [LocationType.SpiritDeck]: hideItemId,
+      [LocationType.Hand]: hideItemIdToOthers
     }
   }
 }

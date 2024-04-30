@@ -12,9 +12,9 @@ export class LandscapeQueueLocator extends LineLocator {
     const baseCoordinates = { x: -21, y: -22, z: 0}
 
     return {
-      x: baseCoordinates.x + (item.location.x! * this.deltaX),
-      y: baseCoordinates.y + (item.location.y! * this.deltaY),
-      z: baseCoordinates.z + (item.location.y! * 0.05)
+      x: baseCoordinates.x + ((item.location.x ?? 0) * this.deltaX),
+      y: baseCoordinates.y + ((item.location.z ?? 0) * this.deltaY),
+      z: baseCoordinates.z + ((item.location.z ?? 0) * 0.05)
     }
   }
 

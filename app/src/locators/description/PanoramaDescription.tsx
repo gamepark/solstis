@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css, Interpolation, Theme } from '@emotion/react'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api'
+import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/soltis/material/LocationType'
+import { MaterialType } from '@gamepark/soltis/material/MaterialType'
 import { panoramaLandscapes } from '@gamepark/soltis/rules/PanoramaLandscapes'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
+import equal from 'fast-deep-equal'
 
 export class PanoramaDescription extends LocationDescription {
   height = landscapeTileDescription.height
@@ -65,6 +67,10 @@ export class PanoramaDescription extends LocationDescription {
       }
       
     `
+  }
+
+  canShortClick(move: MaterialMove, location: Location): boolean {
+    return isMoveItemType(MaterialType.LandscapeTile)(move) && equal(location, move.location)
   }
 
   canLongClick() {

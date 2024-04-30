@@ -18,7 +18,7 @@ export class SpiritInMountainLocator extends ItemLocator {
 
     const position = new PanoramaDescription().getCoordinates(card.location, context)
     position.x += landscapeTileDescription.width / 2
-    position.y = landscapeTileDescription.height / 2
+    position.y -= landscapeTileDescription.height / 2
     position.z = 0.5
 
     return position

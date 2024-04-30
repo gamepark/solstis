@@ -39,8 +39,8 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
   setupQueue() {
     const deck = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).deck()
     for (let x = 0; x < 6; x++) {
-      deck.dealOne({ type: LocationType.LandscapeQueue, x, y: 0, rotation: true })
-      deck.dealOne({ type: LocationType.LandscapeQueue, x, y: 1})
+      deck.dealOne({ type: LocationType.LandscapeQueue, x, z: 0, rotation: true })
+      deck.dealOne({ type: LocationType.LandscapeQueue, x, z: 1})
     }
   }
 

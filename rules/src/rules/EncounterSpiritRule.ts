@@ -1,6 +1,7 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Spirit } from '../material/Spirit'
 import { SquareHelper } from './helper/SquareHelper'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
@@ -21,7 +22,9 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     const hasChosenASpirit = this.hasChosenASpirit
     const moves: MaterialMove[] = []
 
-    if (!hasChosenASpirit) {
+    const hand = this.hand
+    const evil = hand.id((id) => id === Spirit.Evil)
+    if (!hasChosenASpirit && !evil.length) {
       moves.push(
         ...this.hand.moveItems({
           type: LocationType.SpiritLine
@@ -31,16 +34,15 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       const lastLandscapePlaced = this.lastLandscapePlaced
       const places = new SquareHelper(this.game, lastLandscapePlaced.getIndex(), lastLandscapePlaced.getItem()!.location).encounterPlaces
       for (const place of places) {
+        const cards = hand.id((id) => id !== Spirit.Evil)
         moves.push(
-          ...this.hand.moveItems({
+          ...cards.moveItems({
             type: LocationType.SpiritInMountain,
             player: this.player,
             id: place
           })
         )
       }
-    console.log(places)
-
     }
 
     return moves
@@ -52,7 +54,8 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.SpiritTile)(move) || move.location.type !== LocationType.SpiritInMountain) return []
+    if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
+    if (move.location.type !== LocationType.SpiritInMountain) return []
     return [
       this.rules().startRule(RuleId.Capture)
     ]

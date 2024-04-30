@@ -7,8 +7,6 @@ import { RuleId } from './RuleId'
 export class SecondChanceRule extends PlayerTurnRule {
 
   onRuleStart() {
-
-    // TODO: Let the player choose in stack ?
     this.memorize(Memory.SecondChance, true)
     return [
       this.material(MaterialType.LandscapeTile)
