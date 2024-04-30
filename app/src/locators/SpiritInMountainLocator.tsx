@@ -7,7 +7,6 @@ export class SpiritInMountainLocator extends ItemLocator {
   locationDescription = new SpiritInMountainDescription()
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    console.log(item)
     return this.locationDescription.getDropZonePosition(item.location, context)
   }
 

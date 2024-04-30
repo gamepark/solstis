@@ -11,6 +11,7 @@ import { PanoramaDescription } from './PanoramaDescription'
 export class SpiritInMountainDescription extends LocationDescription {
   height = landscapeTileDescription.height * 2 + 0.1
   width = landscapeTileDescription.width * 2 + 0.1
+  alwaysVisible = false
 
   getLocations(context: MaterialContext) {
     const { rules } = context

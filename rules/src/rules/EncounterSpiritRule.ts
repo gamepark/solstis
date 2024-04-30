@@ -3,6 +3,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
+import { SpiritDescriptions } from '../material/SpiritDescription'
 import { CustomMoveType } from './CustomMoveType'
 import { SquareHelper } from './helper/SquareHelper'
 import { Memory } from './Memory'
@@ -75,10 +76,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     return moves
   }
 
-  get encounterChoice() {
-    return this.remind(Memory.EncounterChoice)
-  }
-
   get lastLandscapePlaced() {
     const id = this.remind(Memory.MustEncounterSpiritOn)
     return this.material(MaterialType.LandscapeTile).location(LocationType.Panorama).player(this.player).id(id)
@@ -88,14 +85,42 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
     if (move.location.type !== LocationType.SpiritInMountain) return []
     const id = this.remind(Memory.MustEncounterSpiritOn)
-    if (id === MountainLandscape.Rainbow) {
-      return [
-        this.rules().startRule(RuleId.RefillHand)
-      ]
+    const spirit = this.material(MaterialType.SpiritTile).index(move.itemIndex)
+    const spiritItem = spirit.getItem()!
+    const moves: MaterialMove[] = []
+
+    moves.push(...this.evilMoves)
+
+    if (SpiritDescriptions[spiritItem.id]?.effect) {
+      moves.push(this.rules().startRule(SpiritDescriptions[spiritItem.id].effect))
+      return moves
     }
-    return [
-      this.rules().startRule(RuleId.Capture)
-    ]
+
+    moves.push(this.rules().startRule(id === MountainLandscape.Rainbow ? RuleId.RefillHand : RuleId.Capture))
+    return moves
+  }
+
+  get evilMoves() {
+    const moves: MaterialMove[] = []
+    const hasEvilInHand = this
+      .material(MaterialType.SpiritTile)
+      .location(LocationType.Hand)
+      .player(this.player)
+      .id(Spirit.Evil)
+
+    if (hasEvilInHand.length) {
+      moves.push(hasEvilInHand.moveItem({ type: LocationType.Evil, player: this.player }))
+    } else {
+      const otherPlayerEvil = this
+        .material(MaterialType.SpiritTile)
+        .location(LocationType.Evil)
+        .player((p) => p !== this.player)
+      if (otherPlayerEvil.length) {
+        moves.push(otherPlayerEvil.moveItem({ type: LocationType.Evil, player: this.player }))
+      }
+    }
+
+    return moves
   }
 
   get hasChosenASpirit() {

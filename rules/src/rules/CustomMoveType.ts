@@ -1,3 +1,4 @@
 export enum CustomMoveType {
-  DrawSpirits = 1
+  DrawSpirits = 1,
+  DrawCard
 }

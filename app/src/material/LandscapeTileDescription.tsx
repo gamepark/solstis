@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { isCustomMoveType } from '@gamepark/rules-api'
 import { isMoveItemType } from '@gamepark/rules-api/dist/material/moves/items/MoveItem'
 import { MaterialMove } from '@gamepark/rules-api/dist/material/moves/MaterialMove'
 import { LocationType } from '@gamepark/soltis/material/LocationType'
 import { MaterialType } from '@gamepark/soltis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/soltis/material/MountainLandscape'
+import { CustomMoveType } from '@gamepark/soltis/rules/CustomMoveType'
 import Landscape_1_1 from '../images/landscape/landscape_1_1.jpg'
 import Landscape_1_10 from '../images/landscape/landscape_1_10.jpg'
 import Landscape_1_2 from '../images/landscape/landscape_1_2.jpg'
@@ -118,7 +120,8 @@ export class LandscapeTileDescription extends CardDescription {
   }
 
   canShortClick(move: MaterialMove, { index }: ItemContext): boolean {
-    return isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex
+    return (isCustomMoveType(CustomMoveType.DrawCard)(move) && move.data === index)
+     || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
   }
 }
 

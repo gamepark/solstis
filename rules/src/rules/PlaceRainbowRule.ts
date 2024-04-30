@@ -35,7 +35,7 @@ export class PlaceRainbowRule extends PlayerTurnRule {
       return encounterMoves
     }
 
-    return [this.rules().startRule(RuleId.Capture)]
+    return [this.rules().startRule(RuleId.RefillHand)]
   }
 
   get rainbowCard() {

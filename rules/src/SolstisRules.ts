@@ -3,6 +3,13 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
+import { BearRule } from './rules/effect/BearRule'
+import { BeaverRule } from './rules/effect/BeaverRule'
+import { BeetleRule } from './rules/effect/BeetleRule'
+import { DeerRule } from './rules/effect/DeerRule'
+import { EagleRule } from './rules/effect/EagleRule'
+import { FishRule } from './rules/effect/FishRule'
+import { MoskitoRule } from './rules/effect/MoskitoRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
 import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
@@ -23,7 +30,14 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.SecondChance]: SecondChanceRule,
     [RuleId.PlaceRainbow]: PlaceRainbowRule,
     [RuleId.RefillHand]: RefillHandRule,
-    [RuleId.EncounterSpirit]: EncounterSpiritRule
+    [RuleId.EncounterSpirit]: EncounterSpiritRule,
+    [RuleId.FishRule]: FishRule,
+    [RuleId.DeerRule]: DeerRule,
+    [RuleId.BearRule]: BearRule,
+    [RuleId.MoskitoRule]: MoskitoRule,
+    [RuleId.BeaverRule]: BeaverRule,
+    [RuleId.BeetleRule]: BeetleRule,
+    [RuleId.EagleRule]: EagleRule,
   }
 
   locationsStrategies = {

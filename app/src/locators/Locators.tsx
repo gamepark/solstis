@@ -2,6 +2,7 @@ import { ItemLocator } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/soltis/material/LocationType'
 import { MaterialType } from '@gamepark/soltis/material/MaterialType'
 import { PlayerId } from '@gamepark/soltis/PlayerId'
+import { evilLocator } from './EvilLocator'
 import { landscapeDeckLocator } from './LandscapeDeckLocator'
 import { landscapeQueueLocator } from './LandscapeQueueLocator'
 import { panoramaLocator } from './PanoramaLocator'
@@ -21,5 +22,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.SpiritLine]: spiritLineLocator,
   [LocationType.Hand]: playerHandLocator,
   [LocationType.PlayArea]: playAreaLocator,
-  [LocationType.SpiritInMountain]: spiritInMountainLocator
+  [LocationType.SpiritInMountain]: spiritInMountainLocator,
+  [LocationType.Evil]: evilLocator
 }

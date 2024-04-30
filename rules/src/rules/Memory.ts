@@ -4,5 +4,8 @@ export enum Memory {
   SecondChance,
   SpiritEncountered,
   MustEncounterSpiritOn,
-  EncounterChoice
+  EncounterChoice,
+  CardDrawn,
+  FreeTurn,
+  PassedPlayers
 }

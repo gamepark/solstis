@@ -4,5 +4,12 @@ export enum RuleId {
   SecondChance,
   PlaceRainbow,
   EncounterSpirit,
-  RefillHand
+  RefillHand,
+  FishRule,
+  DeerRule,
+  EagleRule,
+  BearRule,
+  MoskitoRule,
+  BeetleRule,
+  BeaverRule,
 }
