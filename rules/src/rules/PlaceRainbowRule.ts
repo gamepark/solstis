@@ -14,7 +14,7 @@ export class PlaceRainbowRule extends PlayerTurnRule {
     for (let columnIndex = 0; columnIndex < panoramaLandscapes.length; columnIndex++) {
       const column = panoramaLandscapes[columnIndex]
       for (let rowIndex = 0; rowIndex < column.length; rowIndex++) {
-        if (this.hasAdjacentCard(panorama, columnIndex, rowIndex)) {
+        if (this.canPlaceCard(panorama, columnIndex, rowIndex)) {
           moves.push(rainbowCard.moveItem({
             type: LocationType.Panorama,
             player: this.player,
@@ -45,8 +45,8 @@ export class PlaceRainbowRule extends PlayerTurnRule {
       .maxBy((item) => item.location.x!)
   }
 
-  hasAdjacentCard(panorama: Material, x: number, y: number) {
-    if (panorama.location((l) => l.x === x && l.y === y).length > 0) return []
+  canPlaceCard(panorama: Material, x: number, y: number) {
+    if (panorama.location((l) => l.x === x && l.y === y).length > 0) return false
     return panorama.filter((i) => getDistanceBetweenSquares(
       { x: i.location.x!, y: i.location.y! },
       { x, y },
