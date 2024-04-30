@@ -1,10 +1,9 @@
-import { Location, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { Location, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
+import minBy from 'lodash/minBy'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { MountainLandscape } from '../../material/MountainLandscape'
 import { Memory } from '../Memory'
 import { RuleId } from '../RuleId'
-import minBy from 'lodash/minBy'
 
 export class SquareHelper extends MaterialRulesPart {
   item: MaterialItem
@@ -64,25 +63,29 @@ export class SquareHelper extends MaterialRulesPart {
       )).getItems()
   }
 
-  get encounterPlaces(): MountainLandscape[] {
+  get encounterPlaces(): XYCoordinates[] {
     const topLeftSquare = this.topLeftSquare
     const bottomLeftSquare = this.bottomLeftSquare
     const topRightSquare = this.topRightSquare
     const bottomRightSquare = this.bottomRightSquare
-    const landscapes: MountainLandscape[] = []
+    const coordinates: XYCoordinates[] = []
 
 
-    if (topLeftSquare.length === 3) landscapes.push(this.getBasePositionItemId(topLeftSquare))
-    if (bottomLeftSquare.length === 3) landscapes.push(this.getBasePositionItemId(bottomLeftSquare))
-    if (topRightSquare.length === 3) landscapes.push(this.getBasePositionItemId(topRightSquare))
-    if (bottomRightSquare.length === 3) landscapes.push(this.getBasePositionItemId(bottomRightSquare))
+    if (topLeftSquare.length === 3) coordinates.push(this.getBasePositionItemId(topLeftSquare))
+    if (bottomLeftSquare.length === 3) coordinates.push(this.getBasePositionItemId(bottomLeftSquare))
+    if (topRightSquare.length === 3) coordinates.push(this.getBasePositionItemId(topRightSquare))
+    if (bottomRightSquare.length === 3) coordinates.push(this.getBasePositionItemId(bottomRightSquare))
 
-    return landscapes
+    return coordinates
   }
 
   getBasePositionItemId(items: MaterialItem[]) {
     const allItems: MaterialItem[] = [...items, this.item]
-    return minBy(allItems, (i) => i.location.x! + i.location.y!)!.id!
+    const coordinates = minBy(allItems, (i) => i.location.x! + i.location.y!)!
+    return {
+      x: coordinates.location.x!,
+      y: coordinates.location.y!
+    }
   }
 
   get panorama() {

@@ -1,6 +1,7 @@
 import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
 import { CustomMoveType } from './CustomMoveType'
 import { SquareHelper } from './helper/SquareHelper'
@@ -60,13 +61,13 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const lastLandscapePlaced = this.lastLandscapePlaced
     const places = new SquareHelper(this.game, lastLandscapePlaced.getIndex(), lastLandscapePlaced.getItem()!.location).encounterPlaces
-    for (const place of places) {
+    for (const coordinates of places) {
       const cards = material.id((id) => id !== Spirit.Evil)
       moves.push(
         ...cards.moveItems({
           type: LocationType.SpiritInMountain,
           player: this.player,
-          id: place
+          ...coordinates
         })
       )
     }
@@ -86,6 +87,12 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
     if (move.location.type !== LocationType.SpiritInMountain) return []
+    const id = this.remind(Memory.MustEncounterSpiritOn)
+    if (id === MountainLandscape.Rainbow) {
+      return [
+        this.rules().startRule(RuleId.RefillHand)
+      ]
+    }
     return [
       this.rules().startRule(RuleId.Capture)
     ]

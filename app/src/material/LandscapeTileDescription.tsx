@@ -60,7 +60,7 @@ import LandscapeBack from '../images/landscape/tile_back.jpg'
 export class LandscapeTileDescription extends CardDescription {
   height = 4.8
   width = 3.2
-  borderRadius = 0.1
+  borderRadius = 0.2
 
   backImage = LandscapeBack
 

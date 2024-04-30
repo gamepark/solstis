@@ -119,8 +119,4 @@ export class CaptureRule extends PlayerTurnRule {
   get playedCard() {
     return this.remind<MountainLandscape>(Memory.PlayedCard)
   }
-
-  onRuleEnd() {
-    return []
-  }
 }
