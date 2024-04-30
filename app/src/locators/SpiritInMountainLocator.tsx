@@ -1,13 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
+import { Spirit } from '@gamepark/soltis/material/Spirit'
 import { SpiritInMountainDescription } from './description/SpiritInMountainDescription'
 
 export class SpiritInMountainLocator extends ItemLocator {
   locationDescription = new SpiritInMountainDescription()
+  delta = { z: 0.5 }
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    return this.locationDescription.getDropZonePosition(item.location, context)
+    const position = this.locationDescription.getDropZonePosition(item.location, context)
+    if (item.id === Spirit.Evil) position.z += 1
+    return position
+  }
+
+
+  getRotateZ(item: MaterialItem) {
+    if (item.location.z) return 45
+    return 0
   }
 
 }

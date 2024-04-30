@@ -13,6 +13,8 @@ export class SelectHandTileRule extends PlayerTurnRule {
     if (hiddenHandCard.length) return []
 
     if (this.game.players.every((p) => !this.canPlay(p))) {
+      const evil = this.material(MaterialType.SpiritTile).location(LocationType.Evil)
+      if (evil.length) return [this.rules().startPlayerTurn(RuleId.EvilRule, evil.getItem()!.location.player!)]
       return [this.rules().endGame()]
     }
 

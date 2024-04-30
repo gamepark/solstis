@@ -8,42 +8,34 @@ export enum SpiritColor {
 
 export type SpiritDescription = {
   color: SpiritColor
-  effect?: RuleId
 }
 
 export const Fish: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.FishRule
 }
 
 export const Deer: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.DeerRule
 }
 
 export const Eagle: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.EagleRule
 }
 
 export const Bear: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.BearRule
 }
 
 export const Moskito: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.MoskitoRule
 }
 
 export const Beetle: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.BeetleRule
 }
 
 export const Beaver: SpiritDescription = {
   color: SpiritColor.Wood,
-  effect: RuleId.BeaverRule
 }
 
 export const Bee: SpiritDescription = {

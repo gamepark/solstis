@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location } from '@gamepark/rules-api'
+import { Coordinates, Location, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/soltis/material/LocationType'
 import { MaterialType } from '@gamepark/soltis/material/MaterialType'
 import { SquareHelper } from '@gamepark/soltis/rules/helper/SquareHelper'
@@ -14,6 +15,13 @@ export class SpiritInMountainDescription extends LocationDescription {
   alwaysVisible = false
 
   getLocations(context: MaterialContext) {
+    const evilRuleLocations: Location[] = this.getEvilRuleLocations(context)
+    if (evilRuleLocations.length) return evilRuleLocations
+
+    return this.getEncounterSpiritLocations(context)
+  }
+
+  getEncounterSpiritLocations(context: MaterialContext) {
     const { rules } = context
     const itemId = rules.remind(Memory.MustEncounterSpiritOn)
     if (!itemId || rules.game.rule?.id !== RuleId.EncounterSpirit) return []
@@ -25,6 +33,20 @@ export class SpiritInMountainDescription extends LocationDescription {
       player: rules.game.rule!.player,
       ...coordinates
     }))
+  }
+
+  getEvilRuleLocations(context: MaterialContext) {
+    const { rules } = context
+    if (rules.game?.rule?.id !== RuleId.EvilRule) return []
+    return rules
+      .material(MaterialType.SpiritTile)
+      .location(LocationType.SpiritInMountain)
+      .player(rules.game.rule.player)
+      .getItems()
+      .map((item) => ({
+        ...item.location,
+        z: 1
+      }))
   }
 
   getCoordinates(location: Location, context: LocationContext) {
@@ -42,6 +64,11 @@ export class SpiritInMountainDescription extends LocationDescription {
     position.z = 0.5
 
     return position
+  }
+
+  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext) {
+    console.log(move, location, super.isMoveToLocation(move, location, context))
+    return super.isMoveToLocation(move, location, context)
   }
 
 }

@@ -11,6 +11,7 @@ import { EagleRule } from './rules/effect/EagleRule'
 import { FishRule } from './rules/effect/FishRule'
 import { MoskitoRule } from './rules/effect/MoskitoRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
+import { EvilRule } from './rules/EvilRule'
 import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
@@ -38,6 +39,7 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.BeaverRule]: BeaverRule,
     [RuleId.BeetleRule]: BeetleRule,
     [RuleId.EagleRule]: EagleRule,
+    [RuleId.EvilRule]: EvilRule,
   }
 
   locationsStrategies = {

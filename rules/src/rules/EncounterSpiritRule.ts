@@ -3,7 +3,6 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
-import { SpiritDescriptions } from '../material/SpiritDescription'
 import { CustomMoveType } from './CustomMoveType'
 import { SquareHelper } from './helper/SquareHelper'
 import { Memory } from './Memory'
@@ -91,13 +90,28 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
     moves.push(...this.evilMoves)
 
-    if (SpiritDescriptions[spiritItem.id]?.effect) {
-      moves.push(this.rules().startRule(SpiritDescriptions[spiritItem.id].effect))
+    const effect = this.getSpiritEffect(spiritItem.id)
+    if (effect) {
+      moves.push(this.rules().startRule(effect))
       return moves
     }
 
     moves.push(this.rules().startRule(id === MountainLandscape.Rainbow ? RuleId.RefillHand : RuleId.Capture))
     return moves
+  }
+
+  getSpiritEffect(id: Spirit) {
+    switch (id) {
+      case Spirit.Fish: return RuleId.FishRule
+      case Spirit.Deer: return RuleId.DeerRule
+      case Spirit.Eagle: return RuleId.EagleRule
+      case Spirit.Bear: return RuleId.BearRule
+      case Spirit.Moskito: return RuleId.MoskitoRule
+      case Spirit.Beetle: return RuleId.BeetleRule
+      case Spirit.Beaver: return RuleId.BeaverRule
+    }
+    
+    return
   }
 
   get evilMoves() {

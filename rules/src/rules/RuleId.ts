@@ -12,4 +12,5 @@ export enum RuleId {
   MoskitoRule,
   BeetleRule,
   BeaverRule,
+  EvilRule
 }
