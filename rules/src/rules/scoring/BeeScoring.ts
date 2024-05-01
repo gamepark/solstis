@@ -1,19 +1,11 @@
-import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import { LocationType } from '../../material/LocationType'
-import { MaterialType } from '../../material/MaterialType'
+import { MaterialItem } from '@gamepark/rules-api'
 import { SpiritColor, SpiritDescriptions } from '../../material/SpiritDescription'
-import { PlayerId } from '../../PlayerId'
+import { AbstractScoringRule } from './AbstractScoringRule'
 
-export class BeeScoring extends MaterialRulesPart {
+export class BeeScoring extends AbstractScoringRule {
 
-  constructor(game: MaterialGame, readonly player: PlayerId) {
-    super(game)
-  }
-
-  get score() {
-    return this
-      .material(MaterialType.SpiritTile)
-      .location(LocationType.SpiritInMountain)
+  getScore(spirits: MaterialItem[]) {
+    return spirits
       .filter((item) => SpiritDescriptions[item.id].color === SpiritColor.Wood)
       .length
   }

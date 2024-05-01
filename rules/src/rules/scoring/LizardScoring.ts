@@ -1,9 +1,16 @@
-import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import { PlayerId } from '../../PlayerId'
+import { LocationType } from '../../material/LocationType'
+import { MaterialType } from '../../material/MaterialType'
+import { MountainLandscape } from '../../material/MountainLandscape'
+import { AbstractScoringRule } from './AbstractScoringRule'
 
-export class LizardScoring extends MaterialRulesPart {
+export class LizardScoring extends AbstractScoringRule {
 
-  constructor(game: MaterialGame, readonly player: PlayerId) {
-    super(game)
+  getScore() {
+    return this
+      .material(MaterialType.LandscapeTile)
+      .location(LocationType.Panorama)
+      .player(this.player)
+      .id((id) => id === MountainLandscape.Rainbow)
+      .length
   }
 }

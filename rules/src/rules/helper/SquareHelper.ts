@@ -3,7 +3,6 @@ import minBy from 'lodash/minBy'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Memory } from '../Memory'
-import { RuleId } from '../RuleId'
 
 export class SquareHelper extends MaterialRulesPart {
   item: MaterialItem
@@ -13,15 +12,13 @@ export class SquareHelper extends MaterialRulesPart {
   }
 
   get encounterSpiritMoves(): MaterialMove[] {
-    if (this.remind(Memory.SpiritEncountered)) return []
     const topLeftSquare = this.topLeftSquare
     const bottomLeftSquare = this.bottomLeftSquare
     const topRightSquare = this.topRightSquare
     const bottomRightSquare = this.bottomRightSquare
     if (topLeftSquare.length === 3 || bottomLeftSquare.length === 3 || topRightSquare.length === 3 || bottomRightSquare.length === 3) {
       const item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)!
-      this.memorize(Memory.MustEncounterSpiritOn, item.id)
-      return [this.rules().startRule(RuleId.EncounterSpirit)]
+      this.memorize(Memory.MustEncounterSpiritOn, (ids = []) => [...ids, item.id])
     }
 
     return []

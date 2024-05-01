@@ -29,9 +29,9 @@ export class PlayAreaDescription extends LocationDescription {
   getPlayAreaCoordinates(location: Location, context: MaterialContext) {
     const { rules, player } = context
     if (location.player === (player ?? rules.players[0])) {
-      return { x: -6, y: -14, z: 0 }
+      return { x: -7, y: -14, z: 0 }
     }
 
-    return { x: 15.5, y: -14, z: 0 }
+    return { x: 16.5, y: -14, z: 0 }
   }
 }

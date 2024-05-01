@@ -1,4 +1,3 @@
-import { RuleId } from '../rules/RuleId'
 import { Spirit } from './Spirit'
 
 export enum SpiritColor {
@@ -7,7 +6,7 @@ export enum SpiritColor {
 }
 
 export type SpiritDescription = {
-  color: SpiritColor
+  color?: SpiritColor
 }
 
 export const Fish: SpiritDescription = {
@@ -67,7 +66,6 @@ export const Butterfly: SpiritDescription = {
 }
 
 export const Evil: SpiritDescription = {
-  color: SpiritColor.Blue
 }
 
 export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
@@ -81,7 +79,7 @@ export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
   [Spirit.Bee]: Bee,
   [Spirit.Ladybug]: Ladybug,
   [Spirit.Wolf]: Wolf,
-  [Spirit.Rabbit]: Rabbit,
+  [Spirit.Squirrel]: Rabbit,
   [Spirit.Bird]: Bird,
   [Spirit.Lizard]: Lizard,
   [Spirit.Butterfly]: Butterfly,

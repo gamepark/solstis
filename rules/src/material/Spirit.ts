@@ -10,7 +10,7 @@ export enum Spirit {
   Bee,
   Ladybug,
   Wolf,
-  Rabbit,
+  Squirrel,
   Bird,
   Lizard,
   Butterfly,

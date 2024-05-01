@@ -9,6 +9,7 @@ import { RuleId } from './RuleId'
 export class SelectHandTileRule extends PlayerTurnRule {
 
   onRuleStart() {
+    if (this.deck.length) return []
     const hiddenHandCard = this.material(MaterialType.LandscapeTile).location(LocationType.Hand).id(id => id === undefined)
     if (hiddenHandCard.length) return []
 

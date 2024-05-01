@@ -13,8 +13,7 @@ export const panoramaLandscapes: MountainLandscape[][] = [
   [MountainLandscape.Landscape_1_10, MountainLandscape.Landscape_2_10, MountainLandscape.Landscape_3_10],
 ]
 
-export const fireLandscapes = [
-  MountainLandscape.Landscape_3_1,
+export const landscapesWithFlames = [
   MountainLandscape.Landscape_4_2,
   MountainLandscape.Landscape_5_3,
   MountainLandscape.Landscape_6_4,
@@ -23,5 +22,15 @@ export const fireLandscapes = [
   MountainLandscape.Landscape_6_7,
   MountainLandscape.Landscape_5_8,
   MountainLandscape.Landscape_4_9,
-  MountainLandscape.Landscape_3_10
 ]
+
+export const landscapeFlames: Partial<Record<MountainLandscape, number>> = {
+  [MountainLandscape.Landscape_4_2]: 1,
+  [MountainLandscape.Landscape_5_3]: 1,
+  [MountainLandscape.Landscape_6_4]: 1,
+  [MountainLandscape.Landscape_6_5]: 1.5,
+  [MountainLandscape.Landscape_6_6]: 1.5,
+  [MountainLandscape.Landscape_6_7]: 1,
+  [MountainLandscape.Landscape_5_8]: 1,
+  [MountainLandscape.Landscape_4_9]: 1,
+}

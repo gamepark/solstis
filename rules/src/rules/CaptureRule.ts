@@ -1,4 +1,4 @@
-import { isDeleteItemType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, RuleMove, RuleStep } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove, RuleStep } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { GetCardHelper } from './helper/GetCardHelper'
@@ -14,7 +14,7 @@ export class CaptureRule extends PlayerTurnRule {
 
   onRuleStart(_move: RuleMove, previousRule?: RuleStep) {
     const playerMoves = this.getPlayerMoves()
-    if (playerMoves.length === 0) return [this.rules().startRule(RuleId.RefillHand)]
+    if (playerMoves.length === 0) return [this.rules().startRule(RuleId.EncounterSpirit)]
     if (playerMoves.length === 1) {
       if (previousRule?.id === RuleId.SecondChance || previousRule?.id === RuleId.SelectHandTile) return this.discardAndGoToNext
       return playerMoves
@@ -47,7 +47,7 @@ export class CaptureRule extends PlayerTurnRule {
 
   get newRule() {
     if (!this.deck.length) {
-      return [this.rules().startRule(RuleId.RefillHand)]
+      return [this.rules().startRule(RuleId.EncounterSpirit)]
     }
     return [this.rules().startRule(this.isSecondChance ? RuleId.PlaceRainbow : RuleId.SecondChance)]
   }
@@ -63,11 +63,10 @@ export class CaptureRule extends PlayerTurnRule {
     if (isDeleteItemType(MaterialType.LandscapeTile)(move)) return this.afterCardMove
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
 
-    const encounterMoves = new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
-    if (encounterMoves.length) return encounterMoves
-
+    new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
     const rule = new GetCardHelper(this.game)
     const moves: MaterialMove[] = rule.afterItemMove(move)
+    if (moves.some(isStartRule)) return moves
     moves.push(...this.afterCardMove)
 
     return moves
@@ -77,7 +76,7 @@ export class CaptureRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const remainingMoves = this.getPlayerMoves()
     if (!remainingMoves.length) {
-      moves.push(this.rules().startRule(RuleId.RefillHand))
+      moves.push(this.rules().startRule(RuleId.EncounterSpirit))
     } else if (remainingMoves.length === 1) {
       const rule = new GetCardHelper(this.game)
       moves.push(...rule.captureMoves)

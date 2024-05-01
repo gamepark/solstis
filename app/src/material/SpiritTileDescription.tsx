@@ -36,7 +36,7 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Bee]: Bee,
     [Spirit.Ladybug]: Ladybug,
     [Spirit.Wolf]: Wolf,
-    [Spirit.Rabbit]: Rabbit,
+    [Spirit.Squirrel]: Rabbit,
     [Spirit.Bird]: Bird,
     [Spirit.Lizard]: Lizard,
     [Spirit.Butterfly]: Butterfly,

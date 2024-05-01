@@ -14,6 +14,8 @@ export const PlayerPanels: FC<any> = () => {
     return null
   }
 
+  //console.log(new ScoringHelper(rules.game, players[0].id).score)
+
   return createPortal(
     <>
       {players.map((player) =>

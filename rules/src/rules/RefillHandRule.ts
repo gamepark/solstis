@@ -56,7 +56,6 @@ export class RefillHandRule extends PlayerTurnRule {
     this.forget(Memory.QueueCardPlaced)
     this.forget(Memory.PlayedCard)
     this.forget(Memory.SecondChance)
-    this.forget(Memory.SpiritEncountered)
     this.forget(Memory.FreeTurn)
     return []
   }

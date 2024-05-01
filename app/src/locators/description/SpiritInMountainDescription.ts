@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialMove } from '@gamepark/rules-api'
+import { Coordinates, Location } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/soltis/material/LocationType'
 import { MaterialType } from '@gamepark/soltis/material/MaterialType'
+import { MountainLandscape } from '@gamepark/soltis/material/MountainLandscape'
 import { SquareHelper } from '@gamepark/soltis/rules/helper/SquareHelper'
 import { Memory } from '@gamepark/soltis/rules/Memory'
 import { RuleId } from '@gamepark/soltis/rules/RuleId'
@@ -23,16 +24,24 @@ export class SpiritInMountainDescription extends LocationDescription {
 
   getEncounterSpiritLocations(context: MaterialContext) {
     const { rules } = context
-    const itemId = rules.remind(Memory.MustEncounterSpiritOn)
-    if (!itemId || rules.game.rule?.id !== RuleId.EncounterSpirit) return []
-    const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).id(itemId)
-    const item = material.getItem()!
-    const coordinates = new SquareHelper(rules.game, material.getIndex(), item.location).encounterPlaces
-    return coordinates.map((coordinates) => ({
-      type: LocationType.SpiritInMountain,
-      player: rules.game.rule!.player,
-      ...coordinates
-    }))
+    const itemIds = rules.remind<MountainLandscape[]>(Memory.MustEncounterSpiritOn)
+    if (!itemIds?.length || rules.game.rule?.id !== RuleId.EncounterSpirit) return []
+
+    const locations: Location[] = []
+    for (const itemId of itemIds) {
+      const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).id(itemId)
+      const item = material.getItem()!
+      const coordinates = new SquareHelper(rules.game, material.getIndex(), item.location).encounterPlaces
+      locations.push(
+        ...coordinates.map((coordinates) => ({
+          type: LocationType.SpiritInMountain,
+          player: rules.game.rule!.player,
+          ...coordinates
+        }))
+      )
+    }
+
+    return locations
   }
 
   getEvilRuleLocations(context: MaterialContext) {
@@ -64,11 +73,6 @@ export class SpiritInMountainDescription extends LocationDescription {
     position.z = 0.5
 
     return position
-  }
-
-  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext) {
-    console.log(move, location, super.isMoveToLocation(move, location, context))
-    return super.isMoveToLocation(move, location, context)
   }
 
 }

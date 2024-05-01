@@ -1,11 +1,10 @@
-import { ItemMove } from '@gamepark/rules-api'
+import { isStartRule, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { GetCardHelper } from '../helper/GetCardHelper'
-import { PlaceRainbowRule } from '../PlaceRainbowRule'
 import { RuleId } from '../RuleId'
 
-export class BearRule extends PlaceRainbowRule {
+export class BearRule extends PlayerTurnRule {
 
   onRuleStart() {
     const deck = this.deck
@@ -16,7 +15,7 @@ export class BearRule extends PlaceRainbowRule {
         type: LocationType.Hand,
         player: this.player
       }),
-      this.rules().startRule(RuleId.Capture)
+      this.rules().startRule(RuleId.RefillHand)
     ]
   }
 
@@ -31,8 +30,10 @@ export class BearRule extends PlaceRainbowRule {
   }
 
   afterItemMove(move: ItemMove) {
+    const afterCardMove = new GetCardHelper(this.game).afterItemMove(move)
+    if (afterCardMove.some(isStartRule)) return afterCardMove
     return [
-      ...new GetCardHelper(this.game).afterItemMove(move),
+      ...afterCardMove,
       this.rules().startRule(RuleId.Capture)
     ]
   }

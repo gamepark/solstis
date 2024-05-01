@@ -1,9 +1,10 @@
-import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import { PlayerId } from '../../PlayerId'
+import { MaterialItem } from '@gamepark/rules-api'
+import { SpiritColor, SpiritDescriptions } from '../../material/SpiritDescription'
+import { AbstractScoringRule } from './AbstractScoringRule'
 
-export class BirdScoring extends MaterialRulesPart {
+export class BirdScoring extends AbstractScoringRule {
 
-  constructor(game: MaterialGame, readonly player: PlayerId) {
-    super(game)
+  getScore(spirits: MaterialItem[]) {
+    return spirits.filter((item) => SpiritDescriptions[item.id].color === SpiritColor.Blue).length
   }
 }

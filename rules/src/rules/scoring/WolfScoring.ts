@@ -1,9 +1,10 @@
-import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import { PlayerId } from '../../PlayerId'
+import { MaterialItem } from '@gamepark/rules-api'
+import uniq from 'lodash/uniq'
+import { AbstractScoringRule } from './AbstractScoringRule'
 
-export class WolfScoring extends MaterialRulesPart {
+export class WolfScoring extends AbstractScoringRule {
 
-  constructor(game: MaterialGame, readonly player: PlayerId) {
-    super(game)
+  getScore(_spirits: MaterialItem[], panoramaAreas: number[][]) {
+    return uniq(panoramaAreas.flat().filter((number) => !!number))?.length ?? 0
   }
 }

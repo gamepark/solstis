@@ -1,7 +1,6 @@
 import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
 import { CustomMoveType } from './CustomMoveType'
 import { SquareHelper } from './helper/SquareHelper'
@@ -12,7 +11,9 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   onRuleStart() {
     const spiritLine = this.spiritLine
+    if (!this.availableLandscapes) return [this.rules().startRule(RuleId.RefillHand)]
     if (spiritLine.length) return []
+
     return [
       this.rules().customMove(CustomMoveType.DrawSpirits)
     ]
@@ -29,7 +30,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   getPlayerMoves(): MaterialMove<number, number, number>[] {
-    const hasChosenASpirit = this.hasChosenASpirit
 
     const hand = this.hand
     if (!hand.length) {
@@ -38,17 +38,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
         ...this.getCardToPanoramaMoves(this.spiritLine)
       ]
     }
-
-
-    const evil = hand.id((id) => id === Spirit.Evil)
-    if (!hasChosenASpirit && !evil.length) {
-      return [
-        ...this.hand.moveItems({
-          type: LocationType.SpiritLine
-        })
-      ]
-    }
-
     return this.getCardToPanoramaMoves(hand)
   }
 
@@ -59,36 +48,50 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   getCardToPanoramaMoves(material: Material) {
     const moves: MaterialMove[] = []
-    const lastLandscapePlaced = this.lastLandscapePlaced
-    const places = new SquareHelper(this.game, lastLandscapePlaced.getIndex(), lastLandscapePlaced.getItem()!.location).encounterPlaces
-    for (const coordinates of places) {
-      const cards = material.id((id) => id !== Spirit.Evil)
-      moves.push(
-        ...cards.moveItems({
-          type: LocationType.SpiritInMountain,
-          player: this.player,
-          ...coordinates
-        })
-      )
+    const availableLandscapes = this.availableLandscapes!
+
+    for (const landscapeIndex of availableLandscapes.getIndexes()) {
+      const item = availableLandscapes.getItem(landscapeIndex)!
+      const places = new SquareHelper(this.game, landscapeIndex, item.location).encounterPlaces
+      for (const coordinates of places) {
+        const cards = material.id((id) => id !== Spirit.Evil)
+        moves.push(
+          ...cards.moveItems({
+            type: LocationType.SpiritInMountain,
+            player: this.player,
+            ...coordinates
+          })
+        )
+      }
     }
+
 
     return moves
   }
 
-  get lastLandscapePlaced() {
-    const id = this.remind(Memory.MustEncounterSpiritOn)
-    return this.material(MaterialType.LandscapeTile).location(LocationType.Panorama).player(this.player).id(id)
+  get availableLandscapes(): Material | undefined {
+    const ids = this.remind(Memory.MustEncounterSpiritOn)
+    if (!ids?.length) return
+    return this
+      .material(MaterialType.LandscapeTile)
+      .location(LocationType.Panorama)
+      .player(this.player)
+      .id((id) => ids.includes(id))
   }
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
     if (move.location.type !== LocationType.SpiritInMountain) return []
-    const id = this.remind(Memory.MustEncounterSpiritOn)
     const spirit = this.material(MaterialType.SpiritTile).index(move.itemIndex)
     const spiritItem = spirit.getItem()!
     const moves: MaterialMove[] = []
 
     moves.push(...this.evilMoves)
+    moves.push(
+      ...this.hand
+      .id((id) => id !== Spirit.Evil)
+      .moveItems({ type: LocationType.SpiritLine})
+    )
 
     const effect = this.getSpiritEffect(spiritItem.id)
     if (effect) {
@@ -96,7 +99,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       return moves
     }
 
-    moves.push(this.rules().startRule(id === MountainLandscape.Rainbow ? RuleId.RefillHand : RuleId.Capture))
+    moves.push(this.rules().startRule(RuleId.RefillHand))
     return moves
   }
 
@@ -151,9 +154,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       .location(LocationType.SpiritLine)
   }
 
-  // TODO: after encourtering a spirit
-  // Always go back to capture
-
   get spiritDeck() {
     return this.material(MaterialType.SpiritTile)
       .location(LocationType.SpiritDeck)
@@ -162,7 +162,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   onRuleEnd() {
     this.forget(Memory.MustEncounterSpiritOn)
-    this.memorize(Memory.SpiritEncountered, true)
     return []
   }
 }

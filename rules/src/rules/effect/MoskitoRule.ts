@@ -1,13 +1,12 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { CustomMoveType } from '../CustomMoveType'
 import { GetCardHelper } from '../helper/GetCardHelper'
 import { Memory } from '../Memory'
-import { PlaceRainbowRule } from '../PlaceRainbowRule'
 import { RuleId } from '../RuleId'
 
-export class MoskitoRule extends PlaceRainbowRule {
+export class MoskitoRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     if (!this.isCardDrawn) {
@@ -36,7 +35,8 @@ export class MoskitoRule extends PlaceRainbowRule {
       moves.push(deck.moveItem({ type: LocationType.Hand, player: opponent}))
     }
 
-    moves.push(this.rules().startRule(RuleId.Capture))
+    if (moves.some(isStartRule)) return moves
+    moves.push(this.rules().startRule(RuleId.RefillHand))
     return moves
   }
 

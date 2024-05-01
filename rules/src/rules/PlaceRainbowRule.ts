@@ -30,12 +30,12 @@ export class PlaceRainbowRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
-    const encounterMoves = new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
-    if (encounterMoves.length) {
-      return encounterMoves
-    }
+    new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
+    return this.afterRainbowPlaced()
+  }
 
-    return [this.rules().startRule(RuleId.RefillHand)]
+  afterRainbowPlaced(): MaterialMove[] {
+    return [this.rules().startRule(RuleId.EncounterSpirit)]
   }
 
   get rainbowCard() {

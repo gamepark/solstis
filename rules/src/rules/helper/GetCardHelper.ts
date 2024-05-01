@@ -5,6 +5,7 @@ import { MaterialType } from '../../material/MaterialType'
 import { getLine, getValue, MountainLandscape } from '../../material/MountainLandscape'
 import { Memory } from '../Memory'
 import { panoramaLandscapes } from '../PanoramaLandscapes'
+import { RuleId } from '../RuleId'
 
 export class GetCardHelper extends PlayerTurnRule {
 
@@ -62,9 +63,19 @@ export class GetCardHelper extends PlayerTurnRule {
       .location((l) => equal(l, item.location))
       .id(MountainLandscape.Rainbow)
 
-    return rainbowOnPlace.moveItems({
-      type: LocationType.RainbowDeck
-    })
+    const moves: MaterialMove[] = []
+    moves.push(
+      ...rainbowOnPlace.moveItems({
+        type: LocationType.PlayArea,
+        player: this.player
+      })
+    )
+
+    if (rainbowOnPlace.length) {
+      moves.push(this.rules().startRule(RuleId.MoveRainbow))
+    }
+
+    return moves
   }
 
   get hasPlacedQueueCard() {
