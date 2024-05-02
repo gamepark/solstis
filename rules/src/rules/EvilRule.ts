@@ -32,6 +32,7 @@ export class EvilRule extends PlayerTurnRule {
       const spirits = this.getSpirits(player)
       if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.rules().startPlayerTurn(RuleId.Squirrel, player)]
     }
+
     return [this.rules().endGame()]
   }
 
