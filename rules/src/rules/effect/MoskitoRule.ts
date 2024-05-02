@@ -2,7 +2,7 @@ import { CustomMove, isCustomMoveType, isMoveItemType, isStartRule, ItemMove, Ma
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { CustomMoveType } from '../CustomMoveType'
-import { GetCardHelper } from '../helper/GetCardHelper'
+import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { Memory } from '../Memory'
 import { RuleId } from '../RuleId'
 
@@ -13,12 +13,12 @@ export class MoskitoRule extends PlayerTurnRule {
       return this.opponentHand.getIndexes().map((index) => this.rules().customMove(CustomMoveType.DrawCard, index))
     }
 
-    return new GetCardHelper(this.game).getPlayCardMove(this.hand)
+    return new PlaceCardHelper(this.game).getPlayCardMove(this.hand)
   }
 
   onCustomMove(move: CustomMove) {
     if (!isCustomMoveType(CustomMoveType.DrawCard)(move)) return []
-    return new GetCardHelper(this.game).getPlayCardMove(this.opponentHand.index(move.data))
+    return new PlaceCardHelper(this.game).getPlayCardMove(this.opponentHand.index(move.data))
   }
 
   afterItemMove(move: ItemMove) {
@@ -26,7 +26,7 @@ export class MoskitoRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
 
     if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location?.type === LocationType.Panorama) {
-      moves.push(...new GetCardHelper(this.game).afterItemMove(move))
+      moves.push(...new PlaceCardHelper(this.game).afterItemMove(move))
     }
 
     const deck = this.deck

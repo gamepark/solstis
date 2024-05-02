@@ -1,7 +1,7 @@
 import { isStartRule, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { GetCardHelper } from '../helper/GetCardHelper'
+import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { RuleId } from '../RuleId'
 
 export class BearRule extends PlayerTurnRule {
@@ -26,11 +26,11 @@ export class BearRule extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
-    return new GetCardHelper(this.game).getPlayCardMove(this.hand)
+    return new PlaceCardHelper(this.game).getPlayCardMove(this.hand)
   }
 
   afterItemMove(move: ItemMove) {
-    const afterCardMove = new GetCardHelper(this.game).afterItemMove(move)
+    const afterCardMove = new PlaceCardHelper(this.game).afterItemMove(move)
     if (afterCardMove.some(isStartRule)) return afterCardMove
     return [
       ...afterCardMove,

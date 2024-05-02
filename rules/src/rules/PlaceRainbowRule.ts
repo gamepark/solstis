@@ -1,31 +1,14 @@
-import { getDistanceBetweenSquares, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { PlaceCardHelper } from './helper/PlaceCardHelper'
 import { SquareHelper } from './helper/SquareHelper'
-import { panoramaLandscapes } from './PanoramaLandscapes'
 import { RuleId } from './RuleId'
 
 export class PlaceRainbowRule extends PlayerTurnRule {
 
   getPlayerMoves(): MaterialMove<number, number, number>[] {
-    const panorama = this.panorama
-    const moves: MaterialMove[] = []
-    const rainbowCard = this.rainbowCard
-    for (let columnIndex = 0; columnIndex < panoramaLandscapes.length; columnIndex++) {
-      const column = panoramaLandscapes[columnIndex]
-      for (let rowIndex = 0; rowIndex < column.length; rowIndex++) {
-        if (this.canPlaceCard(panorama, columnIndex, rowIndex)) {
-          moves.push(rainbowCard.moveItem({
-            type: LocationType.Panorama,
-            player: this.player,
-            x: columnIndex,
-            y: rowIndex
-          }))
-        }
-      }
-    }
-
-    return moves
+    return new PlaceCardHelper(this.game).placeRainbow(this.rainbowCard)
   }
 
   afterItemMove(move: ItemMove) {
@@ -43,20 +26,5 @@ export class PlaceRainbowRule extends PlayerTurnRule {
       .material(MaterialType.LandscapeTile)
       .location(LocationType.RainbowDeck)
       .maxBy((item) => item.location.x!)
-  }
-
-  canPlaceCard(panorama: Material, x: number, y: number) {
-    if (panorama.location((l) => l.x === x && l.y === y).length > 0) return false
-    return panorama.filter((i) => getDistanceBetweenSquares(
-      { x: i.location.x!, y: i.location.y! },
-      { x, y },
-    ) === 1).length > 0
-  }
-
-  get panorama() {
-    return this
-      .material(MaterialType.LandscapeTile)
-      .location(LocationType.Panorama)
-      .player(this.player)
   }
 }

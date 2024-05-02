@@ -13,5 +13,4 @@ export enum RuleId {
   BeetleRule,
   BeaverRule,
   EvilRule,
-  MoveRainbow
 }

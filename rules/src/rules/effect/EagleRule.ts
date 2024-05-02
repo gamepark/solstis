@@ -2,7 +2,7 @@ import { CustomMove, isCustomMoveType, isStartRule, ItemMove, PlayerTurnRule } f
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { CustomMoveType } from '../CustomMoveType'
-import { GetCardHelper } from '../helper/GetCardHelper'
+import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { RuleId } from '../RuleId'
 
 export class EagleRule extends PlayerTurnRule {
@@ -18,11 +18,11 @@ export class EagleRule extends PlayerTurnRule {
 
   onCustomMove(move: CustomMove) {
     if (!isCustomMoveType(CustomMoveType.DrawCard)(move)) return []
-    return new GetCardHelper(this.game).getPlayCardMove(this.deck.index(move.data))
+    return new PlaceCardHelper(this.game).getPlayCardMove(this.deck.index(move.data))
   }
 
   afterItemMove(move: ItemMove) {
-    const afterCardMove = new GetCardHelper(this.game).afterItemMove(move)
+    const afterCardMove = new PlaceCardHelper(this.game).afterItemMove(move)
     if (afterCardMove.some(isStartRule)) return afterCardMove
     return [
       ...afterCardMove,

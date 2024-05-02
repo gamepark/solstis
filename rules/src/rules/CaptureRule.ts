@@ -1,7 +1,7 @@
 import { isDeleteItemType, isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove, RuleStep } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { GetCardHelper } from './helper/GetCardHelper'
+import { PlaceCardHelper } from './helper/PlaceCardHelper'
 import { QueueHelper } from './helper/QueueHelper'
 import { SquareHelper } from './helper/SquareHelper'
 import { Memory } from './Memory'
@@ -9,7 +9,7 @@ import { RuleId } from './RuleId'
 
 export class CaptureRule extends PlayerTurnRule {
   getPlayerMoves() {
-    return new GetCardHelper(this.game).captureMoves
+    return new PlaceCardHelper(this.game).captureMoves
   }
 
   onRuleStart(_move: RuleMove, previousRule?: RuleStep) {
@@ -27,7 +27,7 @@ export class CaptureRule extends PlayerTurnRule {
   }
 
   beforeItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
+    if (!isDeleteItemType(MaterialType.LandscapeTile)(move) && (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama)) return []
     const moves: MaterialMove[] = new QueueHelper(this.game).beforeItemMove(move)
 
     if (this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)?.location?.type === LocationType.LandscapeQueue) {
@@ -64,7 +64,7 @@ export class CaptureRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
 
     new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
-    const rule = new GetCardHelper(this.game)
+    const rule = new PlaceCardHelper(this.game)
     const moves: MaterialMove[] = rule.afterItemMove(move)
     if (moves.some(isStartRule)) return moves
     moves.push(...this.afterCardMove)
@@ -78,7 +78,7 @@ export class CaptureRule extends PlayerTurnRule {
     if (!remainingMoves.length) {
       moves.push(this.rules().startRule(RuleId.EncounterSpirit))
     } else if (remainingMoves.length === 1) {
-      const rule = new GetCardHelper(this.game)
+      const rule = new PlaceCardHelper(this.game)
       moves.push(...rule.captureMoves)
     }
 

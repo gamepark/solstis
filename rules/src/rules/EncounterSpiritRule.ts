@@ -72,11 +72,14 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   get availableLandscapes(): Material | undefined {
     const ids = this.remind(Memory.MustEncounterSpiritOn)
     if (!ids?.length) return
-    return this
+    const landscapes = this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.Panorama)
       .player(this.player)
       .id((id) => ids.includes(id))
+
+    if (!landscapes.length) return
+    return landscapes
   }
 
   afterItemMove(move: ItemMove) {

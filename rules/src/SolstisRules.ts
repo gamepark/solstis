@@ -13,7 +13,6 @@ import { MoskitoRule } from './rules/effect/MoskitoRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
 import { EvilRule } from './rules/EvilRule'
 import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
-import { MoveRainbow } from './rules/MoveRainbow'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
@@ -41,7 +40,6 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.BeetleRule]: BeetleRule,
     [RuleId.EagleRule]: EagleRule,
     [RuleId.EvilRule]: EvilRule,
-    [RuleId.MoveRainbow]: MoveRainbow,
   }
 
   locationsStrategies = {
