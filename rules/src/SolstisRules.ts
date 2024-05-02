@@ -16,6 +16,7 @@ import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
+import { SquirrelRule } from './rules/scoring/SquirrelRule'
 import { SecondChanceRule } from './rules/SecondChanceRule'
 import { SelectHandTileRule } from './rules/SelectHandTileRule'
 
@@ -32,14 +33,15 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.PlaceRainbow]: PlaceRainbowRule,
     [RuleId.RefillHand]: RefillHandRule,
     [RuleId.EncounterSpirit]: EncounterSpiritRule,
-    [RuleId.FishRule]: FishRule,
-    [RuleId.DeerRule]: DeerRule,
-    [RuleId.BearRule]: BearRule,
-    [RuleId.MoskitoRule]: MoskitoRule,
-    [RuleId.BeaverRule]: BeaverRule,
-    [RuleId.BeetleRule]: BeetleRule,
-    [RuleId.EagleRule]: EagleRule,
-    [RuleId.EvilRule]: EvilRule,
+    [RuleId.Fish]: FishRule,
+    [RuleId.Deer]: DeerRule,
+    [RuleId.Bear]: BearRule,
+    [RuleId.Moskito]: MoskitoRule,
+    [RuleId.Beaver]: BeaverRule,
+    [RuleId.Beetle]: BeetleRule,
+    [RuleId.Eagle]: EagleRule,
+    [RuleId.Evil]: EvilRule,
+    [RuleId.Squirrel]: SquirrelRule,
   }
 
   locationsStrategies = {

@@ -46,7 +46,7 @@ export class SpiritInMountainDescription extends LocationDescription {
 
   getEvilRuleLocations(context: MaterialContext) {
     const { rules } = context
-    if (rules.game?.rule?.id !== RuleId.EvilRule) return []
+    if (rules.game?.rule?.id !== RuleId.Evil) return []
     return rules
       .material(MaterialType.SpiritTile)
       .location(LocationType.SpiritInMountain)

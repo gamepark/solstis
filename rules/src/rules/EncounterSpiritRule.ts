@@ -89,6 +89,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     const spiritItem = spirit.getItem()!
     const moves: MaterialMove[] = []
 
+    console.log("???")
     moves.push(...this.evilMoves)
     moves.push(
       ...this.hand
@@ -108,13 +109,13 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   getSpiritEffect(id: Spirit) {
     switch (id) {
-      case Spirit.Fish: return RuleId.FishRule
-      case Spirit.Deer: return RuleId.DeerRule
-      case Spirit.Eagle: return RuleId.EagleRule
-      case Spirit.Bear: return RuleId.BearRule
-      case Spirit.Moskito: return RuleId.MoskitoRule
-      case Spirit.Beetle: return RuleId.BeetleRule
-      case Spirit.Beaver: return RuleId.BeaverRule
+      case Spirit.Fish: return RuleId.Fish
+      case Spirit.Deer: return RuleId.Deer
+      case Spirit.Eagle: return RuleId.Eagle
+      case Spirit.Bear: return RuleId.Bear
+      case Spirit.Moskito: return RuleId.Moskito
+      case Spirit.Beetle: return RuleId.Beetle
+      case Spirit.Beaver: return RuleId.Beaver
     }
     
     return
