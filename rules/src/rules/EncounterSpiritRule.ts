@@ -89,7 +89,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     const spiritItem = spirit.getItem()!
     const moves: MaterialMove[] = []
 
-    console.log("???")
     moves.push(...this.evilMoves)
     moves.push(
       ...this.hand
@@ -132,20 +131,19 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     if (hasEvilInHand.length) {
       moves.push(hasEvilInHand.moveItem({ type: LocationType.Evil, player: this.player }))
     } else {
-      const otherPlayerEvil = this
+      const possessedEvil = this
         .material(MaterialType.SpiritTile)
         .location(LocationType.Evil)
-        .player((p) => p !== this.player)
-      if (otherPlayerEvil.length) {
-        moves.push(otherPlayerEvil.moveItem({ type: LocationType.Evil, player: this.player }))
+        .player(this.player)
+      if (possessedEvil.length) {
+        moves.push(possessedEvil.moveItem({
+          type: LocationType.Evil,
+          player: this.game.players.find((p) => this.player !== p)
+        }))
       }
     }
 
     return moves
-  }
-
-  get hasChosenASpirit() {
-    return this.hand.length === 1
   }
 
   get hand() {
