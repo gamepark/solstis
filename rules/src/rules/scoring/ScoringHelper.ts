@@ -81,7 +81,7 @@ export class ScoringHelper extends MaterialRulesPart {
     for (const key of Object.keys(areaLength)) {
       if (+key === 0) continue
       if (!maxArea || areaLength[key] > areaLength[maxArea]) maxArea = key
-    }
+    } 
 
     return areaLength[maxArea!] ?? 0
   }

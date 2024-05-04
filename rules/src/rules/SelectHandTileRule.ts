@@ -76,15 +76,23 @@ export class SelectHandTileRule extends PlayerTurnRule {
     const hiddenHandCard = this.material(MaterialType.LandscapeTile).location(LocationType.Hand).id(id => id === undefined)
     if (hiddenHandCard.length) return []
 
+    let someoneCanPlay = false
     for (const player of this.game.players) {
-      if (this.canPlay(player)) return []
+      if (this.canPlay(player)) {
+        someoneCanPlay = true
+        continue
+      }
       const evil = this.material(MaterialType.SpiritTile).location(LocationType.Evil).player(player)
       if (evil.length) return [this.rules().startPlayerTurn(RuleId.Evil, player)]
       const spirits = this.getSpirits(player)
       if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.rules().startPlayerTurn(RuleId.Squirrel, player)]
     }
 
-    if (!this.canPlay(this.player)) return [this.rules().startPlayerTurn(RuleId.SelectHandTile, this.nextPlayer)]
+    if (!someoneCanPlay) {
+      return [this.rules().endGame()]
+    }
+
+    if (someoneCanPlay && !this.canPlay(this.player)) return [this.rules().startPlayerTurn(RuleId.SelectHandTile, this.nextPlayer)]
 
     return []
   }

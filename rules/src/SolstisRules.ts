@@ -1,4 +1,15 @@
-import { FillGapStrategy, hideItemId, hideItemIdToOthers, MaterialItem, PositiveSequenceStrategy, SecretMaterialRules } from '@gamepark/rules-api'
+import {
+  CompetitiveScore,
+  FillGapStrategy,
+  hideItemId,
+  hideItemIdToOthers,
+  MaterialGame,
+  MaterialItem,
+  MaterialMove,
+  PositiveSequenceStrategy,
+  SecretMaterialRules,
+  TimeLimit
+} from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
@@ -16,6 +27,7 @@ import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
+import { ScoringHelper } from './rules/scoring/ScoringHelper'
 import { SquirrelRule } from './rules/scoring/SquirrelRule'
 import { SecondChanceRule } from './rules/SecondChanceRule'
 import { SelectHandTileRule } from './rules/SelectHandTileRule'
@@ -25,7 +37,9 @@ import { SelectHandTileRule } from './rules/SelectHandTileRule'
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, LocationType> {
+export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, LocationType>
+  implements CompetitiveScore<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId>,
+    TimeLimit<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId>  {
   rules = {
     [RuleId.SelectHandTile]: SelectHandTileRule,
     [RuleId.Capture]: CaptureRule,
@@ -68,5 +82,13 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
       [LocationType.SpiritDeck]: hideItemId,
       [LocationType.Hand]: hideItemIdToOthers
     }
+  }
+
+  getScore(playerId: PlayerId): number {
+    return new ScoringHelper(this.game, playerId).score
+  }
+
+  giveTime(): number {
+    return 60
   }
 }
