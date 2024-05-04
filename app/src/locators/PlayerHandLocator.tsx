@@ -2,7 +2,7 @@
 import { HandLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api/dist/material/items/MaterialItem'
 import { Coordinates, Location } from '@gamepark/rules-api/dist/material/location/Location'
-import { MaterialType } from '@gamepark/soltis/material/MaterialType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 
 export class PlayerHandLocator extends HandLocator {
 

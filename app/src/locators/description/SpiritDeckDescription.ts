@@ -1,8 +1,8 @@
 import { ComponentSize, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isCustomMoveType, Location, MaterialMove } from '@gamepark/rules-api'
-import { LocationType } from '@gamepark/soltis/material/LocationType'
-import { MaterialType } from '@gamepark/soltis/material/MaterialType'
-import { CustomMoveType } from '@gamepark/soltis/rules/CustomMoveType'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
+import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
 import { spiritTileDescription } from '../../material/SpiritTileDescription'
 
 export class SpiritDeckDescription extends LocationDescription {

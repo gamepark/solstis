@@ -1,7 +1,7 @@
 import { MaterialGameAnimations } from '@gamepark/react-game'
 import { isDeleteItemType, isMoveItemType } from '@gamepark/rules-api'
-import { LocationType } from '@gamepark/soltis/material/LocationType'
-import { MaterialType } from '@gamepark/soltis/material/MaterialType'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 
 export const solstisAnimations = new MaterialGameAnimations()
 

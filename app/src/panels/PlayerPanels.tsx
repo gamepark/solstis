@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
-import { ScoringHelper } from '@gamepark/soltis/rules/scoring/ScoringHelper'
-import { SolstisRules } from '@gamepark/soltis/SolstisRules'
+import { ScoringHelper } from '@gamepark/solstis/rules/scoring/ScoringHelper'
+import { SolstisRules } from '@gamepark/solstis/SolstisRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 import Victory from '../images/icons/victory.png'

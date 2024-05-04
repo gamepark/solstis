@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
-import { SolstisOptionsSpec } from '@gamepark/soltis/SolstisOptions'
-import { SolstisRules } from '@gamepark/soltis/SolstisRules'
-import { SolstisSetup } from '@gamepark/soltis/SolstisSetup'
+import { SolstisOptionsSpec } from '@gamepark/solstis/SolstisOptions'
+import { SolstisRules } from '@gamepark/solstis/SolstisRules'
+import { SolstisSetup } from '@gamepark/solstis/SolstisSetup'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { solstisAnimations } from './animations/SolstisAnimations'
@@ -16,7 +16,7 @@ setupTranslation(translations, { debug: false })
 ReactDOM.render(
   <StrictMode>
     <GameProvider
-      game="soltis"
+      game="solstis"
       Rules={SolstisRules}
       optionsSpec={SolstisOptionsSpec}
       GameSetup={SolstisSetup}

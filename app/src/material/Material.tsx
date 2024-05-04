@@ -1,5 +1,5 @@
 import { MaterialDescription } from '@gamepark/react-game'
-import { MaterialType } from '@gamepark/soltis/material/MaterialType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { landscapeTileDescription } from './LandscapeTileDescription'
 import { spiritTileDescription } from './SpiritTileDescription'
 

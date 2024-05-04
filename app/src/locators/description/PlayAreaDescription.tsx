@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import { ItemContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location } from '@gamepark/rules-api'
-import { LocationType } from '@gamepark/soltis/material/LocationType'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 
 export class PlayAreaDescription extends LocationDescription {

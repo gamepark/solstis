@@ -2,9 +2,9 @@
 import { css, Interpolation, Theme } from '@emotion/react'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
-import { LocationType } from '@gamepark/soltis/material/LocationType'
-import { MaterialType } from '@gamepark/soltis/material/MaterialType'
-import { panoramaLandscapes } from '@gamepark/soltis/rules/PanoramaLandscapes'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
+import { panoramaLandscapes } from '@gamepark/solstis/rules/PanoramaLandscapes'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 import equal from 'fast-deep-equal'
 

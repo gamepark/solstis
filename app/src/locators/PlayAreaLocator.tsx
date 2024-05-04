@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
-import { MountainLandscape } from '@gamepark/soltis/material/MountainLandscape'
+import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 import { PlayAreaDescription } from './description/PlayAreaDescription'
 

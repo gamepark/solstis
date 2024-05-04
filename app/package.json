@@ -1,5 +1,5 @@
 {
-  "name": "@gamepark/soltis-app",
+  "name": "@gamepark/solstis-app",
   "version": "0.0.1",
   "private": true,
   "description": "The user interface of Solstis adaptation for Game Park",
@@ -43,7 +43,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "deploy": "yarn build && rclone sync build soltis:soltis.game-park.com --progress --s3-acl=public-read"
+    "deploy": "yarn build && rclone sync build solstis:solstis.game-park.com --progress --s3-acl=public-read"
   },
   "eslintConfig": {
     "extends": [
@@ -65,7 +65,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^@gamepark/soltis/(.*)$": "<rootDir>/../rules/src/$1"
+      "^@gamepark/solstis/(.*)$": "<rootDir>/../rules/src/$1"
     }
   }
 }

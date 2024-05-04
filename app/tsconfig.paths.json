@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@gamepark/soltis/*": ["../rules/src/*"]
+      "@gamepark/solstis/*": ["../rules/src/*"]
     }
   }
 }

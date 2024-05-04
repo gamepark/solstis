@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LocationDescription, PileLocator } from '@gamepark/react-game'
-import { LocationType } from '@gamepark/soltis/material/LocationType'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 
 

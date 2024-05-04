@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location } from '@gamepark/rules-api'
-import { LocationType } from '@gamepark/soltis/material/LocationType'
-import { MaterialType } from '@gamepark/soltis/material/MaterialType'
-import { MountainLandscape } from '@gamepark/soltis/material/MountainLandscape'
-import { SquareHelper } from '@gamepark/soltis/rules/helper/SquareHelper'
-import { Memory } from '@gamepark/soltis/rules/Memory'
-import { RuleId } from '@gamepark/soltis/rules/RuleId'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
+import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
+import { SquareHelper } from '@gamepark/solstis/rules/helper/SquareHelper'
+import { Memory } from '@gamepark/solstis/rules/Memory'
+import { RuleId } from '@gamepark/solstis/rules/RuleId'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 import { PanoramaDescription } from './PanoramaDescription'
 
