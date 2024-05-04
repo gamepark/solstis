@@ -25,8 +25,7 @@ export class EvilBeaverRule extends PlayerTurnRule {
     for (const spirit of spirits) {
       moves.push(
         evil.moveItem({
-          ...spirit.location,
-          z: 1
+          ...spirit.location
         })
       )
     }
@@ -64,6 +63,9 @@ export class EvilBeaverRule extends PlayerTurnRule {
       .material(MaterialType.SpiritTile)
       .location(LocationType.SpiritInMountain)
       .player(player)
+    console.log(allSpirits
+      .filter((item) => allSpirits.location((l) => equal(l, item.location)).length === 1)
+      .getItems())
     return allSpirits
       .filter((item) => allSpirits.location((l) => equal(l, item.location)).length === 1)
       .getItems()

@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { GameProvider, MaterialGameAnimations, setupTranslation } from '@gamepark/react-game'
+import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { SolstisOptionsSpec } from '@gamepark/soltis/SolstisOptions'
 import { SolstisRules } from '@gamepark/soltis/SolstisRules'
 import { SolstisSetup } from '@gamepark/soltis/SolstisSetup'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
+import { solstisAnimations } from './animations/SolstisAnimations'
 import App from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
@@ -21,7 +22,7 @@ ReactDOM.render(
       GameSetup={SolstisSetup}
       material={Material}
       locators={Locators}
-      animations={new MaterialGameAnimations()}
+      animations={solstisAnimations}
     >
       <App/>
     </GameProvider>

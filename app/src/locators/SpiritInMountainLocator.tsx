@@ -16,7 +16,7 @@ export class SpiritInMountainLocator extends ItemLocator {
 
 
   getRotateZ(item: MaterialItem) {
-    if (item.location.z) return 45
+    if (item.id === Spirit.EvilBeaver) return 45
     return 0
   }
 
