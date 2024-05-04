@@ -3,17 +3,21 @@ import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { SolstisRules } from '@gamepark/soltis/SolstisRules'
 import { useTranslation } from 'react-i18next'
 
-export const SelectHandTileHeader = () => {
+export const DragonflyHeader = () => {
   const { t } = useTranslation()
   const rules = useRules<SolstisRules>()!
   const player = usePlayerId()
   const activePlayer = rules.getActivePlayer()
   const itsMe = player && player === activePlayer
-  const name = usePlayerName(activePlayer)
+  const targetName = usePlayerName(rules.game.players.find((p) => p !== activePlayer))
 
-  if (itsMe) {
-    return <>{t('header.select.you')}</>
+  if (!player) {
+    return <>{t('header.dragonfly.spectator', { player: targetName })}</>
   }
 
-  return <>{t('header.select.player', { player: name })}</>
+  if (itsMe) {
+    return <>{t('header.dragonfly.you')}</>
+  }
+
+  return <>{t('header.dragonfly.player', { player: targetName })}</>
 }

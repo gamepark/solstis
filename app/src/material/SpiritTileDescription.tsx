@@ -15,7 +15,7 @@ import Fish from '../images/spirit/fish.jpg'
 import Ladybug from '../images/spirit/ladybug.jpg'
 import Lizard from '../images/spirit/lizard.jpg'
 import Dragonfly from '../images/spirit/dragonfly.jpg'
-import Rabbit from '../images/spirit/rabbit.jpg'
+import Squirrel from '../images/spirit/squirrel.jpg'
 import Wolf from '../images/spirit/wolf.jpg'
 
 export class SpiritTileDescription extends CardDescription {
@@ -36,7 +36,7 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Bee]: Bee,
     [Spirit.Ladybug]: Ladybug,
     [Spirit.Wolf]: Wolf,
-    [Spirit.Squirrel]: Rabbit,
+    [Spirit.Squirrel]: Squirrel,
     [Spirit.Bird]: Bird,
     [Spirit.Lizard]: Lizard,
     [Spirit.Butterfly]: Butterfly,
