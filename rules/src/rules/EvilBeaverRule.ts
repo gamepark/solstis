@@ -8,9 +8,17 @@ import { RuleId } from './RuleId'
 
 export class EvilBeaverRule extends PlayerTurnRule {
 
+  onRuleStart() {
+    const opponent = this.opponent
+    const spirits = this.getSpirits(opponent)
+    if (!spirits.length) return this.goToNextRule()
+    return []
+  }
+
   getPlayerMoves() {
     const evil = this.evil
-    const spirits = this.getSpirits(this.player)
+    const opponent = this.opponent
+    const spirits = this.getSpirits(opponent)
     const moves: MaterialMove[] = []
     if (!evil.length) return []
 
@@ -26,8 +34,16 @@ export class EvilBeaverRule extends PlayerTurnRule {
     return moves
   }
 
+  get opponent() {
+    return this.game.players.find((p) => p !== this.player)!
+  }
+
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
+    return this.goToNextRule()
+  }
+
+  goToNextRule() {
     for (const player of this.game.players) {
       const spirits = this.getSpirits(player)
       if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.rules().startPlayerTurn(RuleId.Squirrel, player)]
@@ -40,7 +56,7 @@ export class EvilBeaverRule extends PlayerTurnRule {
     return this
       .material(MaterialType.SpiritTile)
       .location(LocationType.Evil)
-      .player(this.player)
+      .player((p) => p !== this.player)
   }
 
   getSpirits(player: PlayerId) {
