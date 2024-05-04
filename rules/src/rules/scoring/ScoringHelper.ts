@@ -5,6 +5,7 @@ import mapValues from 'lodash/mapValues'
 import sum from 'lodash/sum'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { MountainLandscape } from '../../material/MountainLandscape'
 import { Spirit } from '../../material/Spirit'
 import { PlayerId } from '../../PlayerId'
 import { panoramaLandscapes } from '../PanoramaLandscapes'
@@ -81,9 +82,27 @@ export class ScoringHelper extends MaterialRulesPart {
     for (const key of Object.keys(areaLength)) {
       if (+key === 0) continue
       if (!maxArea || areaLength[key] > areaLength[maxArea]) maxArea = key
-    } 
+    }
 
-    return areaLength[maxArea!] ?? 0
+    return this.removeRainbows(areaLength, maxArea!)
+  }
+
+  removeRainbows(areaLength: Record<string, number>, areaNumber: string) {
+    const area = this.areas
+    let count = areaLength[areaNumber] ?? 0
+    if (!count) return count
+    const panorama = this.panorama
+    for (let y = 0; y < area.length; y++) {
+      const line = area[y]
+      for (let x = 0; x < line.length; x++) {
+        //console.log(area[y][x], +areaNumber)
+        if (area[y][x] !== +areaNumber) continue
+        const item = panorama.location((l) => l.x === x && l.y === y).getItem()!
+        if (item.id === MountainLandscape.Rainbow) count--
+      }
+    }
+
+    return count
   }
 
   getSpiritScore(spirit: Spirit): number {
