@@ -6,7 +6,7 @@ import { Spirit } from '../material/Spirit'
 import { PlayerId } from '../PlayerId'
 import { RuleId } from './RuleId'
 
-export class EvilRule extends PlayerTurnRule {
+export class EvilBeaverRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const evil = this.evil

@@ -25,7 +25,7 @@ export const Bear: SpiritDescription = {
   color: SpiritColor.Wood,
 }
 
-export const Moskito: SpiritDescription = {
+export const Dragonfly: SpiritDescription = {
   color: SpiritColor.Wood,
 }
 
@@ -33,7 +33,7 @@ export const Beetle: SpiritDescription = {
   color: SpiritColor.Wood,
 }
 
-export const Beaver: SpiritDescription = {
+export const Marmot: SpiritDescription = {
   color: SpiritColor.Wood,
 }
 
@@ -49,7 +49,7 @@ export const Wolf: SpiritDescription = {
   color: SpiritColor.Blue
 }
 
-export const Rabbit: SpiritDescription = {
+export const Squirrel: SpiritDescription = {
   color: SpiritColor.Blue
 }
 
@@ -65,7 +65,7 @@ export const Butterfly: SpiritDescription = {
   color: SpiritColor.Blue
 }
 
-export const Evil: SpiritDescription = {
+export const EvilBeaver: SpiritDescription = {
 }
 
 export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
@@ -73,15 +73,15 @@ export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
   [Spirit.Deer]: Deer,
   [Spirit.Eagle]: Eagle,
   [Spirit.Bear]: Bear,
-  [Spirit.Moskito]: Moskito,
+  [Spirit.Dragonfly]: Dragonfly,
   [Spirit.Beetle]: Beetle,
-  [Spirit.Beaver]: Beaver,
+  [Spirit.Marmot]: Marmot,
   [Spirit.Bee]: Bee,
   [Spirit.Ladybug]: Ladybug,
   [Spirit.Wolf]: Wolf,
-  [Spirit.Squirrel]: Rabbit,
+  [Spirit.Squirrel]: Squirrel,
   [Spirit.Bird]: Bird,
   [Spirit.Lizard]: Lizard,
   [Spirit.Butterfly]: Butterfly,
-  [Spirit.Evil]: Evil,
+  [Spirit.EvilBeaver]: EvilBeaver,
 }

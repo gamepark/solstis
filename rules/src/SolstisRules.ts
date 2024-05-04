@@ -15,14 +15,14 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
 import { BearRule } from './rules/effect/BearRule'
-import { BeaverRule } from './rules/effect/BeaverRule'
+import { MarmotRule } from './rules/effect/MarmotRule'
 import { BeetleRule } from './rules/effect/BeetleRule'
 import { DeerRule } from './rules/effect/DeerRule'
 import { EagleRule } from './rules/effect/EagleRule'
 import { FishRule } from './rules/effect/FishRule'
-import { MoskitoRule } from './rules/effect/MoskitoRule'
+import { DragonflyRule } from './rules/effect/DragonflyRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
-import { EvilRule } from './rules/EvilRule'
+import { EvilBeaverRule } from './rules/EvilBeaverRule'
 import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
@@ -50,11 +50,11 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.Fish]: FishRule,
     [RuleId.Deer]: DeerRule,
     [RuleId.Bear]: BearRule,
-    [RuleId.Moskito]: MoskitoRule,
-    [RuleId.Beaver]: BeaverRule,
+    [RuleId.Dragonfly]: DragonflyRule,
+    [RuleId.Marmot]: MarmotRule,
     [RuleId.Beetle]: BeetleRule,
     [RuleId.Eagle]: EagleRule,
-    [RuleId.Evil]: EvilRule,
+    [RuleId.EvilBeaver]: EvilBeaverRule,
     [RuleId.Squirrel]: SquirrelRule,
   }
 

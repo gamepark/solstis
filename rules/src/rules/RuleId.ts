@@ -9,9 +9,9 @@ export enum RuleId {
   Deer,
   Eagle,
   Bear,
-  Moskito,
+  Dragonfly,
   Beetle,
-  Beaver,
-  Evil,
+  Marmot,
+  EvilBeaver,
   Squirrel,
 }

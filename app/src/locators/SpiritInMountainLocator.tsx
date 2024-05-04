@@ -10,7 +10,7 @@ export class SpiritInMountainLocator extends ItemLocator {
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     const position = this.locationDescription.getDropZonePosition(item.location, context)
-    if (item.id === Spirit.Evil) position.z += 1
+    if (item.id === Spirit.EvilBeaver) position.z += 1
     return position
   }
 

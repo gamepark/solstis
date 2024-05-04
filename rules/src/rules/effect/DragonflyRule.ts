@@ -6,7 +6,7 @@ import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { Memory } from '../Memory'
 import { RuleId } from '../RuleId'
 
-export class MoskitoRule extends PlayerTurnRule {
+export class DragonflyRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     if (!this.isCardDrawn) {

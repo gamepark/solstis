@@ -3,18 +3,18 @@ import { CardDescription } from '@gamepark/react-game'
 import { Spirit } from '@gamepark/soltis/material/Spirit'
 import SpiritBack from '../images/landscape/tile_back.jpg'
 import Bear from '../images/spirit/bear.jpg'
-import Beaver from '../images/spirit/beaver.jpg'
+import Marmot from '../images/spirit/marmot.jpg'
 import Bee from '../images/spirit/bee.jpg'
 import Beetle from '../images/spirit/beetle.jpg'
 import Bird from '../images/spirit/bird.jpg'
 import Butterfly from '../images/spirit/butterfly.jpg'
 import Deer from '../images/spirit/deer.jpg'
 import Eagle from '../images/spirit/eagle.jpg'
-import Evil from '../images/spirit/evil.jpg'
+import EvilBeaver from '../images/spirit/evil-beaver.jpg'
 import Fish from '../images/spirit/fish.jpg'
 import Ladybug from '../images/spirit/ladybug.jpg'
 import Lizard from '../images/spirit/lizard.jpg'
-import Moskito from '../images/spirit/moskito.jpg'
+import Dragonfly from '../images/spirit/dragonfly.jpg'
 import Rabbit from '../images/spirit/rabbit.jpg'
 import Wolf from '../images/spirit/wolf.jpg'
 
@@ -30,9 +30,9 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Deer]: Deer,
     [Spirit.Eagle]: Eagle,
     [Spirit.Bear]: Bear,
-    [Spirit.Moskito]: Moskito,
+    [Spirit.Dragonfly]: Dragonfly,
     [Spirit.Beetle]: Beetle,
-    [Spirit.Beaver]: Beaver,
+    [Spirit.Marmot]: Marmot,
     [Spirit.Bee]: Bee,
     [Spirit.Ladybug]: Ladybug,
     [Spirit.Wolf]: Wolf,
@@ -40,7 +40,7 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Bird]: Bird,
     [Spirit.Lizard]: Lizard,
     [Spirit.Butterfly]: Butterfly,
-    [Spirit.Evil]: Evil,
+    [Spirit.EvilBeaver]: EvilBeaver,
   }
 }
 

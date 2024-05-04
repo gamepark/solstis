@@ -54,7 +54,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       const item = availableLandscapes.getItem(landscapeIndex)!
       const places = new SquareHelper(this.game, landscapeIndex, item.location).encounterPlaces
       for (const coordinates of places) {
-        const cards = material.id((id) => id !== Spirit.Evil)
+        const cards = material.id((id) => id !== Spirit.EvilBeaver)
         moves.push(
           ...cards.moveItems({
             type: LocationType.SpiritInMountain,
@@ -92,7 +92,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     moves.push(...this.evilMoves)
     moves.push(
       ...this.hand
-      .id((id) => id !== Spirit.Evil)
+      .id((id) => id !== Spirit.EvilBeaver)
       .moveItems({ type: LocationType.SpiritLine})
     )
 
@@ -112,9 +112,9 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       case Spirit.Deer: return RuleId.Deer
       case Spirit.Eagle: return RuleId.Eagle
       case Spirit.Bear: return RuleId.Bear
-      case Spirit.Moskito: return RuleId.Moskito
+      case Spirit.Dragonfly: return RuleId.Dragonfly
       case Spirit.Beetle: return RuleId.Beetle
-      case Spirit.Beaver: return RuleId.Beaver
+      case Spirit.Marmot: return RuleId.Marmot
     }
     
     return
@@ -126,7 +126,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       .material(MaterialType.SpiritTile)
       .location(LocationType.Hand)
       .player(this.player)
-      .id(Spirit.Evil)
+      .id(Spirit.EvilBeaver)
 
     if (hasEvilInHand.length) {
       moves.push(hasEvilInHand.moveItem({ type: LocationType.Evil, player: this.player }))

@@ -110,7 +110,6 @@ export class ScoringHelper extends MaterialRulesPart {
       case Spirit.Bee: return new BeeScoring(this.game, this.player).getScore(this.spirits)
       case Spirit.Ladybug: return new LadybugScoring(this.game, this.player).getScore(this.spirits, this.areas)
       case Spirit.Wolf: return new WolfScoring(this.game, this.player).getScore(this.spirits, this.areas)
-      //case Spirit.Squirrel: return new SquirrelScoring(this.game, this.player)
       case Spirit.Bird: return new BirdScoring(this.game, this.player).getScore(this.spirits)
       case Spirit.Lizard: return new LizardScoring(this.game, this.player).getScore()
       case Spirit.Butterfly: return new ButterflyScoring(this.game, this.player).getScore(this.spirits, this.areas)

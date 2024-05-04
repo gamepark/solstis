@@ -4,9 +4,9 @@ export enum Spirit {
   Deer,
   Eagle,
   Bear,
-  Moskito,
+  Dragonfly,
   Beetle,
-  Beaver,
+  Marmot,
   Bee,
   Ladybug,
   Wolf,
@@ -14,7 +14,7 @@ export enum Spirit {
   Bird,
   Lizard,
   Butterfly,
-  Evil
+  EvilBeaver
 }
 
 export const spirits = Object.values(Spirit).filter(isEnumValue)

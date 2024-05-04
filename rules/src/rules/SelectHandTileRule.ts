@@ -83,7 +83,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
         continue
       }
       const evil = this.material(MaterialType.SpiritTile).location(LocationType.Evil).player(player)
-      if (evil.length) return [this.rules().startPlayerTurn(RuleId.Evil, player)]
+      if (evil.length) return [this.rules().startPlayerTurn(RuleId.EvilBeaver, player)]
       const spirits = this.getSpirits(player)
       if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.rules().startPlayerTurn(RuleId.Squirrel, player)]
     }
