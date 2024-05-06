@@ -15,7 +15,7 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
 import { BearRule } from './rules/effect/BearRule'
-import { MarmotRule } from './rules/effect/MarmotRule'
+import { GroundHogRule } from './rules/effect/GroundHogRule'
 import { BeetleRule } from './rules/effect/BeetleRule'
 import { DeerRule } from './rules/effect/DeerRule'
 import { EagleRule } from './rules/effect/EagleRule'
@@ -51,7 +51,7 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.Deer]: DeerRule,
     [RuleId.Bear]: BearRule,
     [RuleId.Dragonfly]: DragonflyRule,
-    [RuleId.Marmot]: MarmotRule,
+    [RuleId.Groundhog]: GroundHogRule,
     [RuleId.Beetle]: BeetleRule,
     [RuleId.Eagle]: EagleRule,
     [RuleId.EvilBeaver]: EvilBeaverRule,

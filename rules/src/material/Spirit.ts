@@ -6,7 +6,7 @@ export enum Spirit {
   Bear,
   Dragonfly,
   Beetle,
-  Marmot,
+  Groundhog,
   Bee,
   Ladybug,
   Wolf,

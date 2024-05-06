@@ -11,7 +11,7 @@ export enum RuleId {
   Bear,
   Dragonfly,
   Beetle,
-  Marmot,
+  Groundhog,
   EvilBeaver,
   Squirrel,
 }

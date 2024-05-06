@@ -33,7 +33,7 @@ export const Beetle: SpiritDescription = {
   color: SpiritColor.Wood,
 }
 
-export const Marmot: SpiritDescription = {
+export const Groundhog: SpiritDescription = {
   color: SpiritColor.Wood,
 }
 
@@ -75,7 +75,7 @@ export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
   [Spirit.Bear]: Bear,
   [Spirit.Dragonfly]: Dragonfly,
   [Spirit.Beetle]: Beetle,
-  [Spirit.Marmot]: Marmot,
+  [Spirit.Groundhog]: Groundhog,
   [Spirit.Bee]: Bee,
   [Spirit.Ladybug]: Ladybug,
   [Spirit.Wolf]: Wolf,

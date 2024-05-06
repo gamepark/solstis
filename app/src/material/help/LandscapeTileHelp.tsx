@@ -14,7 +14,6 @@ import Victory from '../../images/icons/victory.png'
 
 export const LandscapeTileHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
-  console.log(item.id)
   return (
     <>
       {(!item.id || item.id !== MountainLandscape.Rainbow) && (

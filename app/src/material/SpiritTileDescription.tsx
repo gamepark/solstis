@@ -3,7 +3,7 @@ import { CardDescription } from '@gamepark/react-game'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
 import SpiritBack from '../images/landscape/tile_back.jpg'
 import Bear from '../images/spirit/bear.jpg'
-import Marmot from '../images/spirit/marmot.jpg'
+import Groundhog from '../images/spirit/grounghog.jpg'
 import Bee from '../images/spirit/bee.jpg'
 import Beetle from '../images/spirit/beetle.jpg'
 import Bird from '../images/spirit/bird.jpg'
@@ -17,6 +17,7 @@ import Lizard from '../images/spirit/lizard.jpg'
 import Dragonfly from '../images/spirit/dragonfly.jpg'
 import Squirrel from '../images/spirit/squirrel.jpg'
 import Wolf from '../images/spirit/wolf.jpg'
+import { SpiritTileHelp } from './help/SpiritTileHelp'
 
 export class SpiritTileDescription extends CardDescription {
   height = 3.8
@@ -32,7 +33,7 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Bear]: Bear,
     [Spirit.Dragonfly]: Dragonfly,
     [Spirit.Beetle]: Beetle,
-    [Spirit.Marmot]: Marmot,
+    [Spirit.Groundhog]: Groundhog,
     [Spirit.Bee]: Bee,
     [Spirit.Ladybug]: Ladybug,
     [Spirit.Wolf]: Wolf,
@@ -42,6 +43,8 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Butterfly]: Butterfly,
     [Spirit.EvilBeaver]: EvilBeaver,
   }
+
+  help = SpiritTileHelp
 }
 
 export const spiritTileDescription = new SpiritTileDescription()

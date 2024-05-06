@@ -114,7 +114,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       case Spirit.Bear: return RuleId.Bear
       case Spirit.Dragonfly: return RuleId.Dragonfly
       case Spirit.Beetle: return RuleId.Beetle
-      case Spirit.Marmot: return RuleId.Marmot
+      case Spirit.Groundhog: return RuleId.Groundhog
     }
     
     return
