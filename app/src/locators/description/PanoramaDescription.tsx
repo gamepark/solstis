@@ -61,7 +61,7 @@ export class PanoramaDescription extends LocationDescription {
         background-repeat: no-repeat;
         background-size: cover;
         position: absolute;
-        opacity: 0.3;
+        opacity: 0.4;
         height: 100%;
         width: 100%;
       }

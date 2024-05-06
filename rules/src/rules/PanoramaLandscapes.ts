@@ -13,16 +13,6 @@ export const panoramaLandscapes: MountainLandscape[][] = [
   [MountainLandscape.Landscape_1_10, MountainLandscape.Landscape_2_10, MountainLandscape.Landscape_3_10],
 ]
 
-export const landscapesWithFlames = [
-  MountainLandscape.Landscape_4_2,
-  MountainLandscape.Landscape_5_3,
-  MountainLandscape.Landscape_6_4,
-  MountainLandscape.Landscape_6_5,
-  MountainLandscape.Landscape_6_6,
-  MountainLandscape.Landscape_6_7,
-  MountainLandscape.Landscape_5_8,
-  MountainLandscape.Landscape_4_9,
-]
 
 export const landscapeFlames: Partial<Record<MountainLandscape, number>> = {
   [MountainLandscape.Landscape_4_2]: 1,

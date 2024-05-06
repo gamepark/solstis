@@ -56,7 +56,10 @@ import Landscape_6_5 from '../images/landscape/landscape_6_5.jpg'
 import Landscape_6_6 from '../images/landscape/landscape_6_6.jpg'
 import Landscape_6_7 from '../images/landscape/landscape_6_7.jpg'
 import Rainbow from '../images/landscape/rainbow.jpg'
+import Fire from '../images/icons/fire.png'
+import Victory from '../images/icons/victory.png'
 import LandscapeBack from '../images/landscape/tile_back.jpg'
+import { LandscapeTileHelp } from './help/LandscapeTileHelp'
 
 
 export class LandscapeTileDescription extends CardDescription {
@@ -119,10 +122,19 @@ export class LandscapeTileDescription extends CardDescription {
 
   }
 
+  getImages() {
+    const images = super.getImages()
+    images.push(Fire)
+    images.push(Victory)
+    return images
+  }
+
   canShortClick(move: MaterialMove, { index }: ItemContext): boolean {
     return (isCustomMoveType(CustomMoveType.DrawCard)(move) && move.data === index)
      || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
   }
+
+  help = LandscapeTileHelp
 }
 
 export const landscapeTileDescription = new LandscapeTileDescription()

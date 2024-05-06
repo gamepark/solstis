@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css, Global } from '@emotion/react'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { SolstisOptionsSpec } from '@gamepark/solstis/SolstisOptions'
 import { SolstisRules } from '@gamepark/solstis/SolstisRules'
@@ -25,6 +26,7 @@ ReactDOM.render(
       animations={solstisAnimations}
     >
       <App/>
+      <Global styles={css`#root{ background: #19a8e0 !important;}`} />
     </GameProvider>
   </StrictMode>,
   document.getElementById('root')
