@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CardDescription } from '@gamepark/react-game'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
-import SpiritBack from '../images/landscape/tile_back.jpg'
+import SpiritBack from '../images/spirit/spirit-back.jpg'
 import Bear from '../images/spirit/bear.jpg'
 import Groundhog from '../images/spirit/grounghog.jpg'
 import Bee from '../images/spirit/bee.jpg'
