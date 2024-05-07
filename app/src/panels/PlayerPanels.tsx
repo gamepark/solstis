@@ -32,10 +32,15 @@ export const PlayerPanels: FC<any> = () => {
   )
 }
 
+const widthCss = css`
+  width: 27em;
+`
+
 const rightCss = css`
   position: absolute;
   top: 8.5em;
   right: 1em;
+  ${widthCss}
 `
 
 
@@ -43,4 +48,5 @@ const leftCss = css`
   position: absolute;
   top: 8.5em;
   left: 1em;
+  ${widthCss}
 `

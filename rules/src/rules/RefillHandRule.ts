@@ -36,8 +36,8 @@ export class RefillHandRule extends PlayerTurnRule {
 
   get bonusCards() {
     const bear = this
-      .material(MaterialType.LandscapeTile)
-      .location(LocationType.Panorama)
+      .material(MaterialType.SpiritTile)
+      .location(LocationType.SpiritInMountain)
       .player(this.player)
       .id(Spirit.Bear)
 

@@ -27,6 +27,10 @@ export class PlayerHandLocator extends HandLocator {
     return { x: 41, y: -13, z: 0 }
   }
 
+  getMaxAngle() {
+    return 4.5
+  }
+
   getSpiritCoordinates(location: Location, context: ItemContext) {const { rules, player } = context
     if (!player && rules.players[0] === location.player) {
       return { x: -31, y: -6, z: 0 }
