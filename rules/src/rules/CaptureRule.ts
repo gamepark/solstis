@@ -14,6 +14,7 @@ export class CaptureRule extends PlayerTurnRule {
 
   onRuleStart(_move: RuleMove, previousRule?: RuleStep) {
     const playerMoves = this.getPlayerMoves()
+    console.log(playerMoves, previousRule?.id, RuleId.SecondChance)
     if (playerMoves.length === 0) return [this.rules().startRule(RuleId.EncounterSpirit)]
     if (playerMoves.length === 1) {
       if (previousRule?.id === RuleId.SecondChance || previousRule?.id === RuleId.SelectHandTile) return this.discardAndGoToNext
@@ -46,7 +47,7 @@ export class CaptureRule extends PlayerTurnRule {
   }
 
   get newRule() {
-    if (!this.deck.length) {
+    if (!this.deck.length && !this.isSecondChance) {
       return [this.rules().startRule(RuleId.EncounterSpirit)]
     }
     return [this.rules().startRule(this.isSecondChance ? RuleId.PlaceRainbow : RuleId.SecondChance)]
