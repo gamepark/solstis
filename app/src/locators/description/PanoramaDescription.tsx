@@ -41,7 +41,7 @@ export class PanoramaDescription extends LocationDescription {
 
     baseCoordinates.x += location.x! * (landscapeTileDescription.width + 0.1)
     baseCoordinates.y -= location.y! * (landscapeTileDescription.height + 0.1)
-    baseCoordinates.z = 0.05
+    baseCoordinates.z = context.canDrop? 5: 0.05
 
     return baseCoordinates
   }
@@ -52,7 +52,10 @@ export class PanoramaDescription extends LocationDescription {
     return { x: leftPlayer? -32: 12, y: 12, z: 0}
   }
 
-  getExtraCss(location: Location, _context: LocationContext): Interpolation<Theme> {
+  getExtraCss(location: Location, context: LocationContext): Interpolation<Theme> {
+    const { rules } = context
+    const hasCardOnLocation = rules.material(MaterialType.LandscapeTile).location((l) => equal(l, location)).length > 0
+    if (hasCardOnLocation) return
     return css`
       &:before {
         content: '';
