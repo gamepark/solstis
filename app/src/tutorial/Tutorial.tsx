@@ -213,11 +213,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         }
       }),
       move: {
-        filter: (move, game) => {
-          console.log(this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).sort((item) => item.location.x!))
-          return isMoveItemType(MaterialType.LandscapeTile)(move)
-            && game.items[move.itemType]![move.itemIndex].id === MountainLandscape.Landscape_6_4
-        },
+        filter: (move, game) =>
+          isMoveItemType(MaterialType.LandscapeTile)(move)
+          && game.items[move.itemType]![move.itemIndex].id === MountainLandscape.Landscape_6_4,
         interrupt: (move) => isStartRule(move) && move.id === RuleId.SecondChance
       }
     },

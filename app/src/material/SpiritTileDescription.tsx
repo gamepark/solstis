@@ -1,20 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { CardDescription } from '@gamepark/react-game'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { isCustomMoveType, MaterialMove } from '@gamepark/rules-api'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
-import SpiritBack from '../images/spirit/spirit-back.jpg'
+import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
 import Bear from '../images/spirit/bear.jpg'
-import Groundhog from '../images/spirit/grounghog.jpg'
 import Bee from '../images/spirit/bee.jpg'
 import Beetle from '../images/spirit/beetle.jpg'
 import Bird from '../images/spirit/bird.jpg'
 import Butterfly from '../images/spirit/butterfly.jpg'
 import Deer from '../images/spirit/deer.jpg'
+import Dragonfly from '../images/spirit/dragonfly.jpg'
 import Eagle from '../images/spirit/eagle.jpg'
 import EvilBeaver from '../images/spirit/evil-beaver.jpg'
 import Fish from '../images/spirit/fish.jpg'
+import Groundhog from '../images/spirit/grounghog.jpg'
 import Ladybug from '../images/spirit/ladybug.jpg'
 import Lizard from '../images/spirit/lizard.jpg'
-import Dragonfly from '../images/spirit/dragonfly.jpg'
+import SpiritBack from '../images/spirit/spirit-back.jpg'
 import Squirrel from '../images/spirit/squirrel.jpg'
 import Wolf from '../images/spirit/wolf.jpg'
 import { SpiritTileHelp } from './help/SpiritTileHelp'
@@ -45,6 +49,15 @@ export class SpiritTileDescription extends CardDescription {
   }
 
   help = SpiritTileHelp
+
+  canDrag(move: MaterialMove, context: ItemContext) {
+    if (context.type !== MaterialType.SpiritTile) return false
+    if (!isCustomMoveType(CustomMoveType.DrawSpirits)(move)) return super.canDrag(move, context)
+    const { rules } = context
+    const deckLength = rules.material(MaterialType.SpiritTile).location(LocationType.SpiritDeck).length
+    const item = rules.material(MaterialType.SpiritTile).getItem(context.index)!
+    return item.location.x === (deckLength - 1)
+  }
 }
 
 export const spiritTileDescription = new SpiritTileDescription()

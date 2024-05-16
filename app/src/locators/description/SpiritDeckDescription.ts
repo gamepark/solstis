@@ -1,12 +1,12 @@
 import { ComponentSize, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { isCustomMoveType, Location, MaterialMove } from '@gamepark/rules-api'
+import { Location } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
-import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
 import { spiritTileDescription } from '../../material/SpiritTileDescription'
 
 export class SpiritDeckDescription extends LocationDescription {
   borderRadius = 0.1
+  alwaysVisible = true
 
   getSize(_location: Location, context: MaterialContext): ComponentSize {
     const {rules } = context
@@ -29,9 +29,5 @@ export class SpiritDeckDescription extends LocationDescription {
     coordinates.y -= 0.03 * deckLength / 2
 
     return coordinates
-  }
-
-  canShortClick(move: MaterialMove): boolean {
-    return isCustomMoveType(CustomMoveType.DrawSpirits)(move)
   }
 }
