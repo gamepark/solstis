@@ -227,8 +227,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       popup: {
         text: () => <Trans defaults="tuto.place.2"><strong/></Trans>,
-        position: { x: -10, y: 30 },
-        size: { width: 110 }
+        position: { x: 30, y: 0 },
       },
       focus: (game) => ({
         materials: [
@@ -238,11 +237,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         margin: {
           left: 2,
           top: 1,
-          bottom: 8
+          bottom: 15
         }
-      })
-    },
-    {
+      }),
       move: {
       }
     },
