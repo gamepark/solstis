@@ -2,6 +2,7 @@ import { ItemLocator } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { PlayerId } from '@gamepark/solstis/PlayerId'
+import { cardCharacteristicLocator } from './CardCharacteristicLocator'
 import { evilLocator } from './EvilLocator'
 import { landscapeDeckLocator } from './LandscapeDeckLocator'
 import { landscapeQueueLocator } from './LandscapeQueueLocator'
@@ -23,5 +24,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.Hand]: playerHandLocator,
   [LocationType.PlayArea]: playAreaLocator,
   [LocationType.SpiritInMountain]: spiritInMountainLocator,
-  [LocationType.Evil]: evilLocator
+  [LocationType.Evil]: evilLocator,
+  [LocationType.Characteristics]: cardCharacteristicLocator
 }

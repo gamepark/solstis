@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api/dist/material/items/MaterialItem'
-import { Coordinates } from '@gamepark/rules-api/dist/material/location/Location'
+import { MaterialItem } from '@gamepark/rules-api'
+import { Coordinates } from '@gamepark/rules-api'
 import { PanoramaDescription } from './description/PanoramaDescription'
 
 export class PanoramaLocator extends ItemLocator {

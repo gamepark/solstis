@@ -8,6 +8,7 @@ export enum LocationType {
   SpiritLine,
   SpiritInMountain,
   PlayArea,
-  Evil
+  Evil,
+  Characteristics
 
 }

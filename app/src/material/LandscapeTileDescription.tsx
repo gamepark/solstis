@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { isCustomMoveType } from '@gamepark/rules-api'
-import { isMoveItemType } from '@gamepark/rules-api/dist/material/moves/items/MoveItem'
-import { MaterialMove } from '@gamepark/rules-api/dist/material/moves/MaterialMove'
+import { isMoveItemType } from '@gamepark/rules-api'
+import { MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'

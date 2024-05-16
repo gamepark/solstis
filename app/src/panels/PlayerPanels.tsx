@@ -22,9 +22,8 @@ export const PlayerPanels: FC<any> = () => {
         <StyledPlayerPanel
           key={player.id}
           player={player}
-          css={(player.id === (playerId ?? rules.players[0]))? leftCss: rightCss}
-
-          mainCounter={!rules.game?.rule?.id? { imageCss: css`border: 0`, image: Victory, value: new ScoringHelper(rules.game, player.id).score }: undefined}
+          css={(player.id === (playerId ?? rules.players[0])) ? leftCss : rightCss}
+          mainCounter={!rules.game?.rule?.id ? { imageCss: css`border: 0`, image: Victory, value: new ScoringHelper(rules.game, player.id).score } : undefined}
           timerOnRight={!!rules.game?.rule?.id}/>
       )}
     </>,

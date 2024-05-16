@@ -22,6 +22,8 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
     this.setupPlayers(options)
   }
 
+
+
   setupLandscapes() {
     const landscapes = mountainLandscapes
       .filter(l => l !== MountainLandscape.Rainbow)

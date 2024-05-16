@@ -11,6 +11,7 @@ export class SecondChanceRule extends PlayerTurnRule {
     return [
       this.material(MaterialType.LandscapeTile)
         .location(LocationType.LandscapeDeck)
+        .sort((item) => item.location.x!)
         .moveItem({
           type: LocationType.PlayArea,
           player: this.player

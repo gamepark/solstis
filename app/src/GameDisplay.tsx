@@ -11,7 +11,7 @@ type GameDisplayProps = {
 export const GameDisplay: FC<GameDisplayProps> = () => {
   return <>
     <GameTable
-      xMin={-35}
+      xMin={-36}
       xMax={45}
       yMin={-25}
       yMax={15}
