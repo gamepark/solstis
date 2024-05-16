@@ -21,11 +21,25 @@ export const StaticQueueCards = [
 export class TutorialSetup extends SolstisSetup {
   setupMaterial(options: SolstisOptions) {
     super.setupMaterial(options)
+
+    const cardInThirdPosition = this.material(MaterialType.LandscapeTile).location((l) => l.type === LocationType.LandscapeDeck && l.x === 2).id((id) => id !== ThirdDeckCard)
+    const thirdDeckCard = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).id(ThirdDeckCard)
+    if (cardInThirdPosition.length) {
+      cardInThirdPosition.moveItem({
+        type: LocationType.LandscapeDeck,
+        x: thirdDeckCard.getItem()!.location.x
+      })
+    }
+
     this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).id(ThirdDeckCard).moveItem({
       type: LocationType.LandscapeDeck,
       x: 2
     })
+
     this.material(MaterialType.SpiritTile).id(Spirit.Fish).moveItem({
+      type: LocationType.SpiritDeck
+    })
+    this.material(MaterialType.SpiritTile).id((id) => Spirit.Fish !== id && Spirit.EvilBeaver !== id).moveItem({
       type: LocationType.SpiritDeck
     })
   }

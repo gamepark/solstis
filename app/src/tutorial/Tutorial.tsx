@@ -213,8 +213,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         }
       }),
       move: {
-        filter: (move, game) => isMoveItemType(MaterialType.LandscapeTile)(move)
-          && game.items[move.itemType]![move.itemIndex].id === MountainLandscape.Landscape_6_4,
+        filter: (move, game) => {
+          console.log(this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).sort((item) => item.location.x!))
+          return isMoveItemType(MaterialType.LandscapeTile)(move)
+            && game.items[move.itemType]![move.itemIndex].id === MountainLandscape.Landscape_6_4
+        },
         interrupt: (move) => isStartRule(move) && move.id === RuleId.SecondChance
       }
     },
@@ -227,17 +230,18 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       popup: {
         text: () => <Trans defaults="tuto.place.2"><strong/></Trans>,
-        position: { x: 30, y: 0 },
+        position: { x: 30, y: 20 },
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.LandscapeTile).location(LocationType.PlayArea),
-          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: any) => [MountainLandscape.Landscape_4_6, MountainLandscape.Landscape_3_6].includes(id))
+          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: any) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_5].includes(id)),
+          this.material(game, MaterialType.LandscapeTile).location(LocationType.Panorama).player(me)
         ],
         margin: {
-          left: 2,
           top: 1,
-          bottom: 15
+          bottom: 1,
+          left: 2,
         }
       }),
       move: {

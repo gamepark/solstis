@@ -1,6 +1,7 @@
 import { isDeleteItemType, isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove, RuleStep } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { MountainLandscape } from '../material/MountainLandscape'
 import { PlaceCardHelper } from './helper/PlaceCardHelper'
 import { QueueHelper } from './helper/QueueHelper'
 import { SquareHelper } from './helper/SquareHelper'
@@ -66,7 +67,8 @@ export class CaptureRule extends PlayerTurnRule {
     new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
     const rule = new PlaceCardHelper(this.game)
     const moves: MaterialMove[] = rule.afterItemMove(move)
-    if (moves.some(isStartRule)) return moves
+    const willGetRainbow = moves.some((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)?.id === MountainLandscape.Rainbow)
+    if (moves.some(isStartRule) || willGetRainbow) return moves
     moves.push(...this.afterCardMove)
 
     return moves
@@ -78,8 +80,7 @@ export class CaptureRule extends PlayerTurnRule {
     if (!remainingMoves.length) {
       moves.push(this.rules().startRule(RuleId.EncounterSpirit))
     } else if (remainingMoves.length === 1) {
-      const rule = new PlaceCardHelper(this.game)
-      moves.push(...rule.captureMoves())
+      moves.push(...remainingMoves)
     }
 
     return moves
