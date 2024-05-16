@@ -149,7 +149,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place"><strong/></Trans>
+        text: () => <Trans defaults="tuto.place"><strong/></Trans>,
+        position: { x: 10 }
       },
       move: {
         filter: (move, game) => isMoveItemType(MaterialType.LandscapeTile)(move) && game.items[move.itemType]![move.itemIndex].location.type === LocationType.LandscapeQueue

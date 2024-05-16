@@ -9,11 +9,11 @@ import { RuleId } from './RuleId'
 
 export class CaptureRule extends PlayerTurnRule {
   getPlayerMoves() {
-    return new PlaceCardHelper(this.game).captureMoves
+    return new PlaceCardHelper(this.game).captureMoves(true)
   }
 
   onRuleStart(_move: RuleMove, previousRule?: RuleStep) {
-    const playerMoves = this.getPlayerMoves()
+    const playerMoves = new PlaceCardHelper(this.game).captureMoves()
     if (playerMoves.length === 0) return [this.rules().startRule(RuleId.EncounterSpirit)]
     if (playerMoves.length === 1) {
       if (previousRule?.id === RuleId.SecondChance || previousRule?.id === RuleId.SelectHandTile) return this.discardAndGoToNext
@@ -74,12 +74,12 @@ export class CaptureRule extends PlayerTurnRule {
 
   get afterCardMove() {
     const moves: MaterialMove[] = []
-    const remainingMoves = this.getPlayerMoves()
+    const remainingMoves = new PlaceCardHelper(this.game).captureMoves()
     if (!remainingMoves.length) {
       moves.push(this.rules().startRule(RuleId.EncounterSpirit))
     } else if (remainingMoves.length === 1) {
       const rule = new PlaceCardHelper(this.game)
-      moves.push(...rule.captureMoves)
+      moves.push(...rule.captureMoves())
     }
 
     return moves

@@ -42,10 +42,10 @@ export class PlaceCardHelper extends PlayerTurnRule {
     return moves
   }
 
-  get captureMoves() {
+  captureMoves(ignorePlayedCard?: boolean) {
     const playedCard = this.playAreaCard
     const queue = this.queue
-    const moves: MaterialMove[] = this.getPlayCardMove(playedCard)
+    const moves: MaterialMove[] = ignorePlayedCard? []: this.getPlayCardMove(playedCard)
 
     const rainbow = playedCard.filter((item) => item.id === MountainLandscape.Rainbow)
     if (rainbow.length) {
