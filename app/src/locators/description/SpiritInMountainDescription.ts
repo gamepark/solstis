@@ -33,7 +33,7 @@ export class SpiritInMountainDescription extends LocationDescription {
     const placeCardHelper = new PlaceCardHelper(rules.game)
     for (const itemId of itemIds) {
       const coordinates = placeCardHelper.getCardPositionInPanorama(itemId)!
-      const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).location((l) => l.x === coordinates.x && l.y === coordinates.y)
+      const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).location((l) => l.type === LocationType.Panorama && l.x === coordinates.x && l.y === coordinates.y)
       const item = material.getItem()!
       const places = new SquareHelper(rules.game, material.getIndex(), item.location).encounterPlaces
       locations.push(
