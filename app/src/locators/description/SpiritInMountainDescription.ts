@@ -86,7 +86,6 @@ export class SpiritInMountainDescription extends LocationDescription {
     const selectedSpirit = rules.material(MaterialType.SpiritTile).selected()
 
     if (!selectedSpirit.length) return false
-    console.log(move.itemIndex === selectedSpirit.getIndex() && equal(location, move.location))
     return move.itemIndex === selectedSpirit.getIndex() && equal(location, move.location)
   }
 

@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
+ import { isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
 import equal from 'fast-deep-equal'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -15,7 +15,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
   }
 
   canPlay(player: PlayerId) {
-    return this.getHand(player).length
+    return this.getHand(player).length > 0
   }
 
   getPlayerMoves() {
@@ -77,18 +77,22 @@ export class SelectHandTileRule extends PlayerTurnRule {
     if (hiddenHandCard.length) return []
 
     let someoneCanPlay = false
-    for (const player of this.game.players) {
+    let squirrelPlayer = undefined
+    let evilPlayer = undefined
+    for (const   player of this.game.players) {
       if (this.canPlay(player)) {
         someoneCanPlay = true
         continue
       }
       const evil = this.material(MaterialType.SpiritTile).location(LocationType.Evil).player(player)
-      if (evil.length) return [this.rules().startPlayerTurn(RuleId.EvilBeaver, this.game.players.find((p) => p !== player)!)]
+      if (evil.length) evilPlayer = this.game.players.find((p) => p !== player)!
       const spirits = this.getSpirits(player)
-      if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.rules().startPlayerTurn(RuleId.Squirrel, player)]
+      if (spirits.some((s) => s.id === Spirit.Squirrel)) squirrelPlayer = player
     }
 
     if (!someoneCanPlay) {
+      if (evilPlayer) return [this.rules().startPlayerTurn(RuleId.EvilBeaver, evilPlayer)]
+      if (squirrelPlayer) return [this.rules().startPlayerTurn(RuleId.Squirrel, squirrelPlayer)]
       return [this.rules().endGame()]
     }
 
