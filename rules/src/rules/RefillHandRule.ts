@@ -14,7 +14,6 @@ export class RefillHandRule extends PlayerTurnRule {
     const hand = this.hand
 
     const maxCardCount = 3 + this.bonusCards
-
     return [
       ...this.deck.limit(maxCardCount - hand.length).moveItems({
         type: LocationType.Hand,
@@ -28,6 +27,7 @@ export class RefillHandRule extends PlayerTurnRule {
     return this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.LandscapeDeck)
+      .sort((item) => item.location.x!)
   }
 
   get hasFreeTurn() {

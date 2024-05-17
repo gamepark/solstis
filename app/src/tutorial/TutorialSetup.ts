@@ -22,19 +22,24 @@ export class TutorialSetup extends SolstisSetup {
   setupMaterial(options: SolstisOptions) {
     super.setupMaterial(options)
 
-    const cardInThirdPosition = this.material(MaterialType.LandscapeTile).location((l) => l.type === LocationType.LandscapeDeck && l.x === 2).id((id) => id !== ThirdDeckCard)
-    const thirdDeckCard = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).id(ThirdDeckCard)
-    if (cardInThirdPosition.length) {
+    const deck = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).sort((item) => item.location.x!)
+    const thirdDeckCard = deck.id(ThirdDeckCard)
+    const firstThreeCards = deck.limit(3)
+    const cardInThirdPositionIndex = firstThreeCards.getIndexes()[2]
+    const cardInThirdPosition = deck.index(cardInThirdPositionIndex)
+    if (cardInThirdPositionIndex !== thirdDeckCard.getIndex() && cardInThirdPosition.length) {
+      const thirdPositionIndex = cardInThirdPosition.getItem()!.location.x
       cardInThirdPosition.moveItem({
         type: LocationType.LandscapeDeck,
         x: thirdDeckCard.getItem()!.location.x
       })
+
+      this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).id(ThirdDeckCard).moveItem({
+        type: LocationType.LandscapeDeck,
+        x: thirdPositionIndex
+      })
     }
 
-    this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).id(ThirdDeckCard).moveItem({
-      type: LocationType.LandscapeDeck,
-      x: 2
-    })
 
     this.material(MaterialType.SpiritTile).id(Spirit.Fish).moveItem({
       type: LocationType.SpiritDeck
