@@ -21,8 +21,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
 
       const destination = this.getCardPositionInPanorama(item.id)!
       const tileOnTarget = this.material(MaterialType.LandscapeTile)
-        .location(LocationType.Panorama)
-        .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y)
+        .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y && l.player === this.player)
 
       if (tileOnTarget?.length && this.isCoveredBySpirit(destination)) {
         moves.push(
@@ -127,7 +126,9 @@ export class PlaceCardHelper extends PlayerTurnRule {
         || (l.x === x! - 1 && l.y === y)
         || (l.x === x! - 1 && l.y === y! - 1)
         || (l.x === x && l.y === y! - 1)
-      )).length > 0
+      ))
+      .player(this.player)
+      .length > 0
   }
 
 

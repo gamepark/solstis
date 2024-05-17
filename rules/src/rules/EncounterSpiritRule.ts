@@ -148,7 +148,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   get hand() {
-    return this.material(MaterialType.SpiritTile).location(LocationType.Hand)
+    return this.material(MaterialType.SpiritTile).location(LocationType.Hand).player(this.player)
   }
 
   get spiritLine() {
