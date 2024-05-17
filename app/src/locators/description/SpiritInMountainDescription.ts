@@ -1,19 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location } from '@gamepark/rules-api'
+import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { SquareHelper } from '@gamepark/solstis/rules/helper/SquareHelper'
 import { Memory } from '@gamepark/solstis/rules/Memory'
 import { RuleId } from '@gamepark/solstis/rules/RuleId'
+import equal from 'fast-deep-equal'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 import { PanoramaDescription } from './PanoramaDescription'
 
 export class SpiritInMountainDescription extends LocationDescription {
   height = landscapeTileDescription.height * 2 + 0.1
   width = landscapeTileDescription.width * 2 + 0.1
-  alwaysVisible = false
+  alwaysVisible = true
 
   getLocations(context: MaterialContext) {
     const evilRuleLocations: Location[] = this.getEvilRuleLocations(context)
@@ -73,6 +74,20 @@ export class SpiritInMountainDescription extends LocationDescription {
     position.z = 0.5
 
     return position
+  }
+
+  canLongClick(): boolean {
+    return false
+  }
+
+  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
+    if (!isMoveItemType(MaterialType.SpiritTile)(move)) return false
+    const { rules } = context
+    const selectedSpirit = rules.material(MaterialType.SpiritTile).selected()
+
+    if (!selectedSpirit.length) return false
+    console.log(move.itemIndex === selectedSpirit.getIndex() && equal(location, move.location))
+    return move.itemIndex === selectedSpirit.getIndex() && equal(location, move.location)
   }
 
 }

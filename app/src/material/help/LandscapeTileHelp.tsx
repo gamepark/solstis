@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react'
-import { MaterialHelpProps, shadowCss, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { isMoveItemType } from '@gamepark/rules-api/dist/material/moves/items/MoveItem'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { getLine, getValue, MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
@@ -40,16 +41,22 @@ const RainbowLandscapeTile: FC<MaterialHelpProps> = () => {
 }
 
 const MountainLandscapeTile: FC<MaterialHelpProps> = (props) => {
-  const { item } = props
+  const { item, itemIndex, closeDialog } = props
   const { t } = useTranslation()
   const playerId = usePlayerId()
   const itemPlayer = item.location?.player
   const itsMe = playerId && playerId === itemPlayer
   const name = usePlayerName(itemPlayer)
   const rules = useRules<SolstisRules>()!
+  const legalMoves = useLegalMoves()
+  const capture = legalMoves.find((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama && move.itemIndex === itemIndex)
+  const place = legalMoves.find((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && move.itemIndex === itemIndex)
+
   return (
     <>
       <h2>{t('help.tile')}</h2>
+      {capture && <PlayMoveButton move={capture} onPlay={closeDialog}>{t('move.capture')}</PlayMoveButton>}
+      {place && <PlayMoveButton move={place} onPlay={closeDialog}>{t('move.choose')}</PlayMoveButton>}
       {item.location?.type === LocationType.LandscapeQueue && (
         <p>
           <Trans defaults="help.tile.line">

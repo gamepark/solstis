@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
@@ -49,6 +50,14 @@ export class SpiritTileDescription extends CardDescription {
   }
 
   help = SpiritTileHelp
+
+  getItemExtraCss(item: MaterialItem) {
+    if (item.selected) {
+      return css` > div { box-shadow: 0 0 0 0.2em green}`
+    }
+
+    return
+  }
 
   canDrag(move: MaterialMove, context: ItemContext) {
     if (context.type !== MaterialType.SpiritTile) return false

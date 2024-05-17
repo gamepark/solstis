@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { GridLocator } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api/dist/material/items/MaterialItem'
 import { spiritTileDescription } from '../material/SpiritTileDescription'
 
 
@@ -7,7 +8,16 @@ export class SpiritLineLocator extends GridLocator {
   itemsPerLine = 5
   itemsGap = { x: spiritTileDescription.width + 0.3 }
   linesGap = { y: spiritTileDescription.height + 0.3}
-  coordinates = { x: 20.5, y: -22, z: 0}
+
+  getCoordinates(item: MaterialItem) {
+    const coordinates = { x: 20.7, y: -22, z: 0}
+    if (item.selected) {
+      coordinates.z = 10
+    }
+
+    return coordinates
+  }
+
 }
 
 export const spiritLineLocator = new SpiritLineLocator()

@@ -6,7 +6,6 @@ import { spiritTileDescription } from '../../material/SpiritTileDescription'
 
 export class PlayerHandDescription extends LocationDescription {
   borderRadius = 0.3
-  alwaysVisible = true
   height = spiritTileDescription.height + 0.8
   width = spiritTileDescription.width * 2.5
 

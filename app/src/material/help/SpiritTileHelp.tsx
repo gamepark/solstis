@@ -1,8 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react'
-import { MaterialHelpProps, shadowCss } from '@gamepark/react-game'
+import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, useRules } from '@gamepark/react-game'
+import { isCustomMoveType, isMoveItemType } from '@gamepark/rules-api'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
+import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
+import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
+import { SolstisRules } from '@gamepark/solstis/SolstisRules'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Fire from '../../images/icons/fire.png'
@@ -10,10 +15,17 @@ import Victory from '../../images/icons/victory.png'
 
 export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const { t } = useTranslation()
-  const { item } = props
+  const { item, itemIndex, closeDialog } = props
+  const rules = useRules<SolstisRules>()!
+  const legalMoves = useLegalMoves()
+  const drawSpirits = legalMoves.find((move) => isCustomMoveType(CustomMoveType.DrawSpirits)(move) && item.location?.type === LocationType.SpiritDeck)
+  const canPlaceSpirit = itemIndex !== undefined && legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && itemIndex === move.itemIndex)
+
   return (
     <>
       <h2>{t('help.spirit')}</h2>
+      {drawSpirits && <PlayMoveButton move={drawSpirits} onPlay={closeDialog}>{t('move.draw-spirit')}</PlayMoveButton>}
+      {canPlaceSpirit && <PlayMoveButton move={rules.material(MaterialType.SpiritTile).index(itemIndex!).selectItem()} local onPlay={closeDialog}>{t('move.select-spirit')}</PlayMoveButton>}
       <p>{t('help.spirit.take')}</p>
       <p>{t('help.spirit.effect')}</p>
       {item.id === Spirit.Fish && <SpiritEffect textKey="help.trout" />}

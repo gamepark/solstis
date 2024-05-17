@@ -87,6 +87,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     if (move.location.type !== LocationType.SpiritInMountain) return []
     const spirit = this.material(MaterialType.SpiritTile).index(move.itemIndex)
     const spiritItem = spirit.getItem()!
+    delete spiritItem.selected
     const moves: MaterialMove[] = []
 
     moves.push(...this.evilMoves)
