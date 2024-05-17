@@ -51,12 +51,15 @@ export class SpiritInMountainDescription extends LocationDescription {
     return rules
       .material(MaterialType.SpiritTile)
       .location(LocationType.SpiritInMountain)
-      .player(rules.game.rule.player)
+      .player((player) => player !== rules.game.rule?.player)
       .getItems()
       .map((item) => ({
         ...item.location,
-        z: 1
       }))
+  }
+
+  isAlwaysVisible(location: Location<number, number>, context: MaterialContext<number, number, number>): boolean {
+    return super.isAlwaysVisible(location, context)
   }
 
   getCoordinates(location: Location, context: LocationContext) {
