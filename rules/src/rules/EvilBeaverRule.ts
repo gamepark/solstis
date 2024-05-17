@@ -39,6 +39,10 @@ export class EvilBeaverRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
+    const evil = this.material(MaterialType.SpiritTile).location(LocationType.SpiritInMountain).id(Spirit.EvilBeaver)
+    if (evil.length) {
+      delete evil.getItem()!.selected
+    }
     return this.goToNextRule()
   }
 
