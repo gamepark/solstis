@@ -2,6 +2,7 @@
 
 import { css } from '@emotion/react'
 import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { isDeleteItemType } from '@gamepark/rules-api'
 import { isMoveItemType } from '@gamepark/rules-api/dist/material/moves/items/MoveItem'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
@@ -51,12 +52,14 @@ const MountainLandscapeTile: FC<MaterialHelpProps> = (props) => {
   const legalMoves = useLegalMoves()
   const capture = legalMoves.find((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama && move.itemIndex === itemIndex)
   const place = legalMoves.find((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && move.itemIndex === itemIndex)
+  const remove = legalMoves.find((move) => isDeleteItemType(MaterialType.LandscapeTile)(move) && move.itemIndex === itemIndex)
 
   return (
     <>
       <h2>{t('help.tile')}</h2>
       {capture && <PlayMoveButton move={capture} onPlay={closeDialog}>{t('move.capture')}</PlayMoveButton>}
       {place && <PlayMoveButton move={place} onPlay={closeDialog}>{t('move.choose')}</PlayMoveButton>}
+      {remove && <PlayMoveButton move={remove} onPlay={closeDialog}>{t('move.remove')}</PlayMoveButton>}
       {item.location?.type === LocationType.LandscapeQueue && (
         <p>
           <Trans defaults="help.tile.line">
