@@ -2,7 +2,9 @@ import { Location, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, 
 import minBy from 'lodash/minBy'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { MountainLandscape } from '../../material/MountainLandscape'
 import { Memory } from '../Memory'
+import { panoramaLandscapes } from '../PanoramaLandscapes'
 
 export class SquareHelper extends MaterialRulesPart {
   item: MaterialItem
@@ -12,26 +14,30 @@ export class SquareHelper extends MaterialRulesPart {
   }
 
   get encounterSpiritMoves(): MaterialMove[] {
-    const topLeftSquare = this.topLeftSquare
-    const bottomLeftSquare = this.bottomLeftSquare
-    const topRightSquare = this.topRightSquare
-    const bottomRightSquare = this.bottomRightSquare
+    const topLeftSquare = this.getTopLeftSquare()
+    const bottomLeftSquare = this.getBottomLeftSquare()
+    const topRightSquare = this.getTopRightSquare()
+    const bottomRightSquare = this.getBottomRightSquare()
     if (topLeftSquare.length === 3 || bottomLeftSquare.length === 3 || topRightSquare.length === 3 || bottomRightSquare.length === 3) {
       const item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)!
-      this.memorize(Memory.MustEncounterSpiritOn, (ids = []) => [...ids, item.id])
+      if (item.id === MountainLandscape.Rainbow) {
+        this.memorize(Memory.MustEncounterSpiritOn, (ids = []) => [...ids, panoramaLandscapes[item.location.x!][item.location.y!]])
+      } else {
+        this.memorize(Memory.MustEncounterSpiritOn, (ids = []) => [...ids, item.id])
+      }
     }
 
     return []
   }
 
-  get topLeftSquare() {
+  getTopLeftSquare(ignoreMemory: boolean = false) {
     return this.panorama
       .filter((item) => (
         (item.location.x === (this.location.x! - 1) && item.location.y == this.location.y!) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === this.location.x && item.location.y == this.location.y! + 1)
       ))
-      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
@@ -39,46 +45,45 @@ export class SquareHelper extends MaterialRulesPart {
     return this.remind<number[] | undefined>(Memory.MustEncounterSpiritOn) ?? []
   }
 
-  get bottomLeftSquare() {
+  getBottomLeftSquare(ignoreMemory: boolean = false) {
     return this.panorama
       .filter((item) => (
         (item.location.x === this.location.x! && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == this.location.y!)
       ))
-      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
-  get topRightSquare() {
+  getTopRightSquare(ignoreMemory: boolean = false) {
     return this.panorama
       .filter((item) => (
         (item.location.x === this.location.x! && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == this.location.y!)
       ))
-      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
-  get bottomRightSquare() {
+  getBottomRightSquare(ignoreMemory: boolean = false) {
     return this.panorama
       .filter((item) => (
         (item.location.x === (this.location.x! + 1) && item.location.y == this.location.y!) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === this.location.x && item.location.y == this.location.y! - 1)
       ))
-      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
   get encounterPlaces(): XYCoordinates[] {
-    const topLeftSquare = this.topLeftSquare
-    const bottomLeftSquare = this.bottomLeftSquare
-    const topRightSquare = this.topRightSquare
-    const bottomRightSquare = this.bottomRightSquare
+    const topLeftSquare = this.getTopLeftSquare(true)
+    const bottomLeftSquare = this.getBottomLeftSquare(true)
+    const topRightSquare = this.getTopRightSquare(true)
+    const bottomRightSquare = this.getBottomRightSquare(true)
     const coordinates: XYCoordinates[] = []
-
 
     if (topLeftSquare.length === 3) coordinates.push(this.getBasePositionItemId(topLeftSquare))
     if (bottomLeftSquare.length === 3) coordinates.push(this.getBasePositionItemId(bottomLeftSquare))

@@ -1,10 +1,12 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Location, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
 import { CustomMoveType } from './CustomMoveType'
 import { SquareHelper } from './helper/SquareHelper'
 import { Memory } from './Memory'
+import { panoramaLandscapes } from './PanoramaLandscapes'
 import { RuleId } from './RuleId'
 
 export class EncounterSpiritRule extends PlayerTurnRule {
@@ -76,10 +78,28 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       .material(MaterialType.LandscapeTile)
       .location(LocationType.Panorama)
       .player(this.player)
-      .id((id) => ids.includes(id))
-
+      .location((l) => ids.some((id: MountainLandscape) => this.isInThisLocation(id, l)))
     if (!landscapes.length) return
     return landscapes
+  }
+
+  isInThisLocation(id: MountainLandscape, location: Location) {
+    const coordinates = this.getCardPositionInPanorama(id)!
+    return location.x === coordinates.x && location.y === coordinates.y
+  }
+
+
+  getCardPositionInPanorama(id: MountainLandscape) {
+    for (let columnIndex = 0; columnIndex < panoramaLandscapes.length; columnIndex++) {
+      const column = panoramaLandscapes[columnIndex]
+      for (let rowIndex = 0; rowIndex < 7; rowIndex++) {
+        if (column[rowIndex] === id) {
+          return { x: columnIndex, y: rowIndex }
+        }
+      }
+    }
+
+    return
   }
 
   afterItemMove(move: ItemMove) {

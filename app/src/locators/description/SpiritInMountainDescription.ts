@@ -4,6 +4,7 @@ import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/r
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
+import { PlaceCardHelper } from '@gamepark/solstis/rules/helper/PlaceCardHelper'
 import { SquareHelper } from '@gamepark/solstis/rules/helper/SquareHelper'
 import { Memory } from '@gamepark/solstis/rules/Memory'
 import { RuleId } from '@gamepark/solstis/rules/RuleId'
@@ -29,15 +30,17 @@ export class SpiritInMountainDescription extends LocationDescription {
     if (!itemIds?.length || rules.game.rule?.id !== RuleId.EncounterSpirit) return []
 
     const locations: Location[] = []
+    const placeCardHelper = new PlaceCardHelper(rules.game)
     for (const itemId of itemIds) {
-      const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).id(itemId)
+      const coordinates = placeCardHelper.getCardPositionInPanorama(itemId)!
+      const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).location((l) => l.x === coordinates.x && l.y === coordinates.y)
       const item = material.getItem()!
-      const coordinates = new SquareHelper(rules.game, material.getIndex(), item.location).encounterPlaces
+      const places = new SquareHelper(rules.game, material.getIndex(), item.location).encounterPlaces
       locations.push(
-        ...coordinates.map((coordinates) => ({
+        ...places.map((place) => ({
           type: LocationType.SpiritInMountain,
           player: rules.game.rule!.player,
-          ...coordinates
+          ...place
         }))
       )
     }
