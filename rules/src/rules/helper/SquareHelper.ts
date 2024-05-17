@@ -30,7 +30,13 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === (this.location.x! - 1) && item.location.y == this.location.y!) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === this.location.x && item.location.y == this.location.y! + 1)
-      )).getItems()
+      ))
+      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .getItems()
+  }
+
+  get actualMustEncounterSpiritOn() {
+    return this.remind<number[] | undefined>(Memory.MustEncounterSpiritOn) ?? []
   }
 
   get bottomLeftSquare() {
@@ -39,7 +45,9 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === this.location.x! && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == this.location.y!)
-      )).getItems()
+      ))
+      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .getItems()
   }
 
   get topRightSquare() {
@@ -48,7 +56,9 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === this.location.x! && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == this.location.y!)
-      )).getItems()
+      ))
+      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .getItems()
   }
 
   get bottomRightSquare() {
@@ -57,7 +67,9 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === (this.location.x! + 1) && item.location.y == this.location.y!) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === this.location.x && item.location.y == this.location.y! - 1)
-      )).getItems()
+      ))
+      .filter((item) => !this.actualMustEncounterSpiritOn.includes(item.id))
+      .getItems()
   }
 
   get encounterPlaces(): XYCoordinates[] {
