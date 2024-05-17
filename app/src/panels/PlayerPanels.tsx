@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
-import { LocationType } from '@gamepark/solstis/material/LocationType'
-import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { ScoringHelper } from '@gamepark/solstis/rules/scoring/ScoringHelper'
 import { SolstisRules } from '@gamepark/solstis/SolstisRules'
 import { FC } from 'react'
