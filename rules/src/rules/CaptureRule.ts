@@ -68,7 +68,7 @@ export class CaptureRule extends PlayerTurnRule {
     const rule = new PlaceCardHelper(this.game)
     const moves: MaterialMove[] = rule.afterItemMove(move)
     const willGetRainbow = moves.some((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)?.id === MountainLandscape.Rainbow)
-    if (willGetRainbow || this.playAreaCard.length) return moves
+    if (willGetRainbow) return moves
     moves.push(...this.afterCardMove)
 
     return moves
