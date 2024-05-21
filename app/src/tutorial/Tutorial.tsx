@@ -22,7 +22,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
   options = { players: 2 }
   setup = new TutorialSetup()
 
-  players = [{ id: me }, { id: opponent }]
+  players = [{ id: me }, { id: opponent, name: 'Marmotte' }]
 
   steps: TutorialStep[] = [
     {
