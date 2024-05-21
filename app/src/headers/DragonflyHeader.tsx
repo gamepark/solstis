@@ -9,7 +9,7 @@ export const DragonflyHeader = () => {
   const player = usePlayerId()
   const activePlayer = rules.getActivePlayer()
   const itsMe = player && player === activePlayer
-  const targetName = usePlayerName(rules.game.players.find((p) => p !== activePlayer))
+  const targetName = usePlayerName(activePlayer)
 
   if (!player) {
     return <>{t('header.dragonfly.spectator', { player: targetName })}</>
