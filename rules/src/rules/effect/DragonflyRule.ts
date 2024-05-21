@@ -35,6 +35,8 @@ export class DragonflyRule extends DrawableEffectRule {
       const opponent = this.game.players.find((p) => p !== this.player)!
       if (deck.length) {
         moves.push(deck.moveItem({ type: LocationType.Hand, player: opponent }))
+      } else {
+        moves.push(this.rules().startRule(RuleId.RefillHand))
       }
 
       this.memorize(Memory.CardDrawn, true)
