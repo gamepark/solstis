@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { GridLocator } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api/dist/material/items/MaterialItem'
+import { MaterialItem } from '@gamepark/rules-api'
 import { spiritTileDescription } from '../material/SpiritTileDescription'
 
 

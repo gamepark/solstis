@@ -2,8 +2,7 @@
 
 import { css } from '@emotion/react'
 import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { isDeleteItemType } from '@gamepark/rules-api'
-import { isMoveItemType } from '@gamepark/rules-api/dist/material/moves/items/MoveItem'
+import { isDeleteItemType, isMoveItemType } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { getLine, getValue, MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
