@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItemType, ItemMove, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 
@@ -8,7 +8,7 @@ export class QueueHelper extends MaterialRulesPart {
   }
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
-    if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return []
+    if (!isMoveItemType(MaterialType.LandscapeTile)(move) && !isDeleteItemType(MaterialType.LandscapeTile)(move)) return []
     const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
     if (item.location.type !== LocationType.LandscapeQueue) return []
     const itemZ = item.location?.z
