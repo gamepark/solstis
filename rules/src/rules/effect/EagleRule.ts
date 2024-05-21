@@ -1,11 +1,12 @@
-import { CustomMove, isCustomMoveType, isStartRule, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { CustomMoveType } from '../CustomMoveType'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { RuleId } from '../RuleId'
+import { DrawableEffectRule } from './DrawableEffectRule'
 
-export class EagleRule extends PlayerTurnRule {
+export class EagleRule extends DrawableEffectRule {
 
   onRuleStart() {
     if (!this.deck.length) return [this.rules().startRule(RuleId.RefillHand)]
@@ -19,15 +20,6 @@ export class EagleRule extends PlayerTurnRule {
   onCustomMove(move: CustomMove) {
     if (!isCustomMoveType(CustomMoveType.DrawCard)(move)) return []
     return new PlaceCardHelper(this.game).getPlayCardMove(this.deck.index(move.data))
-  }
-
-  afterItemMove(move: ItemMove) {
-    const afterCardMove = new PlaceCardHelper(this.game).afterItemMove(move)
-    if (afterCardMove.some(isStartRule)) return afterCardMove
-    return [
-      ...afterCardMove,
-      this.rules().startRule(RuleId.RefillHand)
-    ]
   }
 
   get deck() {
