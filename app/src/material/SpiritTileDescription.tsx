@@ -65,6 +65,7 @@ export class SpiritTileDescription extends CardDescription {
     const { rules } = context
     const deckLength = rules.material(MaterialType.SpiritTile).location(LocationType.SpiritDeck).length
     const item = rules.material(MaterialType.SpiritTile).getItem(context.index)!
+    if (item.location.type !== LocationType.SpiritDeck) return false
     return item.location.x === (deckLength - 1)
   }
 }
