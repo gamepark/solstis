@@ -20,12 +20,13 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const legalMoves = useLegalMoves()
   const drawSpirits = legalMoves.find((move) => isCustomMoveType(CustomMoveType.DrawSpirits)(move) && item.location?.type === LocationType.SpiritDeck)
   const canPlaceSpirit = itemIndex !== undefined && legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && itemIndex === move.itemIndex)
-
+  const canCoverSpirit = legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex)?.id === Spirit.EvilBeaver)
   return (
     <>
       <h2>{t('help.spirit')}</h2>
       {drawSpirits && <PlayMoveButton move={drawSpirits} onPlay={closeDialog}>{t('move.draw-spirit')}</PlayMoveButton>}
       {canPlaceSpirit && <PlayMoveButton move={rules.material(MaterialType.SpiritTile).index(itemIndex!).selectItem()} local onPlay={closeDialog}>{t('move.select-spirit')}</PlayMoveButton>}
+      {canCoverSpirit && <PlayMoveButton move={canCoverSpirit} onPlay={closeDialog}>{t('move.cover-spirit')}</PlayMoveButton>}
       <p>{t('help.spirit.take')}</p>
       <p>{t('help.spirit.effect')}</p>
       {item.id === Spirit.Fish && <SpiritEffect textKey="help.trout" />}

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
@@ -67,6 +67,12 @@ export class SpiritTileDescription extends CardDescription {
     const item = rules.material(MaterialType.SpiritTile).getItem(context.index)!
     if (item.location.type !== LocationType.SpiritDeck) return false
     return item.location.x === (deckLength - 1)
+  }
+
+  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+    if (!isMoveItemType(MaterialType.SpiritTile)(move)) return super.canShortClick(move, context)
+    const item = context.rules.material(MaterialType.SpiritTile).getItem(context.index)!
+    return move.location.type === LocationType.SpiritInMountain && move.location.x === item.location.x && move.location.y === item.location.y
   }
 }
 

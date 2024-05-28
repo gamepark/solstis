@@ -84,6 +84,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   isInThisLocation(id: MountainLandscape, location: Location) {
+
     const coordinates = this.getCardPositionInPanorama(id)!
     return location.x === coordinates.x && location.y === coordinates.y
   }

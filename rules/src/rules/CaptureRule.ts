@@ -59,7 +59,6 @@ export class CaptureRule extends PlayerTurnRule {
   }
 
 
-
   afterItemMove(move: ItemMove) {
     if (isDeleteItemType(MaterialType.LandscapeTile)(move)) return this.afterCardMove
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
