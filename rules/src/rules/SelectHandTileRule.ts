@@ -27,8 +27,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return []
-    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
-    this.memorize(Memory.PlayedCard, item.id)
+    this.memorize(Memory.PlayedCard, move.itemIndex)
     return [
       this.rules().startRule(RuleId.Capture)
     ]
