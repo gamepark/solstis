@@ -62,10 +62,14 @@ export class ScoringHelper extends MaterialRulesPart {
   }
 
   get score() {
-    return this.spiritsScore + this.maxAreaScore + this.lightedFlamesScore
+    return this.specificSpiritScore + this.maxAreaScore + this.lightedFlamesScore + this.spiritScore
   }
 
-  get spiritsScore(): number {
+  get spiritScore() {
+    return this.spirits.length
+  }
+
+  get specificSpiritScore(): number {
     const spirits = this.spirits
     return sum(spirits
       .map((spirit) => this.getSpiritScore(spirit.id))) ?? 0
