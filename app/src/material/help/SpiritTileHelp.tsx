@@ -49,8 +49,14 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   )
 }
 
-const SpiritEffect = ({ textKey }: { textKey: string })  => <p css={textWithIconCss}><Trans defaults={textKey}><strong/><i/><span css={iconCss(Fire)}/><span
-  css={iconCss(Victory)}/></Trans></p>
+const SpiritEffect = ({ textKey }: { textKey: string })  => <p css={textWithIconCss}>
+  <Trans defaults={textKey}>
+    <strong/>
+    <i/>
+    <span css={iconCss(Victory)}/>
+    <span css={iconCss(Fire)}/>
+  </Trans>
+</p>
 
 
 const iconCss = (icon: string) => css`
