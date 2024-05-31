@@ -8,7 +8,7 @@ import { panoramaLandscapes } from '../PanoramaLandscapes'
 
 export class PlaceCardHelper extends PlayerTurnRule {
   getAutomaticMoves() {
-    if (this.captureMoves.length) return []
+    if (this.captureMoves.length || !this.hasPlacedQueueCard) return []
     const playedCard = this.playAreaCard
     return this.getPlayCardMove(playedCard)
   }
