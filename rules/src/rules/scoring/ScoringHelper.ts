@@ -75,6 +75,15 @@ export class ScoringHelper extends MaterialRulesPart {
       .map((spirit) => this.getSpiritScore(spirit.id))) ?? 0
   }
 
+  hasSpirit(id: Spirit) {
+    return this.spirits.find((s) => s.id === id) !== undefined
+  }
+
+  getPlayerSpiritScore(id: Spirit) {
+    if (!this.hasSpirit(id)) return
+    return this.getSpiritScore(id)
+  }
+
   get lightedFlamesScore() {
     return new ButterflyScoring(this.game, this.player).getScore(this.spirits, this.areas) ?? 0
   }
