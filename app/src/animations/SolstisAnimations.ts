@@ -6,6 +6,10 @@ import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 export const solstisAnimations = new MaterialGameAnimations()
 
 solstisAnimations.when()
+  .move((move, context) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && move.location.rotation === false && move.location.player === context.player)
+  .duration(0)
+
+solstisAnimations.when()
   .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Hand)
   .duration(0.6)
 

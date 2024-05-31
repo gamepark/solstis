@@ -7,6 +7,12 @@ import { Memory } from '../Memory'
 import { panoramaLandscapes } from '../PanoramaLandscapes'
 
 export class PlaceCardHelper extends PlayerTurnRule {
+  getAutomaticMoves() {
+    if (this.captureMoves.length) return []
+    const playedCard = this.playAreaCard
+    return this.getPlayCardMove(playedCard)
+  }
+
 
   getPlayCardMove(cards: Material) {
     const moves: MaterialMove[] = []
@@ -22,6 +28,12 @@ export class PlaceCardHelper extends PlayerTurnRule {
       const destination = this.getCardPositionInPanorama(item.id)!
       const tileOnTarget = this.material(MaterialType.LandscapeTile)
         .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y && l.player === this.player)
+
+      if (item.location.rotation) {
+        moves.push(
+          cards.index(cardIndex).rotateItem(false)
+        )
+      }
 
       if (tileOnTarget?.length && this.isCoveredBySpirit(destination)) {
         moves.push(
@@ -41,16 +53,15 @@ export class PlaceCardHelper extends PlayerTurnRule {
     return moves
   }
 
-  captureMoves(ignorePlayedCard?: boolean) {
+  get captureMoves() {
     const playedCard = this.playAreaCard
     const queue = this.queue
-    const moves: MaterialMove[] = ignorePlayedCard? []: this.getPlayCardMove(playedCard)
+    const moves: MaterialMove[] = []
 
     const rainbow = playedCard.filter((item) => item.id === MountainLandscape.Rainbow)
     if (rainbow.length) {
       return this.placeRainbow(rainbow)
     }
-
 
     if (!this.hasPlacedQueueCard) {
       const cards = queue

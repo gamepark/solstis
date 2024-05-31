@@ -21,7 +21,8 @@ export class SelectHandTileRule extends PlayerTurnRule {
   getPlayerMoves() {
     return this.getHand(this.player).moveItems({
       type: LocationType.PlayArea,
-      player: this.player
+      player: this.player,
+      rotation: true
     })
   }
 
