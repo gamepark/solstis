@@ -1,8 +1,9 @@
 import {
+  Action,
   CompetitiveScore,
   FillGapStrategy,
   hideItemId,
-  hideItemIdToOthers,
+  hideItemIdToOthers, isMoveItemType,
   MaterialGame,
   MaterialItem,
   MaterialMove,
@@ -82,6 +83,14 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
       [LocationType.SpiritDeck]: hideItemId,
       [LocationType.Hand]: hideItemIdToOthers
     }
+  }
+
+  canUndo(action: Action, consecutiveActions: Action[]): boolean {
+    if (isMoveItemType(MaterialType.LandscapeTile)(action.move)
+      && action.move.location.type === LocationType.PlayArea
+      && !consecutiveActions.length
+    ) return true
+    return super.canUndo(action, consecutiveActions)
   }
 
   getScore(playerId: PlayerId): number {
