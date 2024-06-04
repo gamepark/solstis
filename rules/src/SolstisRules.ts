@@ -75,7 +75,7 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
   hidingStrategies = {
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: hideItemId,
-      [LocationType.PlayArea]: (item: MaterialItem, player: any) => (!!item.location?.rotation && item.location.player !== player) ? ['id'] : [],
+      [LocationType.PlayArea]: hideItemIdToOthers,
       [LocationType.LandscapeQueue]: (item: MaterialItem) => !!item.location?.rotation ? ['id'] : [],
       [LocationType.Hand]: hideItemIdToOthers,
     },
