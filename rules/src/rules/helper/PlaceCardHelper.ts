@@ -160,8 +160,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
   }
 
   get playedCard() {
-    const index = this.remind<number>(Memory.PlayedCard)
-    return this.material(MaterialType.LandscapeTile).getItem(index)!.id
+    return this.remind<MountainLandscape>(Memory.PlayedCard)
   }
 
   get panorama() {

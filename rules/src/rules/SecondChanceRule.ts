@@ -22,7 +22,7 @@ export class SecondChanceRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.PlayArea) return []
-    this.memorize(Memory.PlayedCard, move.itemIndex)
+    this.memorize(Memory.PlayedCard, this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!.id)
     return []
   }
 }
