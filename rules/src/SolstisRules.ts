@@ -85,7 +85,7 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     }
   }
 
-  canUndo(action: Action, consecutiveActions: Action[]): boolean {
+  canUndo(action: Action<MaterialMove>, consecutiveActions: Action[]): boolean {
     if (isMoveItemType(MaterialType.LandscapeTile)(action.move)
       && action.move.location.type === LocationType.PlayArea
       && !consecutiveActions.length
