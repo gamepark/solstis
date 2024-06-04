@@ -1,4 +1,4 @@
-import { isDeleteItemType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, RuleMove, RuleStep } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MountainLandscape } from '../material/MountainLandscape'
@@ -13,14 +13,8 @@ export class CaptureRule extends PlayerTurnRule {
     return new PlaceCardHelper(this.game).captureMoves
   }
 
-  onRuleStart(_move: RuleMove, previousRule?: RuleStep) {
-    const helper = new PlaceCardHelper(this.game)
-    const moves = helper.getAutomaticMoves()
-    if (moves.length) return moves
-    const playerMoves = helper.captureMoves
-    if (playerMoves.length) return []
-    if (previousRule?.id === RuleId.SecondChance || previousRule?.id === RuleId.SelectHandTile) return this.discardAndGoToNext
-    return []
+  onRuleStart(_move: RuleMove) {
+    return new PlaceCardHelper(this.game).getAutomaticMoves()
   }
 
   get isSecondChance() {
@@ -35,15 +29,6 @@ export class CaptureRule extends PlayerTurnRule {
       this.memorize(Memory.QueueCardPlaced, move.itemIndex)
     }
     return moves
-  }
-
-  get discardAndGoToNext() {
-    return [
-      ...this.playAreaCard.moveItems({
-        type: LocationType.LandscapeQueue
-      }),
-      ...this.newRule
-    ]
   }
 
   get newRule() {
@@ -61,7 +46,7 @@ export class CaptureRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (isDeleteItemType(MaterialType.LandscapeTile)(move)) return this.afterCardMove
-    if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.LandscapeQueue && move.location.rotation === undefined) return []
+    if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.LandscapeQueue && move.location.rotation === undefined) return this.afterCardMove
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
 
     new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
