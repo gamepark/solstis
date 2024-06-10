@@ -57,7 +57,7 @@
       "help.salamander": "+ 1 <2/> for every <0>Rainbow</0> <1>tile</1> in your panorama.",
       "help.butterfly": "+ 1 <2/> for every lit <0>Fire</0> icon.",
       "help.spirit-evil": "When you draw the <0>Evil Spirit</0>, you’re forced to keep both it and the other <0>Spirit</0> you drew at the same time. Place the regular <0>Spirit</0> in your panorama as usual and keep the <0>Evil Spirit</0> somewhere in front of your panorama.\nThe next time you encounter a new <0>Spirit</0>, give the <0>Evil Spirit</0> to your opponent… and they can give it back to you if they encounter a <0>Spirit</0>, and so on.\n<0>At the end of the game, the player with the Evil Spirit has to use it to cover one of their own Spirits, chosen by their opponent.</0>",
-      "help.spirit.timing": "{player} choisit un Esprit à recouvrir",
+      "help.spirit.timing": "The effects of the <0>Spirits</0> on a wooden background are triggered immediately the moment you encounter them. As for those of the <0>Spirits</0> on a blue background, they activate at the end of the game.",
       "tuto.welcome": "Welcome to the Solstis tutorial!",
       "tuto.goal": "In Solstis, you need to recreate a panorama made up of these <0>Landscape tiles</0>.",
       "tuto.tile": "Each Landscape tile is unique, and goes into the panorama at a specific location, indicated by the number and associated colour.",
