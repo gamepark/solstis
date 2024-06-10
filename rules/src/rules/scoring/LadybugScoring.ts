@@ -1,4 +1,6 @@
 import { MaterialItem } from '@gamepark/rules-api'
+import { LocationType } from '../../material/LocationType'
+import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'
 import { landscapeFlames, panoramaLandscapes } from '../PanoramaLandscapes'
 import { AbstractScoringRule } from './AbstractScoringRule'
@@ -7,13 +9,21 @@ export class LadybugScoring extends AbstractScoringRule {
 
   getScore(_spirits: MaterialItem[], panoramaAreas: number[][]) {
     let score = 0
+    const tiles = this.landscapes
     for (const flame of Object.keys(landscapeFlames)) {
       const coordinates = this.findCoordinates(+flame)!
       const flameArea = panoramaAreas[coordinates.y][coordinates.x]
+      if (!tiles.filter((item) => item.location.y === coordinates.y && item.location.x === coordinates.x).length) continue
       if (flameArea === 0 || !panoramaAreas[0].includes(flameArea)) score += landscapeFlames[flame]
     }
 
     return Math.ceil(score)
+  }
+
+  get landscapes() {
+    return this.material(MaterialType.LandscapeTile)
+      .location(LocationType.Panorama)
+      .player(this.player)
   }
 
   findCoordinates(landscape: MountainLandscape) {
