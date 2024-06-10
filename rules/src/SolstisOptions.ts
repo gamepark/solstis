@@ -6,10 +6,17 @@ import { OptionsSpec } from '@gamepark/rules-api'
  */
 export type SolstisOptions = {
   players: number;
+  beginner: boolean;
 }
 
 /**
  * This object describes all the options a game can have, and will be used by GamePark website to create automatically forms for you game
  * (forms for friendly games, or forms for matchmaking preferences, for instance).
  */
-export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {}
+export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
+  beginner: {
+      label: (t) => t('beginner'),
+      help: (t) => t('beginner.help'),
+      competitiveDisabled: true
+  }
+}
