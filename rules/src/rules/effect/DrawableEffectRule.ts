@@ -2,6 +2,7 @@ import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepar
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
+import { QueueHelper } from '../helper/QueueHelper'
 import { RuleId } from '../RuleId'
 
 export class DrawableEffectRule extends PlayerTurnRule {
@@ -14,6 +15,10 @@ export class DrawableEffectRule extends PlayerTurnRule {
       ...moves,
       this.rules().startRule(RuleId.RefillHand)
     ]
+  }
+
+  beforeItemMove(move: ItemMove) {
+    return new QueueHelper(this.game).beforeItemMove(move)
   }
 
   mustPlayACardFromPlayArea(moves: MaterialMove[]) {
