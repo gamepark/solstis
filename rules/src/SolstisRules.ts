@@ -3,7 +3,9 @@ import {
   CompetitiveScore,
   FillGapStrategy,
   hideItemId,
-  hideItemIdToOthers, isMoveItemType,
+  hideItemIdToOthers,
+  isMoveItemType,
+  isStartRule,
   MaterialGame,
   MaterialItem,
   MaterialMove,
@@ -16,12 +18,12 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
 import { CaptureRule } from './rules/CaptureRule'
 import { BearRule } from './rules/effect/BearRule'
-import { GroundHogRule } from './rules/effect/GroundHogRule'
 import { BeetleRule } from './rules/effect/BeetleRule'
 import { DeerRule } from './rules/effect/DeerRule'
+import { DragonflyRule } from './rules/effect/DragonflyRule'
 import { EagleRule } from './rules/effect/EagleRule'
 import { FishRule } from './rules/effect/FishRule'
-import { DragonflyRule } from './rules/effect/DragonflyRule'
+import { GroundHogRule } from './rules/effect/GroundHogRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
 import { EvilBeaverRule } from './rules/EvilBeaverRule'
 import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
@@ -85,10 +87,15 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     }
   }
 
+  protected moveBlocksUndo(move: MaterialMove<PlayerId, MaterialType, LocationType>): boolean {
+    return super.moveBlocksUndo(move)
+  }
+
   canUndo(action: Action<MaterialMove>, consecutiveActions: Action[]): boolean {
     if (isMoveItemType(MaterialType.LandscapeTile)(action.move)
       && action.move.location.type === LocationType.PlayArea
       && !consecutiveActions.length
+      && action.consequences.every((move) => isStartRule(move) && move.id === RuleId.Capture)
     ) return true
     return super.canUndo(action, consecutiveActions)
   }
