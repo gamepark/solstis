@@ -15,9 +15,8 @@ export type SolstisOptions = {
  */
 export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
   beginner: {
-      label: (t) => t('beginner'),
-      help: (t) => t('beginner.help'),
-      competitiveDisabled: true,
-      //defaultValue: false
+    label: (t) => t('beginner'),
+    help: (t) => t('beginner.help'),
+    competitiveDisabled: true
   }
 }

@@ -12,6 +12,7 @@ import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Fire from '../../images/icons/fire.png'
 import Victory from '../../images/icons/victory.png'
+import equal from 'fast-deep-equal'
 
 export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const { t } = useTranslation()
@@ -20,7 +21,10 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const legalMoves = useLegalMoves()
   const drawSpirits = legalMoves.find((move) => isCustomMoveType(CustomMoveType.DrawSpirits)(move) && item.location?.type === LocationType.SpiritDeck)
   const canPlaceSpirit = itemIndex !== undefined && legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && itemIndex === move.itemIndex)
-  const canCoverSpirit = legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex)?.id === Spirit.EvilBeaver)
+  const canCoverSpirit = legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move)
+    && equal(move.location, item.location)
+    && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex)?.id === Spirit.EvilBeaver
+  )
   return (
     <>
       <h2>{t('help.spirit')}</h2>
