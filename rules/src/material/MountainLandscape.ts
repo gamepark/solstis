@@ -1,4 +1,4 @@
-import { isEnumValue } from '@gamepark/rules-api'
+import { getEnumValues } from '@gamepark/rules-api'
 
 export enum MountainLandscape {
   Landscape_1_1 = 101,
@@ -53,7 +53,7 @@ export enum MountainLandscape {
   Rainbow = 1000
 }
 
-export const mountainLandscapes = Object.values(MountainLandscape).filter(isEnumValue)
+export const mountainLandscapes = getEnumValues(MountainLandscape)
 
 export const getLine = (landscape: MountainLandscape) => Math.floor(landscape / 100) - 1
 
