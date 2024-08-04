@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { ItemContext, Locator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 import { PlayAreaDescription } from './description/PlayAreaDescription'
 
-export class PlayAreaLocator extends ItemLocator {
+export class PlayAreaLocator extends Locator {
 
   locationDescription = new PlayAreaDescription()
 

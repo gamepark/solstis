@@ -1,4 +1,4 @@
-import { ItemLocator } from '@gamepark/react-game'
+import { Locator } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { PlayerId } from '@gamepark/solstis/PlayerId'
@@ -14,7 +14,7 @@ import { spiritDeckLocator } from './SpiritDeckLocator'
 import { spiritInMountainLocator } from './SpiritInMountainLocator'
 import { spiritLineLocator } from './SpiritLineLocator'
 
-export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, MaterialType, LocationType>>> = {
+export const Locators: Partial<Record<LocationType, Locator<PlayerId, MaterialType, LocationType>>> = {
   [LocationType.LandscapeDeck]: landscapeDeckLocator,
   [LocationType.RainbowDeck]: rainbowDeckLocator,
   [LocationType.Panorama]: panoramaLocator,
