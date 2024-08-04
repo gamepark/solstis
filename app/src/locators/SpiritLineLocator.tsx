@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { GridLocator } from '@gamepark/react-game'
+import { FlexLocator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { spiritTileDescription } from '../material/SpiritTileDescription'
 
 
-export class SpiritLineLocator extends GridLocator {
+export class SpiritLineLocator extends FlexLocator {
   itemsPerLine = 5
   itemsGap = { x: spiritTileDescription.width + 0.3 }
   linesGap = { y: spiritTileDescription.height + 0.3}
