@@ -50,7 +50,8 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   getCardToPanoramaMoves(material: Material) {
     const moves: MaterialMove[] = []
-    const availableLandscapes = this.availableLandscapes!
+    const availableLandscapes = this.availableLandscapes
+    if (!availableLandscapes) return []
 
     for (const landscapeIndex of availableLandscapes.getIndexes()) {
       const item = availableLandscapes.getItem(landscapeIndex)!
