@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ItemLocator, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { Locator, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { getLine } from '@gamepark/solstis/material/MountainLandscape'
@@ -27,7 +27,7 @@ class CardCharacteristicDescription extends LocationDescription {
 
 export const cardCharacteristicDescription = new CardCharacteristicDescription()
 
-export class CardCharacteristicLocator extends ItemLocator {
+export class CardCharacteristicLocator extends Locator {
   locationDescription = cardCharacteristicDescription
   parentItemType = MaterialType.LandscapeTile
 

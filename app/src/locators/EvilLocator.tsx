@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { ItemContext, Locator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 
-export class EvilLocator extends ItemLocator {
+export class EvilLocator extends Locator {
 
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {

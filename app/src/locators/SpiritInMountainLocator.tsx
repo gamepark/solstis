@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { ItemContext, Locator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
 import { SpiritInMountainDescription } from './description/SpiritInMountainDescription'
 
-export class SpiritInMountainLocator extends ItemLocator {
+export class SpiritInMountainLocator extends Locator {
   locationDescription = new SpiritInMountainDescription()
   delta = { z: 0.5 }
 
