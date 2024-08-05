@@ -1,11 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { HandLocator, ItemContext } from '@gamepark/react-game'
+import { HandLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { PlayerHandDescription } from './description/PlayerHandDescription'
 
 export class PlayerHandLocator extends HandLocator {
   locationDescription = new PlayerHandDescription()
+
+  getLocations({ player }: MaterialContext) {
+    if (!player) return []
+    return [{
+      type: LocationType.Hand,
+      player: player
+    }]
+  }
 
   getCoordinates(location: Location, context: ItemContext): Coordinates {
     if (context.type === MaterialType.LandscapeTile) {
@@ -32,7 +41,8 @@ export class PlayerHandLocator extends HandLocator {
     return 4.5
   }
 
-  getSpiritCoordinates(location: Location, context: ItemContext) {const { rules, player } = context
+  getSpiritCoordinates(location: Location, context: ItemContext) {
+    const { rules, player } = context
     if (!player && rules.players[0] === location.player) {
       return { x: -31, y: -6, z: 0.05 }
     }
@@ -68,7 +78,6 @@ export class PlayerHandLocator extends HandLocator {
   getSpiritGapMaxAngle(item: MaterialItem, context: ItemContext) {
     return this.getLandscapeGapMaxAngle(item, context) - 0.55
   }
-
 
 
   getBaseAngle(item: MaterialItem, context: ItemContext) {
