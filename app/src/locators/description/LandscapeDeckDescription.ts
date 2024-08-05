@@ -34,5 +34,4 @@ export class LandscapeDeckDescription extends LocationDescription {
   extraCss = css``
   coordinates = { x: 4.85, y: -6.5, z: 50}
   alwaysVisible = true
-  location = { type: LocationType.LandscapeDeck }
 }

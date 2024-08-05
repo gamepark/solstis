@@ -2,7 +2,6 @@
 import { css } from '@emotion/react'
 import { ItemContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location } from '@gamepark/rules-api'
-import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 
 export class PlayAreaDescription extends LocationDescription {
@@ -14,13 +13,6 @@ export class PlayAreaDescription extends LocationDescription {
   alwaysVisible = true
 
   extraCss = css`pointer-events: none`
-
-  getLocations(context: MaterialContext) {
-    return context.rules.players.map((p) => ({
-      type: LocationType.PlayArea,
-      player: p
-    }))
-  }
 
   getCoordinates(location: Location, context: ItemContext): Coordinates {
     return this.getPlayAreaCoordinates(location, context)

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, Locator } from '@gamepark/react-game'
+import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
+import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 import { PlayAreaDescription } from './description/PlayAreaDescription'
@@ -8,6 +9,13 @@ import { PlayAreaDescription } from './description/PlayAreaDescription'
 export class PlayAreaLocator extends Locator {
 
   locationDescription = new PlayAreaDescription()
+
+  getLocations(context: MaterialContext) {
+    return context.rules.players.map((p) => ({
+      type: LocationType.PlayArea,
+      player: p
+    }))
+  }
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     const { rules, player } = context
