@@ -14,6 +14,9 @@ export class EagleRule extends DrawableEffectRule {
   }
 
   getPlayerMoves() {
+    if (this.playAreaCard.length) {
+      return new PlaceCardHelper(this.game).getPlayCardMove(this.playAreaCard)
+    }
     return this.deck.getIndexes().map((index) => this.rules().customMove(CustomMoveType.DrawCard, index))
   }
 
