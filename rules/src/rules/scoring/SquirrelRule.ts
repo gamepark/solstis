@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import equal from 'fast-deep-equal'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -23,21 +23,24 @@ export class SquirrelRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return []
-    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
-    const moves: MaterialMove[] = []
-    if (item.id !== MountainLandscape.Rainbow) {
-      const rainbowOnPlace = this
-        .material(MaterialType.LandscapeTile)
-        .location((l) => equal(l, item.location))
-        .id(MountainLandscape.Rainbow)
+    if (!isMoveItemType(MaterialType.LandscapeTile)(move) && !isDeleteItemType(MaterialType.LandscapeTile)) return []
 
-      moves.push(
-        ...rainbowOnPlace.moveItems({
-          type: LocationType.PlayArea,
-          player: this.player
-        })
-      )
+    const moves: MaterialMove[] = []
+    if (isMoveItemType(MaterialType.LandscapeTile)(move)) {
+      const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
+      if (item.id !== MountainLandscape.Rainbow) {
+        const rainbowOnPlace = this
+          .material(MaterialType.LandscapeTile)
+          .location((l) => equal(l, item.location))
+          .id(MountainLandscape.Rainbow)
+
+        moves.push(
+          ...rainbowOnPlace.moveItems({
+            type: LocationType.PlayArea,
+            player: this.player
+          })
+        )
+      }
     }
 
     if (!moves.length && !this.hand.length && !this.playAreaCard.length) {

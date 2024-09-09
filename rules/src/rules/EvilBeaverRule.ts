@@ -43,6 +43,7 @@ export class EvilBeaverRule extends PlayerTurnRule {
     if (evil.length) {
       delete evil.getItem()!.selected
     }
+
     return this.goToNextRule()
   }
 
