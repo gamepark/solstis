@@ -1,24 +1,14 @@
-/** @jsxImportSource @emotion/react */
-import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
-import { Location, MaterialItem } from '@gamepark/rules-api'
-import { Coordinates } from '@gamepark/rules-api'
+import { LocationContext, Locator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { panoramaLandscapes } from '@gamepark/solstis/rules/PanoramaLandscapes'
+import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 import { PanoramaDescription } from './description/PanoramaDescription'
 
-export class PanoramaLocator extends Locator {
-  locationDescription = new PanoramaDescription()
+class PanoramaLocator extends Locator {
+  locationDescription = new PanoramaDescription(landscapeTileDescription)
 
-
-  getPosition(item: MaterialItem, context: ItemContext<number, number, number>): Coordinates {
-    const position = this.locationDescription.getCoordinates(item.location, context)
-    position.z = 0.1
-
-    return position
-  }
-
-  getLocations(context: MaterialContext) {
-    const { rules } = context
+  getLocations({ rules }: MaterialContext) {
     const locations: Location[] = []
     for (const player of rules.players) {
       for (let columnIndex = 0; columnIndex < panoramaLandscapes.length; columnIndex++) {
@@ -35,8 +25,15 @@ export class PanoramaLocator extends Locator {
         }
       }
     }
-
     return locations
+  }
+
+  getCoordinates(location: Location, { rules, player = rules.players[0] }: LocationContext) {
+    const panoramaX = location.player === player ? -32 : 12
+    return {
+      x: panoramaX + location.x! * (landscapeTileDescription.width + 0.1),
+      y: 12 - location.y! * (landscapeTileDescription.height + 0.1)
+    }
   }
 }
 

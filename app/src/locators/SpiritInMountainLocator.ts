@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
+import { Location, MaterialItem } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
@@ -9,11 +9,13 @@ import { PlaceCardHelper } from '@gamepark/solstis/rules/helper/PlaceCardHelper'
 import { SquareHelper } from '@gamepark/solstis/rules/helper/SquareHelper'
 import { Memory } from '@gamepark/solstis/rules/Memory'
 import { RuleId } from '@gamepark/solstis/rules/RuleId'
+import { landscapeTileDescription } from '../material/LandscapeTileDescription'
 import { SpiritInMountainDescription } from './description/SpiritInMountainDescription'
+import { panoramaLocator } from './PanoramaLocator'
 
-export class SpiritInMountainLocator extends Locator {
+class SpiritInMountainLocator extends Locator {
   locationDescription = new SpiritInMountainDescription()
-  
+
   getLocations(context: MaterialContext) {
     const evilRuleLocations: Location[] = this.getEvilRuleLocations(context)
     if (evilRuleLocations.length) return evilRuleLocations
@@ -54,25 +56,24 @@ export class SpiritInMountainLocator extends Locator {
       .player((player) => player !== rules.game.rule?.player)
       .getItems()
       .map((item) => ({
-        ...item.location,
+        ...item.location
       }))
   }
 
-  delta = { z: 0.5 }
-
-  getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    const position = this.locationDescription.getDropZonePosition(item.location, context)
-    position.z +=1
-    if (item.id === Spirit.EvilBeaver) position.z += 1
-    return position
+  getCoordinates(location: Location, context: MaterialContext) {
+    const { x, y } = panoramaLocator.getCoordinates(location, context)
+    return {
+      x: x + landscapeTileDescription.width / 2 + 0.05,
+      y: y - landscapeTileDescription.height / 2 - 0.05
+    }
   }
 
-
-  getRotateZ(item: MaterialItem) {
-    if (item.id === Spirit.EvilBeaver) return 45
-    return 0
+  getItemCoordinates(item: MaterialItem, context: ItemContext) {
+    const { x, y, z = 0 } = super.getItemCoordinates(item, context)
+    return item.id === Spirit.EvilBeaver ? { x, y, z: z + 1 } : { x, y, z }
   }
 
+  getItemRotateZ = (item: MaterialItem) => item.id === Spirit.EvilBeaver ? 45 : 0
 }
 
 export const spiritInMountainLocator = new SpiritInMountainLocator()

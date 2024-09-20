@@ -1,4 +1,4 @@
-import { Locator } from '@gamepark/react-game'
+import { DeckLocator, Locator } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { PlayerId } from '@gamepark/solstis/PlayerId'
@@ -9,17 +9,15 @@ import { landscapeQueueLocator } from './LandscapeQueueLocator'
 import { panoramaLocator } from './PanoramaLocator'
 import { playAreaLocator } from './PlayAreaLocator'
 import { playerHandLocator } from './PlayerHandLocator'
-import { rainbowDeckLocator } from './RainbowDeckLocator'
-import { spiritDeckLocator } from './SpiritDeckLocator'
 import { spiritInMountainLocator } from './SpiritInMountainLocator'
 import { spiritLineLocator } from './SpiritLineLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerId, MaterialType, LocationType>>> = {
   [LocationType.LandscapeDeck]: landscapeDeckLocator,
-  [LocationType.RainbowDeck]: rainbowDeckLocator,
+  [LocationType.RainbowDeck]: new DeckLocator({ coordinates: { x: 5, y: 7 } }),
   [LocationType.Panorama]: panoramaLocator,
   [LocationType.LandscapeQueue]: landscapeQueueLocator,
-  [LocationType.SpiritDeck]: spiritDeckLocator,
+  [LocationType.SpiritDeck]: new DeckLocator({ coordinates: { x: 18, y: -22 } }),
   [LocationType.SpiritLine]: spiritLineLocator,
   [LocationType.Hand]: playerHandLocator,
   [LocationType.PlayArea]: playAreaLocator,
