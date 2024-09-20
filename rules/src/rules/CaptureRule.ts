@@ -15,7 +15,7 @@ export class CaptureRule extends PlayerTurnRule {
 
   onRuleStart(_move: RuleMove, previousRule?: RuleStep) {
     const playerMoves = new PlaceCardHelper(this.game).captureMoves()
-    if (playerMoves.length === 0) return [this.rules().startRule(RuleId.EncounterSpirit)]
+    if (playerMoves.length === 0) return [this.startRule(RuleId.EncounterSpirit)]
     if (playerMoves.length === 1) {
       if (previousRule?.id === RuleId.SecondChance || previousRule?.id === RuleId.SelectHandTile) return this.discardAndGoToNext
       return playerMoves
@@ -31,7 +31,7 @@ export class CaptureRule extends PlayerTurnRule {
     if (!isDeleteItemType(MaterialType.LandscapeTile)(move) && (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama)) return []
     const moves: MaterialMove[] = new QueueHelper(this.game).beforeItemMove(move)
 
-    if (this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)?.location?.type === LocationType.LandscapeQueue) {
+    if (this.material(MaterialType.LandscapeTile).getItem(move.itemIndex).location?.type === LocationType.LandscapeQueue) {
       this.memorize(Memory.QueueCardPlaced, move.itemIndex)
     }
     return moves
@@ -48,9 +48,9 @@ export class CaptureRule extends PlayerTurnRule {
 
   get newRule() {
     if (!this.deck.length && !this.isSecondChance) {
-      return [this.rules().startRule(RuleId.EncounterSpirit)]
+      return [this.startRule(RuleId.EncounterSpirit)]
     }
-    return [this.rules().startRule(this.isSecondChance ? RuleId.PlaceRainbow : RuleId.SecondChance)]
+    return [this.startRule(this.isSecondChance ? RuleId.PlaceRainbow : RuleId.SecondChance)]
   }
 
   get deck() {
@@ -66,7 +66,7 @@ export class CaptureRule extends PlayerTurnRule {
     new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
     const rule = new PlaceCardHelper(this.game)
     const moves: MaterialMove[] = rule.afterItemMove(move)
-    const willGetRainbow = moves.some((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)?.id === MountainLandscape.Rainbow)
+    const willGetRainbow = moves.some((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && this.material(MaterialType.LandscapeTile).getItem(move.itemIndex).id === MountainLandscape.Rainbow)
     if (willGetRainbow) return moves
     moves.push(...this.afterCardMove)
 
@@ -77,7 +77,7 @@ export class CaptureRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const remainingMoves = new PlaceCardHelper(this.game).captureMoves()
     if (!remainingMoves.length) {
-      moves.push(this.rules().startRule(RuleId.EncounterSpirit))
+      moves.push(this.startRule(RuleId.EncounterSpirit))
     } else if (remainingMoves.length === 1) {
       moves.push(...remainingMoves)
     }

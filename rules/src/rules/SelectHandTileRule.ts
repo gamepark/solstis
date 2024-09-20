@@ -27,10 +27,10 @@ export class SelectHandTileRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return []
-    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
+    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
     this.memorize(Memory.PlayedCard, item.id)
     return [
-      this.rules().startRule(RuleId.Capture)
+      this.startRule(RuleId.Capture)
     ]
   }
 
@@ -91,12 +91,12 @@ export class SelectHandTileRule extends PlayerTurnRule {
     }
 
     if (!someoneCanPlay) {
-      if (evilPlayer) return [this.rules().startPlayerTurn(RuleId.EvilBeaver, evilPlayer)]
-      if (squirrelPlayer) return [this.rules().startPlayerTurn(RuleId.Squirrel, squirrelPlayer)]
-      return [this.rules().endGame()]
+      if (evilPlayer) return [this.startPlayerTurn(RuleId.EvilBeaver, evilPlayer)]
+      if (squirrelPlayer) return [this.startPlayerTurn(RuleId.Squirrel, squirrelPlayer)]
+      return [this.endGame()]
     }
 
-    if (someoneCanPlay && !this.canPlay(this.player)) return [this.rules().startPlayerTurn(RuleId.SelectHandTile, this.nextPlayer)]
+    if (someoneCanPlay && !this.canPlay(this.player)) return [this.startPlayerTurn(RuleId.SelectHandTile, this.nextPlayer)]
 
     return []
   }

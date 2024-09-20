@@ -34,7 +34,7 @@ class CardCharacteristicLocator extends Locator {
 
   getPositionOnParent(l: Location, context: MaterialContext) {
     const { rules } = context
-    const { id } = rules.material(MaterialType.LandscapeTile).getItem(l.parent!)!
+    const { id } = rules.material(MaterialType.LandscapeTile).getItem(l.parent!)
 
     if (l.id === Characteristic.Color) return { x: 33, y: (getLine(id) === 3) ? 87 : (getLine(id) === 0 ? 85 : 84) }
     if (l.id === Characteristic.Fire) return { x: 36, y: 14.5 }

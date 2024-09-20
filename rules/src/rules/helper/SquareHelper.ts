@@ -10,7 +10,7 @@ export class SquareHelper extends MaterialRulesPart {
   item: MaterialItem
   constructor(game: MaterialGame, readonly itemIndex: number, readonly location: Partial<Location>) {
     super(game)
-    this.item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)!
+    this.item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)
   }
 
   get encounterSpiritMoves(): MaterialMove[] {
@@ -19,7 +19,7 @@ export class SquareHelper extends MaterialRulesPart {
     const topRightSquare = this.getTopRightSquare()
     const bottomRightSquare = this.getBottomRightSquare()
     if (topLeftSquare.length === 3 || bottomLeftSquare.length === 3 || topRightSquare.length === 3 || bottomRightSquare.length === 3) {
-      const item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)!
+      const item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)
       if (item.id === MountainLandscape.Rainbow) {
         this.memorize(Memory.MustEncounterSpiritOn, (ids = []) => [...ids, panoramaLandscapes[item.location.x!][item.location.y!]])
       } else {

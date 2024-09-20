@@ -13,7 +13,7 @@ export class DrawableEffectRule extends PlayerTurnRule {
 
     return [
       ...moves,
-      this.rules().startRule(RuleId.RefillHand)
+      this.startRule(RuleId.RefillHand)
     ]
   }
 

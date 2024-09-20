@@ -6,7 +6,7 @@ import { DrawableEffectRule } from './DrawableEffectRule'
 
 export class BeetleRule extends DrawableEffectRule {
   onRuleStart() {
-    if (!this.queue.length) return [this.rules().startRule(RuleId.RefillHand)]
+    if (!this.queue.length) return [this.startRule(RuleId.RefillHand)]
     return []
   }
 

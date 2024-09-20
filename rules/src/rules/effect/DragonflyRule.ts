@@ -11,7 +11,7 @@ export class DragonflyRule extends DrawableEffectRule {
 
   getPlayerMoves() {
     if (!this.isCardDrawn) {
-      return this.opponentHand.getIndexes().map((index) => this.rules().customMove(CustomMoveType.DrawCard, index))
+      return this.opponentHand.getIndexes().map((index) => this.customMove(CustomMoveType.DrawCard, index))
     }
 
     return new PlaceCardHelper(this.game).getPlayCardMove(this.playAreaCard)
@@ -36,14 +36,14 @@ export class DragonflyRule extends DrawableEffectRule {
       if (deck.length) {
         moves.push(deck.moveItem({ type: LocationType.Hand, player: opponent }))
       } else {
-        moves.push(this.rules().startRule(RuleId.RefillHand))
+        moves.push(this.startRule(RuleId.RefillHand))
       }
 
       this.memorize(Memory.CardDrawn, true)
       return moves
     }
 
-    moves.push(this.rules().startRule(RuleId.RefillHand))
+    moves.push(this.startRule(RuleId.RefillHand))
     return moves
   }
 

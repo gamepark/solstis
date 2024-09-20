@@ -13,11 +13,11 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   onRuleStart() {
     const spiritLine = this.spiritLine
-    if (!this.availableLandscapes) return [this.rules().startRule(RuleId.RefillHand)]
+    if (!this.availableLandscapes) return [this.startRule(RuleId.RefillHand)]
     if (spiritLine.length) return []
 
     return [
-      this.rules().customMove(CustomMoveType.DrawSpirits)
+      this.customMove(CustomMoveType.DrawSpirits)
     ]
   }
 
@@ -36,7 +36,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     const hand = this.hand
     if (!hand.length) {
       return [
-        this.rules().customMove(CustomMoveType.DrawSpirits),
+        this.customMove(CustomMoveType.DrawSpirits),
         ...this.getCardToPanoramaMoves(this.spiritLine)
       ]
     }
@@ -54,7 +54,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     if (!availableLandscapes) return []
 
     for (const landscapeIndex of availableLandscapes.getIndexes()) {
-      const item = availableLandscapes.getItem(landscapeIndex)!
+      const item = availableLandscapes.getItem(landscapeIndex)
       const places = new SquareHelper(this.game, landscapeIndex, item.location).encounterPlaces
       for (const coordinates of places) {
         const cards = material.id((id) => id !== Spirit.EvilBeaver)
@@ -121,11 +121,11 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
     const effect = this.getSpiritEffect(spiritItem.id)
     if (effect) {
-      moves.push(this.rules().startRule(effect))
+      moves.push(this.startRule(effect))
       return moves
     }
 
-    moves.push(this.rules().startRule(RuleId.RefillHand))
+    moves.push(this.startRule(RuleId.RefillHand))
     return moves
   }
 

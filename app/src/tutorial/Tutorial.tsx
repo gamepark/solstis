@@ -165,7 +165,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         player: opponent,
         filter: (move, game) => {
           if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return false
-          const item = this.material(game, MaterialType.LandscapeTile).getItem(move.itemIndex)!
+          const item = this.material(game, MaterialType.LandscapeTile).getItem(move.itemIndex)
           const landscapeGreen3 = this.material(game, MaterialType.LandscapeTile).id(MountainLandscape.Landscape_3_3).getItem()!
           const landscapePink6 = this.material(game, MaterialType.LandscapeTile).id(MountainLandscape.Landscape_5_6).getItem()!
           if (!landscapeGreen3.location.rotation) return item.id === MountainLandscape.Landscape_3_4
@@ -186,7 +186,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         player: opponent,
         filter: (move, game) => {
           if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return false
-          const item = this.material(game, MaterialType.LandscapeTile).getItem(move.itemIndex)!
+          const item = this.material(game, MaterialType.LandscapeTile).getItem(move.itemIndex)
           const playAreaItem = this.material(game, MaterialType.LandscapeTile).location(LocationType.PlayArea).getItem()!
           if (playAreaItem.id === MountainLandscape.Landscape_3_4) return item.id === MountainLandscape.Landscape_3_3
           if (playAreaItem.id === MountainLandscape.Landscape_5_3) return item.id === MountainLandscape.Landscape_5_6

@@ -9,7 +9,7 @@ export class QueueHelper extends MaterialRulesPart {
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) && !isDeleteItemType(MaterialType.LandscapeTile)(move)) return []
-    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
+    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
     if (item.location.type !== LocationType.LandscapeQueue) return []
     const itemZ = item.location?.z
     if (itemZ !== undefined &&  itemZ > 0) {

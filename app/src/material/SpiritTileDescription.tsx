@@ -64,7 +64,7 @@ export class SpiritTileDescription extends CardDescription {
     if (!isCustomMoveType(CustomMoveType.DrawSpirits)(move)) return super.canDrag(move, context)
     const { rules } = context
     const deckLength = rules.material(MaterialType.SpiritTile).location(LocationType.SpiritDeck).length
-    const item = rules.material(MaterialType.SpiritTile).getItem(context.index)!
+    const item = rules.material(MaterialType.SpiritTile).getItem(context.index)
     if (item.location.type !== LocationType.SpiritDeck) return false
     return item.location.x === (deckLength - 1)
   }

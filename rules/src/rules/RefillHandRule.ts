@@ -9,7 +9,7 @@ export class RefillHandRule extends PlayerTurnRule {
 
   onRuleStart() {
     const deck = this.deck
-    const nextPlayerRule = this.rules().startPlayerTurn(RuleId.SelectHandTile, this.hasFreeTurn? this.player: this.nextPlayer)
+    const nextPlayerRule = this.startPlayerTurn(RuleId.SelectHandTile, this.hasFreeTurn? this.player: this.nextPlayer)
     if (deck.length === 0) return [nextPlayerRule]
     const hand = this.hand
 

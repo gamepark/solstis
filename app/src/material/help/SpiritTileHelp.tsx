@@ -23,7 +23,7 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const canPlaceSpirit = itemIndex !== undefined && legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && itemIndex === move.itemIndex)
   const canCoverSpirit = legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move)
     && equal(move.location, item.location)
-    && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex)?.id === Spirit.EvilBeaver
+    && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex).id === Spirit.EvilBeaver
   )
   return (
     <>

@@ -5,6 +5,6 @@ import { RuleId } from '../RuleId'
 export class GroundHogRule extends PlayerTurnRule {
   onRuleStart() {
     this.memorize(Memory.FreeTurn, true)
-    return [this.rules().startRule(RuleId.RefillHand)]
+    return [this.startRule(RuleId.RefillHand)]
   }
 }

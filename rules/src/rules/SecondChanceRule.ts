@@ -16,13 +16,13 @@ export class SecondChanceRule extends PlayerTurnRule {
           type: LocationType.PlayArea,
           player: this.player
         }),
-      this.rules().startRule(RuleId.Capture)
+      this.startRule(RuleId.Capture)
     ]
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.PlayArea) return []
-    this.memorize(Memory.PlayedCard, this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!.id)
+    this.memorize(Memory.PlayedCard, this.material(MaterialType.LandscapeTile).getItem(move.itemIndex).id)
     return []
   }
 }

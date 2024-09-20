@@ -50,10 +50,10 @@ export class EvilBeaverRule extends PlayerTurnRule {
   goToNextRule() {
     for (const player of this.game.players) {
       const spirits = this.getSpirits(player)
-      if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.rules().startPlayerTurn(RuleId.Squirrel, player)]
+      if (spirits.some((s) => s.id === Spirit.Squirrel)) return [this.startPlayerTurn(RuleId.Squirrel, player)]
     }
 
-    return [this.rules().endGame()]
+    return [this.endGame()]
   }
 
   get evil() {

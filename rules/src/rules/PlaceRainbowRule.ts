@@ -18,7 +18,7 @@ export class PlaceRainbowRule extends PlayerTurnRule {
   }
 
   afterRainbowPlaced(): MaterialMove[] {
-    return [this.rules().startRule(RuleId.EncounterSpirit)]
+    return [this.startRule(RuleId.EncounterSpirit)]
   }
 
   get rainbowCard() {

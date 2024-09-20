@@ -10,7 +10,7 @@ export class SquirrelRule extends PlayerTurnRule {
   onRuleStart() {
     const moves: MaterialMove[] = new PlaceCardHelper(this.game).getPlayCardMove(this.hand)
     if (!moves.length) {
-      return [this.rules().endGame()]
+      return [this.endGame()]
     }
 
     return moves
@@ -27,7 +27,7 @@ export class SquirrelRule extends PlayerTurnRule {
 
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.LandscapeTile)(move)) {
-      const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
+      const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
       if (item.id !== MountainLandscape.Rainbow) {
         const rainbowOnPlace = this
           .material(MaterialType.LandscapeTile)
@@ -44,7 +44,7 @@ export class SquirrelRule extends PlayerTurnRule {
     }
 
     if (!moves.length && !this.hand.length && !this.playAreaCard.length) {
-      return [this.rules().endGame()]
+      return [this.endGame()]
     }
 
     return moves

@@ -11,7 +11,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
   getPlayCardMove(cards: Material) {
     const moves: MaterialMove[] = []
     for (const cardIndex of cards.getIndexes()) {
-      const item = cards.getItem(cardIndex)!
+      const item = cards.getItem(cardIndex)
       if (item.id === MountainLandscape.Rainbow) {
         moves.push(
           ...this.placeRainbow(cards.index(cardIndex))
@@ -97,7 +97,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move)) return []
-    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
+    const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
     if (item.id === MountainLandscape.Rainbow) return []
     const rainbowOnPlace = this
       .material(MaterialType.LandscapeTile)

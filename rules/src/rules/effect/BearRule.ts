@@ -7,14 +7,14 @@ export class BearRule extends PlayerTurnRule {
 
   onRuleStart() {
     const deck = this.deck
-    if (!deck.length) return [this.rules().startRule(RuleId.RefillHand)]
+    if (!deck.length) return [this.startRule(RuleId.RefillHand)]
 
     return [
       deck.moveItem({
         type: LocationType.Hand,
         player: this.player
       }),
-      this.rules().startRule(RuleId.RefillHand)
+      this.startRule(RuleId.RefillHand)
     ]
   }
 
