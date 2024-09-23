@@ -46,27 +46,38 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Bird]: Bird,
     [Spirit.Lizard]: Lizard,
     [Spirit.Butterfly]: Butterfly,
-    [Spirit.EvilBeaver]: EvilBeaver,
+    [Spirit.EvilBeaver]: EvilBeaver
   }
 
   help = SpiritTileHelp
 
   getItemExtraCss(item: MaterialItem) {
     if (item.selected) {
-      return css` > div { box-shadow: 0 0 0 0.2em green}`
+      return css` > div {
+        box-shadow: 0 0 0 0.2em green
+      }`
     }
 
     return
   }
 
+  isDrawSpirits(move: MaterialMove, context: ItemContext) {
+    if (isCustomMoveType(CustomMoveType.DrawSpirits)(move)) {
+      const { rules } = context
+      const deckLength = rules.material(MaterialType.SpiritTile).location(LocationType.SpiritDeck).length
+      const item = rules.material(MaterialType.SpiritTile).getItem(context.index)
+      if (item.location.type !== LocationType.SpiritDeck) return false
+      return item.location.x === (deckLength - 1)
+    }
+    return false
+  }
+
   canDrag(move: MaterialMove, context: ItemContext) {
-    if (context.type !== MaterialType.SpiritTile) return false
-    if (!isCustomMoveType(CustomMoveType.DrawSpirits)(move)) return super.canDrag(move, context)
-    const { rules } = context
-    const deckLength = rules.material(MaterialType.SpiritTile).location(LocationType.SpiritDeck).length
-    const item = rules.material(MaterialType.SpiritTile).getItem(context.index)
-    if (item.location.type !== LocationType.SpiritDeck) return false
-    return item.location.x === (deckLength - 1)
+    return this.isDrawSpirits(move, context) || super.canDrag(move, context)
+  }
+
+  canLongClick(move: MaterialMove, context: ItemContext) {
+    return this.isDrawSpirits(move, context) || super.canLongClick(move, context)
   }
 }
 
