@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
+import { isItemContext, ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
@@ -64,7 +64,8 @@ class SpiritInMountainLocator extends Locator {
     const { x, y } = panoramaLocator.getCoordinates(location, context)
     return {
       x: x + landscapeTileDescription.width / 2 + 0.05,
-      y: y - landscapeTileDescription.height / 2 - 0.05
+      y: y - landscapeTileDescription.height / 2 - 0.05,
+      z: isItemContext(context)? 0: 5
     }
   }
 
