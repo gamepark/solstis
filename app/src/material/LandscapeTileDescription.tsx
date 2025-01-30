@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, isDeleteItemType } from '@gamepark/rules-api'
-import { isMoveItemType } from '@gamepark/rules-api'
-import { MaterialMove } from '@gamepark/rules-api'
+import { faHandPointer } from '@fortawesome/free-solid-svg-icons/faHandPointer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { CardDescription, ItemContext, ItemMenuButton } from '@gamepark/react-game'
+import { CustomMove, isCustomMoveType, isDeleteItemType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
+import Fire from '../images/icons/fire.png'
+import Victory from '../images/icons/victory.png'
 import Landscape_1_1 from '../images/landscape/landscape_1_1.jpg'
 import Landscape_1_10 from '../images/landscape/landscape_1_10.jpg'
 import Landscape_1_2 from '../images/landscape/landscape_1_2.jpg'
@@ -56,8 +58,6 @@ import Landscape_6_5 from '../images/landscape/landscape_6_5.jpg'
 import Landscape_6_6 from '../images/landscape/landscape_6_6.jpg'
 import Landscape_6_7 from '../images/landscape/landscape_6_7.jpg'
 import Rainbow from '../images/landscape/rainbow.jpg'
-import Fire from '../images/icons/fire.png'
-import Victory from '../images/icons/victory.png'
 import LandscapeBack from '../images/landscape/tile_back.jpg'
 import { LandscapeTileHelp } from './help/LandscapeTileHelp'
 
@@ -132,8 +132,29 @@ export class LandscapeTileDescription extends CardDescription {
   canShortClick(move: MaterialMove, { index }: ItemContext): boolean {
     return (isCustomMoveType(CustomMoveType.DrawCard)(move) && move.data === index)
       || (isDeleteItemType(MaterialType.LandscapeTile)(move) && move.itemIndex === index)
-     || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
+      || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
   }
+
+  isMenuAlwaysVisible(): boolean {
+    return true
+  }
+
+  getItemMenu(item: MaterialItem, _context: ItemContext, legalMoves: MaterialMove[]) {
+    const forceCardToPlay: CustomMove | undefined = legalMoves.find((m) => isCustomMoveType(CustomMoveType.ForceCardToPlay)(m) && m.data === item.id) as CustomMove | undefined
+    if (item.id === undefined || !forceCardToPlay) return
+    return (
+      <>
+        <ItemMenuButton
+          move={forceCardToPlay}
+          angle={170}
+          radius={2.8}
+        >
+          <FontAwesomeIcon icon={faHandPointer}/>
+        </ItemMenuButton>
+      </>
+    )
+  }
+
 
   help = LandscapeTileHelp
 }

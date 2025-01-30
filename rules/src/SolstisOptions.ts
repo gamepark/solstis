@@ -7,6 +7,7 @@ import { OptionsSpec } from '@gamepark/rules-api'
 export type SolstisOptions = {
   players: number;
   beginner: boolean;
+  firefly: boolean;
 }
 
 /**
@@ -17,6 +18,11 @@ export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
   beginner: {
     label: (t) => t('beginner'),
     help: (t) => t('beginner.help'),
+    competitiveDisabled: true
+  },
+  firefly: {
+    label: (t) => t('firefly'),
+    help: (t) => t('firefly.help'),
     competitiveDisabled: true
   }
 }

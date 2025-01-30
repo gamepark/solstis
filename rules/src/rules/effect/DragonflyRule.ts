@@ -1,10 +1,12 @@
 import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { MountainLandscape } from '../../material/MountainLandscape'
 import { CustomMoveType } from '../CustomMoveType'
+import { FireflyHelper } from '../helper/FireflyHelper'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { Memory } from '../Memory'
-import { RuleId } from '../RuleId'
+import { panoramaLandscapes } from '../PanoramaLandscapes'
 import { DrawableEffectRule } from './DrawableEffectRule'
 
 export class DragonflyRule extends DrawableEffectRule {
@@ -23,6 +25,13 @@ export class DragonflyRule extends DrawableEffectRule {
   }
 
   afterItemMove(move: ItemMove) {
+    if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location?.type === LocationType.Panorama) {
+      const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
+      const realId = item.id === MountainLandscape.Rainbow ? panoramaLandscapes[item.location.x!][item.location.y!] : item.id
+
+      new FireflyHelper(this.game).recomputeFireflies(realId)
+    }
+
     if (this.playAreaCard.length) return []
     const moves: MaterialMove[] = []
 
@@ -36,14 +45,13 @@ export class DragonflyRule extends DrawableEffectRule {
       if (deck.length) {
         moves.push(deck.moveItem({ type: LocationType.Hand, player: opponent }))
       } else {
-        moves.push(this.startRule(RuleId.RefillHand))
+        moves.push(...this.endRuleMoves)
       }
 
       this.memorize(Memory.CardDrawn, true)
       return moves
     }
-
-    moves.push(this.startRule(RuleId.RefillHand))
+    moves.push(...this.endRuleMoves)
     return moves
   }
 

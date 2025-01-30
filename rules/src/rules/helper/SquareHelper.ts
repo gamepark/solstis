@@ -78,7 +78,7 @@ export class SquareHelper extends MaterialRulesPart {
       .getItems()
   }
 
-  get encounterPlaces(): XYCoordinates[] {
+  get spiritInMountainPlaces(): XYCoordinates[] {
     const topLeftSquare = this.getTopLeftSquare(true)
     const bottomLeftSquare = this.getBottomLeftSquare(true)
     const topRightSquare = this.getTopRightSquare(true)

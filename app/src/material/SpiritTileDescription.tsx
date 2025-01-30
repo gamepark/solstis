@@ -22,6 +22,10 @@ import Lizard from '../images/spirit/lizard.jpg'
 import SpiritBack from '../images/spirit/spirit-back.jpg'
 import Squirrel from '../images/spirit/squirrel.jpg'
 import Wolf from '../images/spirit/wolf.jpg'
+import Cow from '../images/spirit/firefly/cow.jpg'
+import Phoenix from '../images/spirit/firefly/phoenix.jpg'
+import Viper from '../images/spirit/firefly/viper.jpg'
+import Fox from '../images/spirit/firefly/fox.jpg'
 import { SpiritTileHelp } from './help/SpiritTileHelp'
 
 export class SpiritTileDescription extends CardDescription {
@@ -46,7 +50,12 @@ export class SpiritTileDescription extends CardDescription {
     [Spirit.Bird]: Bird,
     [Spirit.Lizard]: Lizard,
     [Spirit.Butterfly]: Butterfly,
-    [Spirit.EvilBeaver]: EvilBeaver
+    [Spirit.EvilBeaver]: EvilBeaver,
+
+    [Spirit.Cow]: Cow,
+    [Spirit.Phoenix]: Phoenix,
+    [Spirit.Viper]: Viper,
+    [Spirit.Fox]: Fox,
   }
 
   help = SpiritTileHelp
@@ -71,6 +80,14 @@ export class SpiritTileDescription extends CardDescription {
     }
     return false
   }
+
+  // Removed to prevent missclic
+  /**canShortClick(move: MaterialMove, context: ItemContext) {
+    const item = context.rules.material(MaterialType.SpiritTile).getItem(context.index)!
+    const deck = context.rules.material(MaterialType.SpiritTile).location(LocationType.SpiritDeck).deck()
+    if (!deck.length || item.location.type !== LocationType.SpiritDeck) return super.canShortClick(move, context)
+    return isCustomMoveType(CustomMoveType.DrawSpirits)(move) && item.location.x === deck.getItem()!.location.x
+  }*/
 
   canDrag(move: MaterialMove, context: ItemContext) {
     return this.isDrawSpirits(move, context) || super.canDrag(move, context)

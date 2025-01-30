@@ -1,4 +1,4 @@
-import { getDistanceBetweenSquares, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
+import { getDistanceBetweenSquares, isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import equal from 'fast-deep-equal'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -8,13 +8,22 @@ import { panoramaLandscapes } from '../PanoramaLandscapes'
 
 export class PlaceCardHelper extends PlayerTurnRule {
 
+  constructor(game: MaterialGame, readonly forcedPlayer?: number) {
+    super(game)
+  }
+
+  get player() {
+    return this.forcedPlayer ?? this.game.rule!.player!
+  }
+
+
   getPlayCardMove(cards: Material) {
     const moves: MaterialMove[] = []
     for (const cardIndex of cards.getIndexes()) {
       const item = cards.getItem(cardIndex)
       if (item.id === MountainLandscape.Rainbow) {
         moves.push(
-          ...this.placeRainbow(cards.index(cardIndex))
+          ...this.placeAdjacentToLandscape(cards.index(cardIndex))
         )
         continue
       }
@@ -22,8 +31,8 @@ export class PlaceCardHelper extends PlayerTurnRule {
       const destination = this.getCardPositionInPanorama(item.id)!
       const tileOnTarget = this.material(MaterialType.LandscapeTile)
         .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y && l.player === this.player)
-
-      if (tileOnTarget?.length && this.isCoveredBySpirit(destination)) {
+      
+      if ((tileOnTarget?.length && this.isCoveredBySpirit(destination)) || this.hasSpiritBlockingLandscape(destination)) {
         moves.push(
           cards.index(cardIndex).deleteItem()
         )
@@ -48,7 +57,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
 
     const rainbow = playedCard.filter((item) => item.id === MountainLandscape.Rainbow)
     if (rainbow.length) {
-      return this.placeRainbow(rainbow)
+      return this.placeAdjacentToLandscape(rainbow)
     }
 
 
@@ -67,13 +76,13 @@ export class PlaceCardHelper extends PlayerTurnRule {
     return moves
   }
 
-  placeRainbow(cards: Material) {
+  placeAdjacentToLandscape(cards: Material) {
     const moves: MaterialMove[] = []
     const panorama = this.panorama
     for (let columnIndex = 0; columnIndex < panoramaLandscapes.length; columnIndex++) {
       const column = panoramaLandscapes[columnIndex]
       for (let rowIndex = 0; rowIndex < column.length; rowIndex++) {
-        if (this.canPlaceRainbow(panorama, columnIndex, rowIndex)) {
+        if (this.canPlaceAdjacentToLandscape(panorama, columnIndex, rowIndex)) {
           moves.push(cards.moveItem({
             type: LocationType.Panorama,
             player: this.player,
@@ -87,7 +96,8 @@ export class PlaceCardHelper extends PlayerTurnRule {
     return moves
   }
 
-  canPlaceRainbow(panorama: Material, x: number, y: number) {
+  canPlaceAdjacentToLandscape(panorama: Material, x: number, y: number) {
+    if (this.hasSpiritBlockingLandscape({ x, y })) return false
     if (panorama.location((l) => l.x === x && l.y === y).length > 0) return false
     return panorama.filter((i) => getDistanceBetweenSquares(
       { x: i.location.x!, y: i.location.y! },
@@ -168,5 +178,12 @@ export class PlaceCardHelper extends PlayerTurnRule {
       .material(MaterialType.LandscapeTile)
       .location(LocationType.Panorama)
       .player(this.player)
+  }
+
+  hasSpiritBlockingLandscape(destination: XYCoordinates) {
+    return this
+      .material(MaterialType.SpiritTile)
+      .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y && l.player === this.player)
+      .length > 0
   }
 }
