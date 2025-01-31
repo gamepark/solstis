@@ -20,9 +20,9 @@ export const GameOverHeader = () => {
   const first = players[0].id
   const second = players[1].id
   const firstName = usePlayerName(first)
-  const secondName = usePlayerName(second)
-  const firstScoring = new ScoringHelper(game, first)
-  const secondScoring = new ScoringHelper(game, second)
+    const secondName = usePlayerName(second)
+    const firstScoring = new ScoringHelper(game, first)
+    const secondScoring = new ScoringHelper(game, second)
 
   const haveSpirit = (id: Spirit) => {
     return firstScoring.hasSpirit(id) || secondScoring.hasSpirit(id)
