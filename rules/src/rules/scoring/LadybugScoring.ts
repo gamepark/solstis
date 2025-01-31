@@ -17,7 +17,7 @@ export class LadybugScoring extends AbstractScoringRule {
       if (flameArea === 0 || !panoramaAreas[0].includes(flameArea)) score += landscapeFlames[flame]
     }
 
-    return Math.ceil(score)
+    return Math.floor(score)
   }
 
   get landscapes() {
