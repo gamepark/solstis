@@ -29,9 +29,14 @@ class LandscapeTileHandLocator extends HandLocator {
   isFoxRule(location: Location, { rules }: MaterialContext) {
     return rules.game.rule?.id === RuleId.Fox && location.player !== rules.getActivePlayer()
   }
+
+  isDragonfly(location: Location, { rules }: MaterialContext) {
+    return rules.game.rule?.id === RuleId.Dragonfly && location.player !== rules.getActivePlayer()
+  }
+
   getCoordinates(location: Location, context: MaterialContext) {
     const { player, rules } = context
-    if (this.isFoxRule(location, context)) return { x: 5, y: -15, z: 20 }
+    if (this.isFoxRule(location, context) || this.isDragonfly(location, context)) return { x: 5, y: -17, z: 20 }
 
     if (!player && rules.players[0] === location.player) {
       return { x: -31, y: -12 }
@@ -46,7 +51,7 @@ class LandscapeTileHandLocator extends HandLocator {
 
   getGapMaxAngle(location: Location, context: MaterialContext): number {
     const { rules, player } = context
-    if (this.isFoxRule(location, context)) return 2
+    if (this.isFoxRule(location, context) || this.isDragonfly(location, context)) return 2
 
     if (!player && rules.players[0] === location.player) {
       return 1
@@ -59,7 +64,7 @@ class LandscapeTileHandLocator extends HandLocator {
 
   getBaseAngle(location: Location, context: MaterialContext) {
     const { rules, player } = context
-    if (this.isFoxRule(location, context)) return 0
+    if (this.isFoxRule(location, context) || this.isDragonfly(location, context)) return 0
 
     if (!player && rules.players[0] === location.player) {
       return 90

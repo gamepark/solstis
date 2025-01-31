@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { faHandPointer } from '@fortawesome/free-solid-svg-icons/faHandPointer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CardDescription, ItemContext, ItemMenuButton } from '@gamepark/react-game'
-import { CustomMove, isCustomMoveType, isDeleteItemType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { isCustomMoveType, isDeleteItemType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
@@ -129,30 +127,12 @@ export class LandscapeTileDescription extends CardDescription {
     return images
   }
 
-  canShortClick(move: MaterialMove, { index }: ItemContext): boolean {
+  canShortClick(move: MaterialMove, { index, rules }: ItemContext): boolean {
     return (isCustomMoveType(CustomMoveType.DrawCard)(move) && move.data === index)
+      || (isCustomMoveType(CustomMoveType.ForceCardToPlay)(move) && move.data === rules.material(MaterialType.LandscapeTile).getItem(index)!.id)
       || (isDeleteItemType(MaterialType.LandscapeTile)(move) && move.itemIndex === index)
       || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
-  }
-
-  isMenuAlwaysVisible(): boolean {
-    return true
-  }
-
-  getItemMenu(item: MaterialItem, _context: ItemContext, legalMoves: MaterialMove[]) {
-    const forceCardToPlay: CustomMove | undefined = legalMoves.find((m) => isCustomMoveType(CustomMoveType.ForceCardToPlay)(m) && m.data === item.id) as CustomMove | undefined
-    if (item.id === undefined || !forceCardToPlay) return
-    return (
-      <>
-        <ItemMenuButton
-          move={forceCardToPlay}
-          angle={170}
-          radius={2.8}
-        >
-          <FontAwesomeIcon icon={faHandPointer}/>
-        </ItemMenuButton>
-      </>
-    )
+      || (isCustomMoveType(CustomMoveType.ForceCardToPlay)(move) && move.data === rules.material(MaterialType.LandscapeTile).getItem(index)!.id)
   }
 
 
