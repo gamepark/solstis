@@ -16,7 +16,7 @@ export class FoxRule extends ImmediateEffectRule {
   }
 
   onCustomMove(move: CustomMove) {
-    this.memorize(Memory.CardToPlay, move.data)
+    this.memorize(Memory.CardToPlay, move.data, this.opponent)
     return [
       ...this.opponentHand.rotateItems(false),
       this.opponentHand.shuffle(),

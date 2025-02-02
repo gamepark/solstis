@@ -15,7 +15,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
-    this.forget(Memory.CardToPlay)
+    this.forget(Memory.CardToPlay, this.player)
     return []
   }
 
@@ -45,7 +45,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
       .location(LocationType.Hand)
       .player(playerId)
 
-    const forcedCard = this.forcedCard
+    const forcedCard = this.forcedCard(playerId)
     if (forcedCard !== undefined) {
       hand = hand.id(forcedCard)
     }
@@ -68,8 +68,8 @@ export class SelectHandTileRule extends PlayerTurnRule {
     return hand
   }
 
-  get forcedCard() {
-    return this.remind(Memory.CardToPlay)
+  forcedCard(playerId: PlayerId) {
+    return this.remind(Memory.CardToPlay, playerId)
   }
 
   get deck() {
