@@ -97,30 +97,32 @@ export class SolstisScoring implements ScoringDescription {
 
   getScoringPlayerData(key: ScoringKeys, player: number, rules: SolstisRules) {
     const helper = new ScoringHelper(rules.game, player)
+    const endByFireflies = helper.hasWinByFireflies || helper.opponentHasWinByFireflies
     switch (key) {
       case ScoringKeys.MaxSurface:
-        return helper.maxAreaScore
+        return renderScore(helper.maxAreaScore, endByFireflies)
       case ScoringKeys.Fire:
-        return helper.lightedFlamesScore
+        return renderScore(helper.lightedFlamesScore, endByFireflies)
       case ScoringKeys.Spirit:
-        return helper.spiritScore
+        return renderScore(helper.spiritScore, endByFireflies)
       case ScoringKeys.Bee:
-        return helper.getPlayerSpiritScore(Spirit.Bee) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Bee) ?? '/', endByFireflies)
       case ScoringKeys.Bird:
-        return helper.getPlayerSpiritScore(Spirit.Bird) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Bird) ?? '/', endByFireflies)
       case ScoringKeys.Butterfly:
-        return helper.getPlayerSpiritScore(Spirit.Butterfly) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Butterfly) ?? '/', endByFireflies)
       case ScoringKeys.Ladybug:
-        return helper.getPlayerSpiritScore(Spirit.Ladybug) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Ladybug) ?? '/', endByFireflies)
       case ScoringKeys.Lizard:
-        return helper.getPlayerSpiritScore(Spirit.Lizard) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Lizard) ?? '/', endByFireflies)
       case ScoringKeys.Wolf:
-        return helper.getPlayerSpiritScore(Spirit.Wolf) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Wolf) ?? '/', endByFireflies)
       case ScoringKeys.Cow:
-        return helper.getPlayerSpiritScore(Spirit.Cow) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Cow) ?? '/', endByFireflies)
       case ScoringKeys.Phoenix:
-        return helper.getPlayerSpiritScore(Spirit.Phoenix) ?? '/'
+        return renderScore(helper.getPlayerSpiritScore(Spirit.Phoenix) ?? '/', endByFireflies)
       case ScoringKeys.Fireflies:
+        if (!endByFireflies) return '/'
         return helper.firefliesScore
       case ScoringKeys.Total:
       default:
@@ -128,6 +130,30 @@ export class SolstisScoring implements ScoringDescription {
     }
   }
 }
+
+const renderScore = (score: string | number, fireflyEnd: boolean)=> {
+  if (fireflyEnd) {
+    if (score === '/') return <>/</>
+    return <div css={flex}>
+      <div css={red}>0</div>
+      <div css={gray}>&nbsp;{`(${score})`}</div>
+    </div>
+  }
+  return score
+}
+
+const red = css`color: darkred`
+
+const gray = css`
+    color: gray;
+    font-style: italic;
+`
+
+const flex = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
 
 const bold = css`
   font-weight: bold;
