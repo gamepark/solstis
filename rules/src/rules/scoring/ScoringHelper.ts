@@ -62,7 +62,21 @@ export class ScoringHelper extends MaterialRulesPart {
   }
 
   get score() {
+    if (this.hasWinByFireflies) return 1
+    if (this.opponentHasWinByFireflies) return 0
     return this.specificSpiritScore + this.maxAreaScore + this.lightedFlamesScore + this.spiritScore + this.firefliesScore
+  }
+
+  get hasWinByFireflies() {
+    return this.material(MaterialType.Firefly)
+      .player(this.player)
+      .length >= 4
+  }
+
+  get opponentHasWinByFireflies() {
+    return this.material(MaterialType.Firefly)
+      .player((p) => p !== this.player)
+      .length >= 4
   }
 
   get spiritScore() {

@@ -5,7 +5,6 @@ import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'
 import { FireflyHelper } from '../helper/FireflyHelper'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
-import { panoramaLandscapes } from '../PanoramaLandscapes'
 
 export class SquirrelRule extends PlayerTurnRule {
 
