@@ -69,12 +69,14 @@ export class ScoringHelper extends MaterialRulesPart {
 
   get hasWinByFireflies() {
     return this.material(MaterialType.Firefly)
+      .location(LocationType.SpiritInMountain)
       .player(this.player)
       .length >= 4
   }
 
   get opponentHasWinByFireflies() {
     return this.material(MaterialType.Firefly)
+      .location(LocationType.SpiritInMountain)
       .player((p) => p !== this.player)
       .length >= 4
   }
