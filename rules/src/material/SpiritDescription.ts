@@ -68,6 +68,23 @@ export const Butterfly: SpiritDescription = {
 export const EvilBeaver: SpiritDescription = {
 }
 
+// Firefly ext
+export const Cow: SpiritDescription = {
+  color: SpiritColor.Blue
+}
+
+export const Phoenix: SpiritDescription = {
+  color: SpiritColor.Blue
+}
+
+export const Viper: SpiritDescription = {
+  color: SpiritColor.Wood
+}
+
+export const Fox: SpiritDescription = {
+  color: SpiritColor.Wood
+}
+
 export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
   [Spirit.Fish]: Fish,
   [Spirit.Deer]: Deer,
@@ -84,4 +101,10 @@ export const SpiritDescriptions: Record<Spirit, SpiritDescription> = {
   [Spirit.Lizard]: Lizard,
   [Spirit.Butterfly]: Butterfly,
   [Spirit.EvilBeaver]: EvilBeaver,
+
+  [Spirit.Cow]: Cow,
+  [Spirit.Phoenix]: Phoenix,
+  [Spirit.Viper]: Viper,
+  [Spirit.Fox]: Fox,
+
 }

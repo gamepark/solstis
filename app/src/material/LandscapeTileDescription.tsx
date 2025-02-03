@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, isDeleteItemType } from '@gamepark/rules-api'
-import { isMoveItemType } from '@gamepark/rules-api'
-import { MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, isDeleteItemType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
+import Fire from '../images/icons/fire.png'
+import Victory from '../images/icons/victory.png'
 import Landscape_1_1 from '../images/landscape/landscape_1_1.jpg'
 import Landscape_1_10 from '../images/landscape/landscape_1_10.jpg'
 import Landscape_1_2 from '../images/landscape/landscape_1_2.jpg'
@@ -56,8 +56,6 @@ import Landscape_6_5 from '../images/landscape/landscape_6_5.jpg'
 import Landscape_6_6 from '../images/landscape/landscape_6_6.jpg'
 import Landscape_6_7 from '../images/landscape/landscape_6_7.jpg'
 import Rainbow from '../images/landscape/rainbow.jpg'
-import Fire from '../images/icons/fire.png'
-import Victory from '../images/icons/victory.png'
 import LandscapeBack from '../images/landscape/tile_back.jpg'
 import { LandscapeTileHelp } from './help/LandscapeTileHelp'
 
@@ -129,11 +127,14 @@ export class LandscapeTileDescription extends CardDescription {
     return images
   }
 
-  canShortClick(move: MaterialMove, { index }: ItemContext): boolean {
+  canShortClick(move: MaterialMove, { index, rules }: ItemContext): boolean {
     return (isCustomMoveType(CustomMoveType.DrawCard)(move) && move.data === index)
+      || (isCustomMoveType(CustomMoveType.ForceCardToPlay)(move) && move.data === rules.material(MaterialType.LandscapeTile).getItem(index)!.id)
       || (isDeleteItemType(MaterialType.LandscapeTile)(move) && move.itemIndex === index)
-     || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
+      || (isMoveItemType(MaterialType.LandscapeTile)(move) && (move.location.type === LocationType.Panorama || move.location.type === LocationType.PlayArea) && index === move.itemIndex)
+      || (isCustomMoveType(CustomMoveType.ForceCardToPlay)(move) && move.data === rules.material(MaterialType.LandscapeTile).getItem(index)!.id)
   }
+
 
   help = LandscapeTileHelp
 }

@@ -14,7 +14,14 @@ export enum Spirit {
   Bird,
   Lizard,
   Butterfly,
-  EvilBeaver
+  EvilBeaver,
+
+  // Firefly ext
+  Cow = 50,
+  Phoenix,
+  Viper,
+  Fox
 }
 
 export const spirits = getEnumValues(Spirit)
+export const isFireflyExt = (spirit: Spirit) => spirit >= Spirit.Cow

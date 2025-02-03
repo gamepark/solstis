@@ -1,20 +1,19 @@
-import { PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { RuleId } from '../RuleId'
+import { ImmediateEffectRule } from './ImmediateEffectRule'
 
-export class BearRule extends PlayerTurnRule {
+export class BearRule extends ImmediateEffectRule {
 
   onRuleStart() {
     const deck = this.deck
-    if (!deck.length) return [this.startRule(RuleId.RefillHand)]
+    if (!deck.length) return this.endRuleMoves
 
     return [
       deck.moveItem({
         type: LocationType.Hand,
         player: this.player
       }),
-      this.startRule(RuleId.RefillHand)
+      ...this.endRuleMoves
     ]
   }
 

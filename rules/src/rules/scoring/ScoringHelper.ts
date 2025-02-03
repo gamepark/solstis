@@ -1,19 +1,20 @@
 import { MaterialGame, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
 import equal from 'fast-deep-equal'
-import groupBy from 'lodash/groupBy'
-import mapValues from 'lodash/mapValues'
 import sum from 'lodash/sum'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { MountainLandscape } from '../../material/MountainLandscape'
 import { Spirit } from '../../material/Spirit'
 import { PlayerId } from '../../PlayerId'
 import { panoramaLandscapes } from '../PanoramaLandscapes'
+import { AreaScoringHelper } from './AreaScoringHelper'
 import { BeeScoring } from './BeeScoring'
 import { BirdScoring } from './BirdScoring'
 import { ButterflyScoring } from './ButterflyScoring'
+import { CowScoring } from './CowScoring'
+import { FireflyScoring } from './FireflyScoring'
 import { LadybugScoring } from './LadybugScoring'
 import { LizardScoring } from './LizardScoring'
+import { PhoenixScoring } from './PhoenixScoring'
 import { WolfScoring } from './WolfScoring'
 
 export class ScoringHelper extends MaterialRulesPart {
@@ -56,13 +57,12 @@ export class ScoringHelper extends MaterialRulesPart {
 
         if (bottomArea && leftArea) this.replaceArea(leftArea, bottomArea)
         if (!bottomArea && !leftArea) this.areas[y][x] = ++areaCount
-        //console.log(JSON.stringify(this.areas, undefined, 2))
       }
     }
   }
 
   get score() {
-    return this.specificSpiritScore + this.maxAreaScore + this.lightedFlamesScore + this.spiritScore
+    return this.specificSpiritScore + this.maxAreaScore + this.lightedFlamesScore + this.spiritScore + this.firefliesScore
   }
 
   get spiritScore() {
@@ -88,34 +88,8 @@ export class ScoringHelper extends MaterialRulesPart {
     return new ButterflyScoring(this.game, this.player).getScore(this.spirits, this.areas) ?? 0
   }
 
-  get maxAreaScore(): number {
-    const areaNumbers = this.areas.flat()
-    const areaLength = mapValues(groupBy(areaNumbers, (areaNumber) => areaNumber), (v) => v.length)
-    let maxArea: string | undefined = undefined
-    for (const key of Object.keys(areaLength)) {
-      if (+key === 0) continue
-      if (!maxArea || areaLength[key] > areaLength[maxArea]) maxArea = key
-    }
-
-    return this.removeRainbows(areaLength, maxArea!)
-  }
-
-  removeRainbows(areaLength: Record<string, number>, areaNumber: string) {
-    const area = this.areas
-    let count = areaLength[areaNumber] ?? 0
-    if (!count) return count
-    const panorama = this.panorama
-    for (let y = 0; y < area.length; y++) {
-      const line = area[y]
-      for (let x = 0; x < line.length; x++) {
-        //console.log(area[y][x], +areaNumber)
-        if (area[y][x] !== +areaNumber) continue
-        const item = panorama.location((l) => l.x === x && l.y === y).getItem()!
-        if (item.id === MountainLandscape.Rainbow) count--
-      }
-    }
-
-    return count
+  get firefliesScore() {
+    return new FireflyScoring(this.game, this.player).getScore(this.spirits, this.areas) ?? 0
   }
 
   getSpiritScore(spirit: Spirit): number {
@@ -126,9 +100,18 @@ export class ScoringHelper extends MaterialRulesPart {
       case Spirit.Bird: return new BirdScoring(this.game, this.player).getScore(this.spirits)
       case Spirit.Lizard: return new LizardScoring(this.game, this.player).getScore()
       case Spirit.Butterfly: return new ButterflyScoring(this.game, this.player).getScore(this.spirits, this.areas)
+      case Spirit.Cow: return new CowScoring(this.game, this.player).getScore(this.spirits, this.areas)
+      case Spirit.Phoenix: return new PhoenixScoring(this.game, this.player).getScore()
     }
 
     return 0
+  }
+
+  get maxAreaScore(): number {
+    const helper = new AreaScoringHelper(this.game, this.player, this.areas)
+    const maxArea = helper.maxArea
+    if (maxArea === undefined) return 0
+    return helper.getScoreWithoutRainbows(maxArea)
   }
 
   replaceArea(a: number, b: number) {

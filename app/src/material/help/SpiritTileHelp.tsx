@@ -7,6 +7,7 @@ import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
 import { CustomMoveType } from '@gamepark/solstis/rules/CustomMoveType'
+import { Memory } from '@gamepark/solstis/rules/Memory'
 import { SolstisRules } from '@gamepark/solstis/SolstisRules'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -25,6 +26,7 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
     && equal(move.location, item.location)
     && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex).id === Spirit.EvilBeaver
   )
+  const isFirefly = !!rules.remind(Memory.Fireflies)
   return (
     <>
       <h2>{t('help.spirit')}</h2>
@@ -47,7 +49,12 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
       {item.id === Spirit.Bird && <SpiritEffect textKey="help.bird" />}
       {item.id === Spirit.Lizard && <SpiritEffect textKey="help.salamander" />}
       {item.id === Spirit.Butterfly && <SpiritEffect textKey="help.butterfly" />}
-      {item.id === Spirit.EvilBeaver && <SpiritEffect textKey="help.spirit-evil" />}
+      {!isFirefly && item.id === Spirit.EvilBeaver && <SpiritEffect textKey="help.spirit-evil" />}
+      {isFirefly && item.id === Spirit.EvilBeaver && <SpiritEffect textKey="help.spirit-evil.firefly" />}
+      {item.id === Spirit.Fox && <SpiritEffect textKey="help.fox" />}
+      {item.id === Spirit.Viper && <SpiritEffect textKey="help.viper" />}
+      {item.id === Spirit.Cow && <SpiritEffect textKey="help.cow" />}
+      {item.id === Spirit.Phoenix && <SpiritEffect textKey="help.phoenix" />}
       <p><Trans defaults="help.spirit.timing"><strong/></Trans></p>
     </>
   )
@@ -59,6 +66,7 @@ const SpiritEffect = ({ textKey }: { textKey: string })  => <p css={textWithIcon
     <i/>
     <span css={iconCss(Victory)}/>
     <span css={iconCss(Fire)}/>
+    <u/>
   </Trans>
 </p>
 

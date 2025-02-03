@@ -23,10 +23,14 @@ import { DeerRule } from './rules/effect/DeerRule'
 import { DragonflyRule } from './rules/effect/DragonflyRule'
 import { EagleRule } from './rules/effect/EagleRule'
 import { FishRule } from './rules/effect/FishRule'
+import { FoxRule } from './rules/effect/FoxRule'
 import { GroundHogRule } from './rules/effect/GroundHogRule'
+import { ViperRule } from './rules/effect/ViperRule'
 import { EncounterSpiritRule } from './rules/EncounterSpiritRule'
 import { EvilBeaverRule } from './rules/EvilBeaverRule'
 import { FillQueueGapStrategy } from './rules/FillQueueGapStrategy'
+import { FireflyEvilBeaverRule } from './rules/FireflyEvilBeaverRule'
+import { PlaceFireflyRule } from './rules/PlaceFireflyRule'
 import { PlaceRainbowRule } from './rules/PlaceRainbowRule'
 import { RefillHandRule } from './rules/RefillHandRule'
 import { RuleId } from './rules/RuleId'
@@ -59,6 +63,12 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [RuleId.Eagle]: EagleRule,
     [RuleId.EvilBeaver]: EvilBeaverRule,
     [RuleId.Squirrel]: SquirrelRule,
+
+    // Firefly ext
+    [RuleId.PlaceFirefly]: PlaceFireflyRule,
+    [RuleId.FireflyEvilBeaver]: FireflyEvilBeaverRule,
+    [RuleId.Viper]: ViperRule,
+    [RuleId.Fox]: FoxRule
   }
 
   locationsStrategies = {
@@ -72,6 +82,9 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
       [LocationType.SpiritDeck]: new PositiveSequenceStrategy(),
       [LocationType.SpiritLine]: new PositiveSequenceStrategy(),
       [LocationType.Hand]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.Firefly]: {
+      [LocationType.FireflyStock]: new PositiveSequenceStrategy()
     }
   }
 
@@ -79,16 +92,12 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     [MaterialType.LandscapeTile]: {
       [LocationType.LandscapeDeck]: hideItemId,
       [LocationType.LandscapeQueue]: (item: MaterialItem) => !!item.location?.rotation ? ['id'] : [],
-      [LocationType.Hand]: hideItemIdToOthers,
+      [LocationType.Hand]: hideItemIdToOthersWhenNotRotated,
     },
     [MaterialType.SpiritTile]: {
       [LocationType.SpiritDeck]: hideItemId,
       [LocationType.Hand]: hideItemIdToOthers
     }
-  }
-
-  protected moveBlocksUndo(move: MaterialMove<PlayerId, MaterialType, LocationType>): boolean {
-    return super.moveBlocksUndo(move)
   }
 
   canUndo(action: Action<MaterialMove>, consecutiveActions: Action[]): boolean {
@@ -108,3 +117,7 @@ export class SolstisRules extends SecretMaterialRules<PlayerId, MaterialType, Lo
     return 60
   }
 }
+
+export const hideItemIdToOthersWhenNotRotated = <P extends number = number, L extends number = number>(
+  item: MaterialItem<P, L>, player?: P
+): string[] => (item.location.player === player || item.location.rotation) ? [] : ['id']

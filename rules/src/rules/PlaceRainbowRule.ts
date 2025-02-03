@@ -8,7 +8,7 @@ import { RuleId } from './RuleId'
 export class PlaceRainbowRule extends PlayerTurnRule {
 
   getPlayerMoves(): MaterialMove<number, number, number>[] {
-    return new PlaceCardHelper(this.game).placeRainbow(this.rainbowCard)
+    return new PlaceCardHelper(this.game).placeAdjacentToLandscape(this.rainbowCard)
   }
 
   afterItemMove(move: ItemMove) {

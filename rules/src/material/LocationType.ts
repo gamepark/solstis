@@ -9,6 +9,6 @@ export enum LocationType {
   SpiritInMountain,
   PlayArea,
   Evil,
-  Characteristics
-
+  Characteristics,
+  FireflyStock
 }

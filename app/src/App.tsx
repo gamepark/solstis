@@ -3,7 +3,6 @@ import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Materi
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
 import { GameDisplay } from './GameDisplay'
-import { GameOverHeader } from './headers/GameOverHeader'
 import { Headers } from './headers/Headers'
 
 export default function App() {
@@ -18,7 +17,7 @@ export default function App() {
     <>
       { !!game && <GameDisplay players={game.players.length} /> }
       <LoadingScreen display={loading} author={['Bruno Cathala', 'Corentin Lebrat']} artist="Manu Gorobeï" publisher="Lumberjacks" developer="Game Park"/>
-      <MaterialHeader rulesStepsHeaders={Headers} GameOver={GameOverHeader} loading={loading}/>
+      <MaterialHeader rulesStepsHeaders={Headers} loading={loading}/>
       <MaterialImageLoader onImagesLoad={() => setImagesLoading(false)} />
       <Menu/>
       <FailuresDialog/>

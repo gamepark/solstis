@@ -6,5 +6,7 @@ export enum Memory {
   EncounterChoice,
   CardDrawn,
   FreeTurn,
-  PassedPlayers
+  FireflyExt,
+  Fireflies,
+  CardToPlay
 }
