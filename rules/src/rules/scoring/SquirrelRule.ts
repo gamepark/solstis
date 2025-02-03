@@ -31,10 +31,6 @@ export class SquirrelRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.LandscapeTile)(move)) {
       const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
 
-      const realId = item.id === MountainLandscape.Rainbow ? panoramaLandscapes[item.location.x!][item.location.y!] : item.id
-      new FireflyHelper(this.game).recomputeFireflies(realId)
-
-
       if (item.id !== MountainLandscape.Rainbow) {
         const rainbowOnPlace = this
           .material(MaterialType.LandscapeTile)
