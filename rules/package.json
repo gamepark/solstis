@@ -1,5 +1,5 @@
 {
-  "name": "@gamepark/solstis",
+  "name": "@gamepark/firefly",
   "version": "1.0.2",
   "description": "The rules of Solstis adapted for Game Park",
   "main": "dist/index.js",
