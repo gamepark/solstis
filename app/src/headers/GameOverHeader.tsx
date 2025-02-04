@@ -13,15 +13,14 @@ export const GameOverHeader = () => {
   const first = players[0].id
   const second = players[1].id
   const firstName = usePlayerName(first)
-    const secondName = usePlayerName(second)
-    const firstScoring = new ScoringHelper(game, first)
-    const secondScoring = new ScoringHelper(game, second)
+  const secondName = usePlayerName(second)
+  const firstScoring = new ScoringHelper(game, first)
+  const secondScoring = new ScoringHelper(game, second)
 
   if (firstScoring.hasWinByFireflies || secondScoring.hasWinByFireflies) {
-    if (first === playerId || second === playerId) return <Trans default="game-over.win.firefly" />
-    return <Trans default="game-over.win.firefly" values={{ player: firstScoring.hasWinByFireflies? firstName: secondName }} />
+    if (first === playerId || second === playerId) return <Trans default="game-over.win.firefly"/>
+    return <Trans default="game-over.win.firefly.player" values={{ player: firstScoring.hasWinByFireflies ? firstName : secondName }}/>
   }
-
 
   return <>
     <span>{resultText}</span>
