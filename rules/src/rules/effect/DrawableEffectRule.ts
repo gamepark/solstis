@@ -12,7 +12,7 @@ export class DrawableEffectRule extends ImmediateEffectRule {
 
   afterItemMove(move: ItemMove) {
     const moves = new PlaceCardHelper(this.game).afterItemMove(move)
-    if (isMoveItemType(MaterialType.LandscapeTile)(move)) {
+    if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama) {
       const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
       const realId = item.id === MountainLandscape.Rainbow? panoramaLandscapes[item.location.x!][item.location.y!]: item.id
       new FireflyHelper(this.game).recomputeFireflies(realId)

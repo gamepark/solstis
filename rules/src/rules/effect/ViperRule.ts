@@ -12,6 +12,10 @@ export class ViperRule extends DrawableEffectRule {
   }
 
   getPlayerMoves() {
+    if (this.playAreaCard.length) {
+      return new PlaceCardHelper(this.game).getPlayCardMove(this.playAreaCard)
+    }
+
     return new PlaceCardHelper(this.game).getPlayCardMove(this.opponentIsolatedTiles)
   }
 
