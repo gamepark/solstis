@@ -17,7 +17,8 @@ export class FireflyEvilBeaverRule extends PlayerTurnRule {
 
   beforeItemMove(move: ItemMove, _context?: PlayMoveContext) {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
-    if (this.evilBeaver.getItem()!.location.type === LocationType.Hand && move.location.type === LocationType.Panorama) return [this.startRule(RuleId.EncounterSpirit)]
+    const item = this.material(MaterialType.SpiritTile).getItem(move.itemIndex)
+    if (item!.location.type === LocationType.Hand && move.location.type === LocationType.Panorama) return [this.startRule(RuleId.EncounterSpirit)]
     return [this.startRule(RuleId.RefillHand)]
   }
 
