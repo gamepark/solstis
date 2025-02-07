@@ -55,7 +55,7 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
     const deck = this.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).deck()
     for (let x = 0; x < 6; x++) {
       deck.dealOne({ type: LocationType.LandscapeQueue, x, z: 0, rotation: true })
-      deck.dealOne({ type: LocationType.LandscapeQueue, x, z: 1})
+      deck.dealOne({ type: LocationType.LandscapeQueue, x, z: 1 })
     }
   }
 
@@ -84,9 +84,10 @@ export class SolstisSetup extends MaterialGameSetup<PlayerId, MaterialType, Loca
   }
 
   getSpiritForGame(options: SolstisOptions) {
-    if (options.beginner) return spirits.filter((s) => !isFireflyExt(s) && s !== Spirit.Eagle)
-    if (!options.firefly) return spirits.filter((s) => !isFireflyExt(s))
-    return spirits
+    return spirits.filter(spirit => {
+      if (options.beginner && spirit === Spirit.EvilBeaver) return false
+      return options.firefly || !isFireflyExt(spirit)
+    })
   }
 
   start() {
