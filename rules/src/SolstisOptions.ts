@@ -23,6 +23,6 @@ export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
   firefly: {
     label: (t) => t('firefly'),
     help: (t) => t('firefly.help'),
-    competitiveDisabled: true
+    subscriberRequired: true
   }
 }
