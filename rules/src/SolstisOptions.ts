@@ -1,4 +1,5 @@
-import { OptionsSpec } from '@gamepark/rules-api'
+import { OptionsSpec, OptionsValidationError } from '@gamepark/rules-api'
+import { TFunction } from 'i18next'
 
 /**
  * This is the type of object that the game receives when a new game is started.
@@ -24,5 +25,10 @@ export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
     label: (t) => t('firefly'),
     help: (t) => t('firefly.help'),
     subscriberRequired: true
+  },
+  validate: (options: Partial<SolstisOptions>, t: TFunction) => {
+    if (options.beginner && options.firefly) {
+      throw new OptionsValidationError(t('firefly-no-beginner'), ['beginner', 'firefly'])
+    }
   }
 }
