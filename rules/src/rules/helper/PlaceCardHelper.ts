@@ -32,7 +32,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
       const tileOnTarget = this.material(MaterialType.LandscapeTile)
         .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y && l.player === this.player)
       
-      if ((tileOnTarget?.length && this.isCoveredBySpirit(destination)) || this.hasSpiritBlockingLandscape(destination)) {
+      if ((tileOnTarget?.length && (this.isCoveredBy(MaterialType.SpiritTile, destination) || this.isCoveredBy(MaterialType.Firefly, destination))) || this.hasSpiritBlockingLandscape(destination)) {
         moves.push(
           cards.index(cardIndex).deleteItem()
         )
@@ -129,8 +129,8 @@ export class PlaceCardHelper extends PlayerTurnRule {
     return this.remind(Memory.QueueCardPlaced) !== undefined
   }
 
-  isCoveredBySpirit({ x, y }: XYCoordinates) {
-    return this.material(MaterialType.SpiritTile)
+  isCoveredBy(type: MaterialType, { x, y }: XYCoordinates) {
+    return this.material(type)
       .location((l) => l.type === LocationType.SpiritInMountain && (
         (l.x === x && l.y === y)
         || (l.x === x! - 1 && l.y === y)
