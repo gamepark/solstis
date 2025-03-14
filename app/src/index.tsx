@@ -10,6 +10,7 @@ import { solstisAnimations } from './animations/SolstisAnimations'
 import App from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
+import { SolstisScoring } from './scoring/SolstisScoring'
 import translations from './translations.json'
 import { Tutorial } from './tutorial/Tutorial'
 
@@ -25,6 +26,7 @@ ReactDOM.render(
       material={Material}
       locators={Locators}
       animations={solstisAnimations}
+      scoring={new SolstisScoring()}
       tutorial={new Tutorial()}
     >
       <App/>

@@ -7,10 +7,7 @@ import equal from 'fast-deep-equal'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 
 export class PanoramaDescription extends DropAreaDescription {
-  getExtraCss(location: Location, context: LocationContext): Interpolation<Theme> {
-    const { rules } = context
-    const hasCardOnLocation = rules.material(MaterialType.LandscapeTile).location((l) => equal(l, location)).length > 0
-    if (hasCardOnLocation) return
+  getExtraCss(location: Location, _context: LocationContext): Interpolation<Theme> {
     return css`
       &:before {
         content: '';
@@ -27,7 +24,8 @@ export class PanoramaDescription extends DropAreaDescription {
   }
 
   canShortClick(move: MaterialMove, location: Location): boolean {
-    return isMoveItemType(MaterialType.LandscapeTile)(move) && equal(location, move.location)
+    return (isMoveItemType(MaterialType.LandscapeTile)(move) && equal(location, move.location)) ||
+      (isMoveItemType(MaterialType.SpiritTile)(move) && equal(location, move.location))
   }
 }
 

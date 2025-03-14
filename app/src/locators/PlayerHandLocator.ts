@@ -3,6 +3,7 @@ import { HandLocator, ItemContext, Locator, MaterialContext } from '@gamepark/re
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
+import { RuleId } from '@gamepark/solstis/rules/RuleId'
 import { PlayerHandDescription } from './description/PlayerHandDescription'
 
 class PlayerHandLocator extends Locator {
@@ -24,7 +25,19 @@ class PlayerHandLocator extends Locator {
 }
 
 class LandscapeTileHandLocator extends HandLocator {
-  getCoordinates(location: Location, { player, rules }: MaterialContext) {
+
+  isFoxRule(location: Location, { rules }: MaterialContext) {
+    return rules.game.rule?.id === RuleId.Fox && location.player !== rules.getActivePlayer()
+  }
+
+  isDragonfly(location: Location, { rules }: MaterialContext) {
+    return rules.game.rule?.id === RuleId.Dragonfly && location.player !== rules.getActivePlayer()
+  }
+
+  getCoordinates(location: Location, context: MaterialContext) {
+    const { player, rules } = context
+    if (this.isFoxRule(location, context) || this.isDragonfly(location, context)) return { x: 5, y: -17, z: 20 }
+
     if (!player && rules.players[0] === location.player) {
       return { x: -31, y: -12 }
     }
@@ -38,6 +51,8 @@ class LandscapeTileHandLocator extends HandLocator {
 
   getGapMaxAngle(location: Location, context: MaterialContext): number {
     const { rules, player } = context
+    if (this.isFoxRule(location, context) || this.isDragonfly(location, context)) return 2
+
     if (!player && rules.players[0] === location.player) {
       return 1
     }
@@ -47,7 +62,10 @@ class LandscapeTileHandLocator extends HandLocator {
     return 0.9
   }
 
-  getBaseAngle(location: Location, { rules, player }: MaterialContext) {
+  getBaseAngle(location: Location, context: MaterialContext) {
+    const { rules, player } = context
+    if (this.isFoxRule(location, context) || this.isDragonfly(location, context)) return 0
+
     if (!player && rules.players[0] === location.player) {
       return 90
     }

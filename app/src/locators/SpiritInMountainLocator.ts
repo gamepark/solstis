@@ -34,7 +34,7 @@ class SpiritInMountainLocator extends Locator {
       const coordinates = placeCardHelper.getCardPositionInPanorama(itemId)!
       const material = rules.material(MaterialType.LandscapeTile).player(rules.game.rule.player).location((l) => l.type === LocationType.Panorama && l.x === coordinates.x && l.y === coordinates.y)
       const item = material.getItem()!
-      const places = new SquareHelper(rules.game, material.getIndex(), item.location).encounterPlaces
+      const places = new SquareHelper(rules.game, material.getIndex(), item.location).spiritInMountainPlaces
       locations.push(
         ...places.map((place) => ({
           type: LocationType.SpiritInMountain,

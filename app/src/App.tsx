@@ -18,7 +18,7 @@ export default function App() {
     <>
       { !!game && <GameDisplay players={game.players.length} /> }
       <LoadingScreen display={loading} author={['Bruno Cathala', 'Corentin Lebrat']} artist="Manu Gorobeï" publisher="Lumberjacks" developer="Game Park"/>
-      <MaterialHeader rulesStepsHeaders={Headers} GameOver={GameOverHeader} loading={loading}/>
+      <MaterialHeader rulesStepsHeaders={Headers} loading={loading} GameOver={GameOverHeader}/>
       <MaterialImageLoader onImagesLoad={() => setImagesLoading(false)} />
       <Menu/>
       <FailuresDialog/>

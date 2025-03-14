@@ -8,6 +8,7 @@ import { RuleId } from './RuleId'
 export class RefillHandRule extends PlayerTurnRule {
 
   onRuleStart() {
+    this.forget(Memory.MustEncounterSpiritOn)
     const deck = this.deck
     const nextPlayerRule = this.startPlayerTurn(RuleId.SelectHandTile, this.hasFreeTurn? this.player: this.nextPlayer)
     if (deck.length === 0) return [nextPlayerRule]

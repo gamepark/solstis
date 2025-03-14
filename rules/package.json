@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/solstis",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "The rules of Solstis adapted for Game Park",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "@gamepark/rules-api": ">=6.24"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~6.24.3",
+    "@gamepark/rules-api": "~6.29.3",
     "i18next": "^22.0.3"
   }
 }

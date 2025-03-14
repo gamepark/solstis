@@ -3,6 +3,7 @@ import equal from 'fast-deep-equal'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'
+import { FireflyHelper } from '../helper/FireflyHelper'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 
 export class SquirrelRule extends PlayerTurnRule {
@@ -28,6 +29,7 @@ export class SquirrelRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.LandscapeTile)(move)) {
       const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)
+
       if (item.id !== MountainLandscape.Rainbow) {
         const rainbowOnPlace = this
           .material(MaterialType.LandscapeTile)
@@ -44,6 +46,11 @@ export class SquirrelRule extends PlayerTurnRule {
     }
 
     if (!moves.length && !this.hand.length && !this.playAreaCard.length) {
+      const afterEncounterMoves = new FireflyHelper(this.game).afterSpiritEncountered()
+      if (afterEncounterMoves.length) {
+        return afterEncounterMoves
+      }
+
       return [this.endGame()]
     }
 

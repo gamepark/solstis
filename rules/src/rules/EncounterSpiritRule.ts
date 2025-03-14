@@ -1,9 +1,10 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Location, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Location, Material, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
 import { CustomMoveType } from './CustomMoveType'
+import { FireflyHelper } from './helper/FireflyHelper'
 import { SquareHelper } from './helper/SquareHelper'
 import { Memory } from './Memory'
 import { panoramaLandscapes } from './PanoramaLandscapes'
@@ -13,6 +14,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
   onRuleStart() {
     const spiritLine = this.spiritLine
+    if (this.hand.length) return []
     if (!this.availableLandscapes) return [this.startRule(RuleId.RefillHand)]
     if (spiritLine.length) return []
 
@@ -32,7 +34,6 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   getPlayerMoves(): MaterialMove<number, number, number>[] {
-
     const hand = this.hand
     if (!hand.length) {
       return [
@@ -55,7 +56,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
 
     for (const landscapeIndex of availableLandscapes.getIndexes()) {
       const item = availableLandscapes.getItem(landscapeIndex)
-      const places = new SquareHelper(this.game, landscapeIndex, item.location).encounterPlaces
+      const places = new SquareHelper(this.game, landscapeIndex, item.location).spiritInMountainPlaces
       for (const coordinates of places) {
         const cards = material.id((id) => id !== Spirit.EvilBeaver)
         moves.push(
@@ -73,7 +74,7 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   get availableLandscapes(): Material | undefined {
-    const ids = this.remind(Memory.MustEncounterSpiritOn)
+    const ids = this.landscapeIdsForSpirit
     if (!ids?.length) return
     const landscapes = this
       .material(MaterialType.LandscapeTile)
@@ -104,15 +105,21 @@ export class EncounterSpiritRule extends PlayerTurnRule {
     return
   }
 
+  get landscapeIdsForSpirit() {
+    return this.remind<MountainLandscape[]>(Memory.MustEncounterSpiritOn) ?? []
+  }
+
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return []
     if (move.location.type !== LocationType.SpiritInMountain) return []
+    this.persistFirefliesPlaces(move)
     const spirit = this.material(MaterialType.SpiritTile).index(move.itemIndex)
     const spiritItem = spirit.getItem()!
     delete spiritItem.selected
     const moves: MaterialMove[] = []
 
-    moves.push(...this.evilMoves)
+    if (!this.remind(Memory.FireflyExt)) moves.push(...this.evilMoves)
+
     moves.push(
       ...this.hand
       .id((id) => id !== Spirit.EvilBeaver)
@@ -125,7 +132,12 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       return moves
     }
 
-    moves.push(this.startRule(RuleId.RefillHand))
+    const afterEncounterMoves = new FireflyHelper(this.game).afterSpiritEncountered()
+    if (afterEncounterMoves.length) {
+      moves.push(...afterEncounterMoves)
+    } else {
+      moves.push(this.startRule(RuleId.RefillHand))
+    }
     return moves
   }
 
@@ -138,6 +150,8 @@ export class EncounterSpiritRule extends PlayerTurnRule {
       case Spirit.Dragonfly: return RuleId.Dragonfly
       case Spirit.Beetle: return RuleId.Beetle
       case Spirit.Groundhog: return RuleId.Groundhog
+      case Spirit.Viper: return RuleId.Viper
+      case Spirit.Fox: return RuleId.Fox
     }
     
     return
@@ -186,7 +200,19 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
-    this.forget(Memory.MustEncounterSpiritOn)
+    if (!this.landscapeIdsForSpirit.length) this.forget(Memory.MustEncounterSpiritOn)
     return []
+  }
+
+  private persistFirefliesPlaces(move: MoveItem) {
+    const spiritCoordinates = {
+      x: move.location.x!,
+      y: move.location.y!
+    }
+
+    for (const landscape of this.landscapeIdsForSpirit) {
+      new FireflyHelper(this.game).recomputeFireflies(landscape, spiritCoordinates)
+    }
+    this.forget(Memory.MustEncounterSpiritOn)
   }
 }

@@ -14,6 +14,11 @@ export class SelectHandTileRule extends PlayerTurnRule {
     return this.endGameMoves
   }
 
+  onRuleEnd() {
+    this.forget(Memory.CardToPlay, this.player)
+    return []
+  }
+
   canPlay(player: PlayerId) {
     return this.getHand(player).length > 0
   }
@@ -35,10 +40,15 @@ export class SelectHandTileRule extends PlayerTurnRule {
   }
 
   getHand(playerId: PlayerId) {
-    const hand = this
+    let hand = this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.Hand)
       .player(playerId)
+
+    const forcedCard = this.forcedCard(playerId)
+    if (forcedCard !== undefined) {
+      hand = hand.id(forcedCard)
+    }
 
     if (!this.deck.length) {
       const queue = this.queue
@@ -56,6 +66,10 @@ export class SelectHandTileRule extends PlayerTurnRule {
     }
 
     return hand
+  }
+
+  forcedCard(playerId: PlayerId) {
+    return this.remind(Memory.CardToPlay, playerId)
   }
 
   get deck() {
@@ -79,7 +93,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
     let someoneCanPlay = false
     let squirrelPlayer = undefined
     let evilPlayer = undefined
-    for (const   player of this.game.players) {
+    for (const  player of this.game.players) {
       if (this.canPlay(player)) {
         someoneCanPlay = true
         continue

@@ -14,4 +14,10 @@ export enum RuleId {
   Groundhog,
   EvilBeaver,
   Squirrel,
+
+  // Firefly extension
+  PlaceFirefly,
+  FireflyEvilBeaver,
+  Viper,
+  Fox
 }

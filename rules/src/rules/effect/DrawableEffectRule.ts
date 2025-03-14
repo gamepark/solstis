@@ -1,19 +1,28 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { MountainLandscape } from '../../material/MountainLandscape'
+import { FireflyHelper } from '../helper/FireflyHelper'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
 import { QueueHelper } from '../helper/QueueHelper'
-import { RuleId } from '../RuleId'
+import { panoramaLandscapes } from '../PanoramaLandscapes'
+import { ImmediateEffectRule } from './ImmediateEffectRule'
 
-export class DrawableEffectRule extends PlayerTurnRule {
+export class DrawableEffectRule extends ImmediateEffectRule {
 
   afterItemMove(move: ItemMove) {
     const moves = new PlaceCardHelper(this.game).afterItemMove(move)
+    if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama) {
+      const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
+      const realId = item.id === MountainLandscape.Rainbow? panoramaLandscapes[item.location.x!][item.location.y!]: item.id
+      new FireflyHelper(this.game).recomputeFireflies(realId)
+    }
     if (this.mustPlayACardFromPlayArea(moves)) return moves
+
 
     return [
       ...moves,
-      this.startRule(RuleId.RefillHand)
+      ...this.endRuleMoves
     ]
   }
 

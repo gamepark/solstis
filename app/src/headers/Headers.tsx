@@ -9,12 +9,16 @@ import { DragonflyHeader } from './DragonflyHeader'
 import { EagleHeader } from './EagleHeader'
 import { EncounterSpiritHeader } from './EncounterSpiritHeader'
 import { EvilBeaverHeader } from './EvilBeaverHeader'
+import { FireflyEvilBeaverHeader } from './FireflyEvilBeaverHeader'
 import { FishHeader } from './FishHeader'
+import { FoxHeader } from './FoxHeader'
+import { PlaceFireflyHeader } from './PlaceFireflyHeader'
 import { PlaceRainbowHeader } from './PlaceRainbowHeader'
 import { RefillHandHeader } from './RefillHandHeader'
 import { SecondChanceHeader } from './SecondChanceHeader'
 import { SelectHandTileHeader } from './SelectHandTileHeader'
 import { SquirrelHeader } from './SquirrelHeader'
+import { ViperHeader } from './ViperHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.SelectHandTile]: SelectHandTileHeader,
@@ -31,4 +35,10 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Beetle]: BeetleHeader,
   [RuleId.EvilBeaver]: EvilBeaverHeader,
   [RuleId.Squirrel]: SquirrelHeader,
+
+  // Firefly ext
+  [RuleId.PlaceFirefly]: PlaceFireflyHeader,
+  [RuleId.Fox]: FoxHeader,
+  [RuleId.Viper]: ViperHeader,
+  [RuleId.FireflyEvilBeaver]: FireflyEvilBeaverHeader,
 }

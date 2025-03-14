@@ -3,13 +3,12 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { CustomMoveType } from '../CustomMoveType'
 import { PlaceCardHelper } from '../helper/PlaceCardHelper'
-import { RuleId } from '../RuleId'
 import { DrawableEffectRule } from './DrawableEffectRule'
 
 export class EagleRule extends DrawableEffectRule {
 
   onRuleStart() {
-    if (!this.deck.length) return [this.startRule(RuleId.RefillHand)]
+    if (!this.deck.length) return this.endRuleMoves
     return []
   }
 
