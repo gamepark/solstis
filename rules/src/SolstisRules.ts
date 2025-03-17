@@ -39,7 +39,6 @@ import { SquirrelRule } from './rules/scoring/SquirrelRule'
 import { SecondChanceRule } from './rules/SecondChanceRule'
 import { SelectHandTileRule } from './rules/SelectHandTileRule'
 
-
 /**
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
