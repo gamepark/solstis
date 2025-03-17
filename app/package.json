@@ -1,6 +1,6 @@
 {
-  "name": "@gamepark/firefly-app",
-  "version": "1.0.7",
+  "name": "@gamepark/solstis-app",
+  "version": "2.0.0",
   "private": true,
   "description": "The user interface of Solstis adaptation for Game Park",
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
@@ -42,7 +42,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "deploy": "yarn build && rclone sync build firefly:firefly.game-park.com --progress --s3-acl=public-read"
+    "deploy": "yarn build && rclone sync build solstis:solstis.game-park.com --progress --s3-acl=public-read"
   },
   "eslintConfig": {
     "extends": [
