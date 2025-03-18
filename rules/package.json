@@ -2,7 +2,6 @@
   "name": "@gamepark/solstis",
   "version": "2.0.1",
   "description": "The rules of Solstis adapted for Game Park",
-  "sideEffects": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
