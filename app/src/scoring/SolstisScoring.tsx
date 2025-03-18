@@ -53,7 +53,8 @@ export class SolstisScoring implements ScoringDescription {
       if (haveScoring(Spirit.Cow)) keys.push(ScoringKeys.Cow)
       if (haveScoring(Spirit.Phoenix)) keys.push(ScoringKeys.Phoenix)
       keys.push(ScoringKeys.FirefliesVisibleFromBottom)
-      keys.push(ScoringKeys.Fireflies)
+      const endByFireflies = firstScoring.hasWinByFireflies || secondScoring.opponentHasWinByFireflies
+      if (endByFireflies) keys.push(ScoringKeys.Fireflies)
     }
 
     keys.push(ScoringKeys.Total)
