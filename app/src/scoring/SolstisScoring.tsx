@@ -21,6 +21,7 @@ enum ScoringKeys {
   Cow,
   Phoenix,
   Fireflies,
+  FirefliesVisibleFromBottom,
   Total
 }
 
@@ -51,6 +52,7 @@ export class SolstisScoring implements ScoringDescription {
     if (rules.remind(Memory.FireflyExt)) {
       if (haveScoring(Spirit.Cow)) keys.push(ScoringKeys.Cow)
       if (haveScoring(Spirit.Phoenix)) keys.push(ScoringKeys.Phoenix)
+      keys.push(ScoringKeys.FirefliesVisibleFromBottom)
       keys.push(ScoringKeys.Fireflies)
     }
 
@@ -83,6 +85,8 @@ export class SolstisScoring implements ScoringDescription {
         return <Trans defaults="game-over.spirit.cow" />;
       case ScoringKeys.Phoenix:
         return <Trans defaults="game-over.spirit.phoenix" />;
+      case ScoringKeys.FirefliesVisibleFromBottom:
+        return <Trans defaults="game-over.fireflies-from-bottom" />;
       case ScoringKeys.Fireflies:
         return <Trans defaults="game-over.fireflies.points" />;
       case ScoringKeys.Total:
@@ -121,6 +125,8 @@ export class SolstisScoring implements ScoringDescription {
         return renderScore(helper.getPlayerSpiritScore(Spirit.Cow) ?? '/', endByFireflies)
       case ScoringKeys.Phoenix:
         return renderScore(helper.getPlayerSpiritScore(Spirit.Phoenix) ?? '/', endByFireflies)
+      case ScoringKeys.FirefliesVisibleFromBottom:
+        return renderScore(helper.firefliesScore ?? '/', endByFireflies)
       case ScoringKeys.Fireflies:
         if (!endByFireflies) return '/'
         return helper.firefliesScore
