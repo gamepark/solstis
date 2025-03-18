@@ -6,6 +6,20 @@ import { SquareHelper } from './helper/SquareHelper'
 import { RuleId } from './RuleId'
 
 export class PlaceRainbowRule extends PlayerTurnRule {
+  onRuleStart() {
+    if (!this.panorama.length) return this.getRainbowInHand()
+    return []
+  }
+
+  getRainbowInHand() {
+    const moves: MaterialMove[] = []
+    moves.push(this.rainbowCard.moveItem({
+      type: LocationType.PlayArea,
+      player: this.player
+    }))
+    moves.push(...this.afterRainbowPlaced())
+    return moves
+  }
 
   getPlayerMoves(): MaterialMove<number, number, number>[] {
     return new PlaceCardHelper(this.game).placeAdjacentToLandscape(this.rainbowCard)
@@ -26,5 +40,12 @@ export class PlaceRainbowRule extends PlayerTurnRule {
       .material(MaterialType.LandscapeTile)
       .location(LocationType.RainbowDeck)
       .maxBy((item) => item.location.x!)
+  }
+
+  get panorama() {
+    return this
+      .material(MaterialType.LandscapeTile)
+      .location(LocationType.Panorama)
+      .player(this.player)
   }
 }

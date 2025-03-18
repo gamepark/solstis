@@ -76,6 +76,12 @@ export class CaptureRule extends PlayerTurnRule {
   get afterCardMove() {
     const moves: MaterialMove[] = []
     const remainingMoves = new PlaceCardHelper(this.game).captureMoves()
+    if (this.panorama.length < 2 && this.hasRainbowInHand && this.playAreaCard.length > 1) {
+      return remainingMoves
+        .filter((move) => isMoveItemType(MaterialType.LandscapeTile)(move)
+          && this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!.id !== MountainLandscape.Rainbow)
+    }
+
     if (!remainingMoves.length) {
       moves.push(this.startRule(RuleId.EncounterSpirit))
     } else if (remainingMoves.length === 1) {
@@ -83,6 +89,17 @@ export class CaptureRule extends PlayerTurnRule {
     }
 
     return moves
+  }
+
+  get hasRainbowInHand() {
+    return this.playAreaCard.id(MountainLandscape.Rainbow).length > 0
+  }
+
+  get panorama() {
+    return this
+      .material(MaterialType.LandscapeTile)
+      .location(LocationType.Panorama)
+      .player(this.player)
   }
 
   get playAreaCard() {

@@ -31,7 +31,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
       const destination = this.getCardPositionInPanorama(item.id)!
       const tileOnTarget = this.material(MaterialType.LandscapeTile)
         .location((l) => l.type === LocationType.Panorama && l.x === destination.x && l.y === destination.y && l.player === this.player)
-      
+
       if ((tileOnTarget?.length && (this.isCoveredBy(MaterialType.SpiritTile, destination) || this.isCoveredBy(MaterialType.Firefly, destination))) || this.hasSpiritBlockingLandscape(destination)) {
         moves.push(
           cards.index(cardIndex).deleteItem()
@@ -53,13 +53,13 @@ export class PlaceCardHelper extends PlayerTurnRule {
   captureMoves(ignorePlayedCard?: boolean) {
     const playedCard = this.playAreaCard
     const queue = this.queue
+
     const moves: MaterialMove[] = ignorePlayedCard? []: this.getPlayCardMove(playedCard)
 
     const rainbow = playedCard.filter((item) => item.id === MountainLandscape.Rainbow)
-    if (rainbow.length) {
+    if (rainbow.length && this.panorama.length >= 2) {
       return this.placeAdjacentToLandscape(rainbow)
     }
-
 
     if (!this.hasPlacedQueueCard) {
       const cards = queue
