@@ -24,7 +24,7 @@ export class FireflyHelper extends PlayerTurnRule {
     const ids = this.firefliesCoordinates
     if (this.isFireflyExt) {
       if (ids.length) return [this.startRule(RuleId.PlaceFirefly)]
-      if (this.evilBeaver.length) return [this.startRule(RuleId.FireflyEvilBeaver)]
+      if (this.evilBeaver.length && this.game.rule?.id !== RuleId.Squirrel) return [this.startRule(RuleId.FireflyEvilBeaver)]
     }
 
     return []
