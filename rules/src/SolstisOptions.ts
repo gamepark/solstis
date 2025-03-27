@@ -23,12 +23,12 @@ export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
   },
   firefly: {
     label: (t) => t('firefly'),
-    help: (t) => t('firefly.help'),
-    subscriberRequired: true
+    help: (t) => t('firefly.help')
   },
   validate: (options: Partial<SolstisOptions>, t: TFunction) => {
     if (options.beginner && options.firefly) {
       throw new OptionsValidationError(t('firefly-no-beginner'), ['beginner', 'firefly'])
     }
-  }
+  },
+  subscriberRequired: true
 }
