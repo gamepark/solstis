@@ -17,10 +17,14 @@ export const GameOverHeader = () => {
   const firstScoring = new ScoringHelper(game, first)
   const secondScoring = new ScoringHelper(game, second)
 
-  if (firstScoring.hasWinByFireflies || secondScoring.hasWinByFireflies) {
-  if (first === playerId || second === playerId) {
-    return <Trans defaults="game-over.win.firefly"/>
-  }
+  const isFirstWinByFireflies = firstScoring.hasWinByFireflies
+  const isSecondWinByFireflies = secondScoring.hasWinByFireflies
+  if (isFirstWinByFireflies || isSecondWinByFireflies) {
+
+    if ((isFirstWinByFireflies && first === playerId) || (isSecondWinByFireflies && second === playerId)) {
+      return <Trans defaults="game-over.win.firefly"/>
+    }
+
     return <Trans defaults="game-over.win.firefly.player" values={{ player: firstScoring.hasWinByFireflies ? firstName : secondName }}/>
   }
 
