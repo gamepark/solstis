@@ -11,6 +11,7 @@ import { ImmediateEffectRule } from './ImmediateEffectRule'
 export class DrawableEffectRule extends ImmediateEffectRule {
 
   afterItemMove(move: ItemMove) {
+    if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.LandscapeQueue && move.location.rotation === false) return []
     const moves = new PlaceCardHelper(this.game).afterItemMove(move)
     if (isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama) {
       const item = this.material(MaterialType.LandscapeTile).getItem(move.itemIndex)!
@@ -18,7 +19,6 @@ export class DrawableEffectRule extends ImmediateEffectRule {
       new FireflyHelper(this.game).recomputeFireflies(realId)
     }
     if (this.mustPlayACardFromPlayArea(moves)) return moves
-
 
     return [
       ...moves,
