@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { ScoringDescription } from '@gamepark/react-client'
+import { ScoringDescription } from '@gamepark/react-game'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
 import { Memory } from '@gamepark/solstis/rules/Memory'
 import { ScoringHelper } from '@gamepark/solstis/rules/scoring/ScoringHelper'

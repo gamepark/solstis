@@ -37,7 +37,7 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === (this.location.x! - 1) && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === this.location.x && item.location.y == this.location.y! + 1)
       ))
-      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter<MountainLandscape>((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
@@ -52,7 +52,7 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === (this.location.x! - 1) && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === (this.location.x! - 1) && item.location.y == this.location.y!)
       ))
-      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter<MountainLandscape>((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
@@ -63,7 +63,7 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === (this.location.x! + 1) && item.location.y == (this.location.y! + 1)) ||
         (item.location.x === (this.location.x! + 1) && item.location.y == this.location.y!)
       ))
-      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter<MountainLandscape>((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 
@@ -74,7 +74,7 @@ export class SquareHelper extends MaterialRulesPart {
         (item.location.x === (this.location.x! + 1) && item.location.y == (this.location.y! - 1)) ||
         (item.location.x === this.location.x && item.location.y == this.location.y! - 1)
       ))
-      .filter((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
+      .filter<MountainLandscape>((item) => ignoreMemory || !this.actualMustEncounterSpiritOn.includes(item.id))
       .getItems()
   }
 

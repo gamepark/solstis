@@ -53,7 +53,7 @@ export class TutorialSetup extends SolstisSetup {
     const randomDeck = this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.LandscapeDeck)
-      .filter((item) =>
+      .filter<MountainLandscape>((item) =>
         !StaticHandCards.includes(item.id)
         && !OpponentStaticHandCards.includes(item.id)
         && !StaticQueueCards.flat().includes(item.id)
@@ -64,7 +64,7 @@ export class TutorialSetup extends SolstisSetup {
     const staticDeck = this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.LandscapeDeck)
-      .filter((item) => StaticQueueCards.flat().includes(item.id))
+      .filter<MountainLandscape>((item) => StaticQueueCards.flat().includes(item.id))
       .deck()
 
     for (let x = 0; x < 6; x++) {
@@ -87,8 +87,8 @@ export class TutorialSetup extends SolstisSetup {
     const randomDeck = this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.LandscapeDeck)
-      .filter((item) => !StaticHandCards.includes(item.id)
-        && !StaticQueueCards.includes(item.id)
+      .filter<MountainLandscape>((item) => !StaticHandCards.includes(item.id)
+        && !StaticQueueCards.flat().includes(item.id)
         && !OpponentStaticHandCards.includes(item.id)
         && item.id !== ThirdDeckCard
       )
@@ -97,7 +97,7 @@ export class TutorialSetup extends SolstisSetup {
     const staticDeck = this
       .material(MaterialType.LandscapeTile)
       .location(LocationType.LandscapeDeck)
-      .filter((item) => StaticHandCards.includes(item.id) || OpponentStaticHandCards.includes(item.id))
+      .filter<MountainLandscape>((item) => StaticHandCards.includes(item.id) || OpponentStaticHandCards.includes(item.id))
       .deck()
 
     for (let player = 1; player <= options.players; player++) {

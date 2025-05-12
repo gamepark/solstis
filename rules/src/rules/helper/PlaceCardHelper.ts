@@ -63,7 +63,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
 
     if (!this.hasPlacedQueueCard) {
       const cards = queue
-        .filter((item) => (
+        .filter<MountainLandscape>((item) => (
           getLine(this.playedCard) === getLine(item.id) ||
           getValue(this.playedCard) === getValue(item.id)
         ))

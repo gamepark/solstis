@@ -2,7 +2,7 @@
 import equal from 'fast-deep-equal'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getLine, getValue } from '../material/MountainLandscape'
+import { getLine, getValue, MountainLandscape } from '../material/MountainLandscape'
 import { Spirit } from '../material/Spirit'
 import { PlayerId } from '../PlayerId'
 import { Memory } from './Memory'
@@ -53,9 +53,9 @@ export class SelectHandTileRule extends PlayerTurnRule {
     if (!this.deck.length) {
       const queue = this.queue
       return hand
-        .filter((card) => {
+        .filter<MountainLandscape>((card) => {
             const cards = queue
-              .filter((item) => (
+              .filter<MountainLandscape>((item) => (
                 getLine(card.id) === getLine(item.id) ||
                 getValue(card.id) === getValue(item.id)
               ))
