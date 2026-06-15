@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { FlexLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { spiritTileDescription } from '../material/SpiritTileDescription'

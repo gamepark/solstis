@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { DropAreaDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
-import equal from 'fast-deep-equal'
+import { isEqual } from 'es-toolkit'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 
 export class SpiritInMountainDescription extends DropAreaDescription {
@@ -14,6 +13,6 @@ export class SpiritInMountainDescription extends DropAreaDescription {
     if (!isMoveItemType(MaterialType.SpiritTile)(move)) return false
     const selectedSpirit = rules.material(MaterialType.SpiritTile).selected()
     if (!selectedSpirit.length) return false
-    return move.itemIndex === selectedSpirit.getIndex() && equal(location, move.location)
+    return move.itemIndex === selectedSpirit.getIndex() && isEqual(location, move.location)
   }
 }

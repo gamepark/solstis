@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialHelpProps, shadowCss } from '@gamepark/react-game'
 import { FC } from 'react'
@@ -9,10 +8,10 @@ export const FireflyHelp: FC<MaterialHelpProps> = () => {
   return (
     <>
       <h2>
-        <Trans defaults="help.firefly" />
+        <Trans i18nKey="help.firefly" />
       </h2>
       <p css={textWithIconCss}>
-        <Trans defaults="help.firefly.desc" components={{
+        <Trans i18nKey="help.firefly.desc" components={{
           star: <span css={iconCss(Victory)}/>
         }} />
       </p>
@@ -28,7 +27,7 @@ const iconCss = (icon: string) => css`
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss(icon)}
+  ${shadowCss}
 `
 
 const textWithIconCss = css`

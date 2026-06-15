@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useGame, usePlayerId, usePlayerName, usePlayers, useResultText } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { ScoringHelper } from '@gamepark/solstis/rules/scoring/ScoringHelper'
@@ -22,10 +21,10 @@ export const GameOverHeader = () => {
   if (isFirstWinByFireflies || isSecondWinByFireflies) {
 
     if ((isFirstWinByFireflies && first === playerId) || (isSecondWinByFireflies && second === playerId)) {
-      return <Trans defaults="game-over.win.firefly"/>
+      return <Trans i18nKey="game-over.win.firefly"/>
     }
 
-    return <Trans defaults="game-over.win.firefly.player" values={{ player: firstScoring.hasWinByFireflies ? firstName : secondName }}/>
+    return <Trans i18nKey="game-over.win.firefly.player" values={{ player: firstScoring.hasWinByFireflies ? firstName : secondName }}/>
   }
 
   return <>

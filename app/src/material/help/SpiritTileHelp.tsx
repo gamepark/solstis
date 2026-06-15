@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react'
 import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, useRules } from '@gamepark/react-game'
@@ -55,13 +54,13 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
       {item.id === Spirit.Viper && <SpiritEffect textKey="help.viper" />}
       {item.id === Spirit.Cow && <SpiritEffect textKey="help.cow" />}
       {item.id === Spirit.Phoenix && <SpiritEffect textKey="help.phoenix" />}
-      <p><Trans defaults="help.spirit.timing"><strong/></Trans></p>
+      <p><Trans i18nKey="help.spirit.timing"><strong/></Trans></p>
     </>
   )
 }
 
 const SpiritEffect = ({ textKey }: { textKey: string })  => <p css={textWithIconCss}>
-  <Trans defaults={textKey}>
+  <Trans i18nKey={textKey}>
     <strong/>
     <i/>
     <span css={iconCss(Victory)}/>
@@ -79,7 +78,7 @@ const iconCss = (icon: string) => css`
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss(icon)}
+  ${shadowCss}
 `
 
 const textWithIconCss = css`

@@ -3,7 +3,7 @@ import { DropAreaDescription, LocationContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { panoramaLandscapes } from '@gamepark/solstis/rules/PanoramaLandscapes'
-import equal from 'fast-deep-equal'
+import { isEqual } from 'es-toolkit'
 import { landscapeTileDescription } from '../../material/LandscapeTileDescription'
 
 export class PanoramaDescription extends DropAreaDescription {
@@ -24,8 +24,8 @@ export class PanoramaDescription extends DropAreaDescription {
   }
 
   canShortClick(move: MaterialMove, location: Location): boolean {
-    return (isMoveItemType(MaterialType.LandscapeTile)(move) && equal(location, move.location)) ||
-      (isMoveItemType(MaterialType.SpiritTile)(move) && equal(location, move.location))
+    return (isMoveItemType(MaterialType.LandscapeTile)(move) && isEqual(location, move.location)) ||
+      (isMoveItemType(MaterialType.SpiritTile)(move) && isEqual(location, move.location))
   }
 }
 

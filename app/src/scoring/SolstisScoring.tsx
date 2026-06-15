@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { ScoringDescription } from '@gamepark/react-game'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
@@ -65,36 +64,36 @@ export class SolstisScoring implements ScoringDescription {
   getScoringHeader(key: ScoringKeys) {
     switch (key) {
       case ScoringKeys.MaxSurface:
-        return <Trans defaults="game-over.surface.points" />;
+        return <Trans i18nKey="game-over.surface.points" />;
       case ScoringKeys.Fire:
-        return <Trans defaults="game-over.fire.lighten" />;
+        return <Trans i18nKey="game-over.fire.lighten" />;
       case ScoringKeys.Spirit:
-        return <Trans defaults="game-over.spirit.points" />;
+        return <Trans i18nKey="game-over.spirit.points" />;
       case ScoringKeys.Bee:
-        return <Trans defaults="game-over.spirit.bee" />;
+        return <Trans i18nKey="game-over.spirit.bee" />;
       case ScoringKeys.Bird:
-        return <Trans defaults="game-over.spirit.bird" />;
+        return <Trans i18nKey="game-over.spirit.bird" />;
       case ScoringKeys.Butterfly:
-        return <Trans defaults="game-over.spirit.butterfly" />;
+        return <Trans i18nKey="game-over.spirit.butterfly" />;
       case ScoringKeys.Ladybug:
-        return <Trans defaults="game-over.spirit.ladybug" />;
+        return <Trans i18nKey="game-over.spirit.ladybug" />;
       case ScoringKeys.Lizard:
-        return <Trans defaults="game-over.spirit.lizard" />;
+        return <Trans i18nKey="game-over.spirit.lizard" />;
       case ScoringKeys.Wolf:
-        return <Trans defaults="game-over.spirit.wolf" />;
+        return <Trans i18nKey="game-over.spirit.wolf" />;
       case ScoringKeys.Cow:
-        return <Trans defaults="game-over.spirit.cow" />;
+        return <Trans i18nKey="game-over.spirit.cow" />;
       case ScoringKeys.Phoenix:
-        return <Trans defaults="game-over.spirit.phoenix" />;
+        return <Trans i18nKey="game-over.spirit.phoenix" />;
       case ScoringKeys.FirefliesVisibleFromBottom:
-        return <Trans defaults="game-over.fireflies-from-bottom" />;
+        return <Trans i18nKey="game-over.fireflies-from-bottom" />;
       case ScoringKeys.Fireflies:
-        return <Trans defaults="game-over.fireflies.points" />;
+        return <Trans i18nKey="game-over.fireflies.points" />;
       case ScoringKeys.Total:
       default:
         return (
           <div css={[bold, totalCss]}>
-            <Trans defaults="game-over.total"/>
+            <Trans i18nKey="game-over.total"/>
           </div>
         )
     }

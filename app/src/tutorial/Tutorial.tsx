@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialTutorial, shadowCss, TutorialStep } from '@gamepark/react-game'
 import { isMoveItemType, isStartRule } from '@gamepark/rules-api'
@@ -27,12 +26,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
   steps: TutorialStep[] = [
     {
       popup: {
-        text: () => <Trans defaults="tuto.welcome"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.welcome"><strong/></Trans>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.goal"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.goal"><strong/></Trans>,
         position: { x: 10, y: 10 }
       },
       focus: (game) => ({
@@ -48,7 +47,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.tile"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.tile"><strong/></Trans>,
         position: { x: 10, y: 10 }
       },
       focus: (game) => ({
@@ -71,7 +70,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.hand"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.hand"><strong/></Trans>,
         position: { y: 20 }
       },
       focus: (game) => ({
@@ -89,7 +88,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.play"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.play"><strong/></Trans>,
         position: { y: 20 }
       },
       focus: (game) => ({
@@ -111,7 +110,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.capture"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.capture"><strong/></Trans>,
         position: { x: -10, y: 25 },
         size: { width: 100 }
       },
@@ -130,7 +129,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.queue"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.queue"><strong/></Trans>,
         position: { x: -10, y: 30 },
         size: { width: 110 }
       },
@@ -148,7 +147,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.place"><strong/></Trans>,
         position: { x: 10 }
       },
       move: {
@@ -157,7 +156,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.played"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.played"><strong/></Trans>
       }
     },
     {
@@ -177,7 +176,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.opponent"><strong/></Trans>
       },
       move: {}
     },
@@ -196,7 +195,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.play.2"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.play.2"><strong/></Trans>,
         position: { y: 20 }
       },
       focus: (game) => ({
@@ -220,13 +219,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.second-chance"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.second-chance"><strong/></Trans>
       },
       move: {}
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place.2"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.place.2"><strong/></Trans>,
         position: { x: 30, y: 20 }
       },
       focus: (game) => ({
@@ -244,7 +243,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.spirit"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.spirit"><strong/></Trans>,
         position: { x: 10, y: -25 },
         size: { width: 110 }
       },
@@ -261,7 +260,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.trout"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.trout"><strong/></Trans>,
         position: { x: 10, y: -25 },
         size: { width: 110 }
       },
@@ -284,26 +283,26 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.rainbow"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.rainbow"><strong/></Trans>,
         position: { x: 20 }
       },
       move: {}
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.rainbow.win"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.rainbow.win"><strong/></Trans>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.turn"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.turn"><strong/></Trans>
       }
     },
     {
       popup: {
         text: () => (
           <div css={textWithIconCss}>
-            <Trans defaults="tuto.scoring">
+            <Trans i18nKey="tuto.scoring">
               <strong/>
               <span css={iconCss(Victory)}/>
             </Trans>
@@ -315,7 +314,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <div css={textWithIconCss}>
-            <Trans defaults="tuto.fire">
+            <Trans i18nKey="tuto.fire">
               <strong/>
               <span css={iconCss(Fire)}/>
             </Trans>
@@ -331,14 +330,14 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.fire.lighten"><strong/></Trans>
+        text: () => <Trans i18nKey="tuto.fire.lighten"><strong/></Trans>
       }
     },
     {
       popup: {
         text: () => (
           <div css={textWithIconCss}>
-            <Trans defaults="tuto.spirit-score">
+            <Trans i18nKey="tuto.spirit-score">
               <strong/>
               <span css={iconCss(Victory)}/>
             </Trans>
@@ -350,7 +349,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () =>
           <div css={textWithIconCss}>
-            <Trans defaults="tuto.winner">
+            <Trans i18nKey="tuto.winner">
               <strong/>
               <span css={iconCss(Victory)}/>
             </Trans>
@@ -368,7 +367,7 @@ const iconCss = (icon: string) => css`
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss(icon)}
+  ${shadowCss}
 `
 
 const textWithIconCss = css`

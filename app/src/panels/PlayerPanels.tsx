@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
 import { ScoringHelper } from '@gamepark/solstis/rules/scoring/ScoringHelper'

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react'
 import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
@@ -61,42 +60,42 @@ const MountainLandscapeTile: FC<MaterialHelpProps> = (props) => {
       {remove && <PlayMoveButton move={remove} onPlay={closeDialog}>{t('move.remove')}</PlayMoveButton>}
       {item.location?.type === LocationType.LandscapeQueue && (
         <p>
-          <Trans defaults="help.tile.line">
+          <Trans i18nKey="help.tile.line">
             <strong/>
           </Trans>
         </p>
       )}
       {item.location?.type === LocationType.Panorama && (
         <p>
-          <Trans defaults={itsMe ? 'help.tile.panorama.you' : 'help.tile.panorama.player'} values={{ player: name }}>
+          <Trans i18nKey={itsMe ? 'help.tile.panorama.you' : 'help.tile.panorama.player'} values={{ player: name }}>
             <strong/>
           </Trans>
         </p>
       )}
       {item.location?.type === LocationType.LandscapeDeck && (
         <p>
-          <Trans defaults="help.tile.pile" values={{ number: rules.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).length }}>
+          <Trans i18nKey="help.tile.pile" values={{ number: rules.material(MaterialType.LandscapeTile).location(LocationType.LandscapeDeck).length }}>
             <strong/>
           </Trans>
         </p>
       )}
       {item.location?.type === LocationType.Hand && (
         <p>
-          <Trans defaults={itsMe ? 'help.tile.hand.you' : 'help.tile.hand.player'} values={{ player: name }}>
+          <Trans i18nKey={itsMe ? 'help.tile.hand.you' : 'help.tile.hand.player'} values={{ player: name }}>
             <strong/>
           </Trans>
         </p>
       )}
       {item.id && (
         <p>
-          <Trans defaults="help.tile.position" values={{ line: getLine(item.id) + 1, column: getValue(item.id) }}>
+          <Trans i18nKey="help.tile.position" values={{ line: getLine(item.id) + 1, column: getValue(item.id) }}>
             <strong/>
           </Trans>
         </p>
       )}
       {item.id && item.id in landscapeFlames && (
         <p css={textWithIconCss}>
-          <Trans defaults="help.tile.fire">
+          <Trans i18nKey="help.tile.fire">
             <strong/>
             <span css={iconCss(Fire)}/>
             <i/>
@@ -116,7 +115,7 @@ const iconCss = (icon: string) => css`
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss(icon)}
+  ${shadowCss}
 `
 
 const textWithIconCss = css`

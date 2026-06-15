@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { isItemContext, ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'

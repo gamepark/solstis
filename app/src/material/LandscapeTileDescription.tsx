@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { isCustomMoveType, isDeleteItemType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'

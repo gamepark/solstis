@@ -7,7 +7,7 @@ export class BirdScoring extends AbstractScoringRule {
 
   getScore(spirits: MaterialItem[]) {
     return spirits
-      .filter((item) => SpiritDescriptions[item.id].color === SpiritColor.Blue && item.id !== Spirit.Bird)
+      .filter((item) => SpiritDescriptions[item.id as Spirit].color === SpiritColor.Blue && item.id !== Spirit.Bird)
       .length
   }
 }

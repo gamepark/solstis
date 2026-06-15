@@ -15,7 +15,7 @@ export abstract class FireScoring extends AbstractScoringRule {
       const tileOnLocation = tiles.getItems().find((item) => item.location.y === coordinates.y && item.location.x === coordinates.x)
       if (tileOnLocation && tileOnLocation.id === MountainLandscape.Rainbow) continue
       if (!tileOnLocation) continue
-      if (this.isValidFire(flameArea, panoramaAreas)) score += landscapeFlames[flame]
+      if (this.isValidFire(flameArea, panoramaAreas)) score += landscapeFlames[+flame as MountainLandscape]!
     }
 
     return Math.floor(score)

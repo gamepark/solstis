@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/solstis/rules/RuleId'
 import { ComponentType } from 'react'
 import { BearHeader } from './BearHeader'

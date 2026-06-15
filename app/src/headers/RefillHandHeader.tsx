@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { SolstisRules } from '@gamepark/solstis/SolstisRules'
 import { useTranslation } from 'react-i18next'

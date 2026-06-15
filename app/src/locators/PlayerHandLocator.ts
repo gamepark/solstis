@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { HandLocator, ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
@@ -32,6 +31,14 @@ class LandscapeTileHandLocator extends HandLocator {
 
   isDragonfly(location: Location, { rules }: MaterialContext) {
     return rules.game.rule?.id === RuleId.Dragonfly && location.player !== rules.getActivePlayer()
+  }
+
+  getPositionDependencies(location: Location, context: MaterialContext) {
+    return {
+      items: super.getPositionDependencies(location, context),
+      ruleId: context.rules.game.rule?.id,
+      activePlayer: context.rules.getActivePlayer()
+    }
   }
 
   getCoordinates(location: Location, context: MaterialContext) {

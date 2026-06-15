@@ -2,6 +2,7 @@
   "name": "@gamepark/solstis",
   "version": "1.1.0",
   "description": "The rules of Solstis adapted for Game Park",
+  "sideEffects": false,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,18 +15,24 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "tsc"
+    "test": "vitest",
+    "check:cycles": "madge --circular --extensions ts src",
+    "build": "yarn check:cycles && tsc",
+    "prepack": "yarn build",
+    "publish": "yarn version ${0:-patch} && yarn npm publish && git commit -am v$(node -p \"require('./package.json').version\") && git tag v$(node -p \"require('./package.json').version\") && git push --follow-tags",
+    "lint": "eslint --fix"
   },
   "peerDependencies": {
-    "@gamepark/rules-api": ">=6.30",
+    "@gamepark/rules-api": ">=7",
+    "es-toolkit": "^1.45.1",
     "lodash": ">=4.17"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~6.38.5",
+    "@gamepark/rules-api": "~7.6.3",
     "@types/lodash": "^4.17.7",
-    "i18next": "^22.0.3",
-    "lodash": "^4.17.21"
-  },
-  "gitHead": "cb08a41ce79b657974d6caae79f5606cb0c9ef17"
+    "es-toolkit": "^1.47.0",
+    "lodash": "^4.17.21",
+    "madge": "^8.0.0",
+    "vitest": "^4.1.8"
+  }
 }

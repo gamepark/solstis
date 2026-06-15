@@ -4,6 +4,10 @@ import { Memory } from '@gamepark/solstis/rules/Memory'
 
 export class RainbowDeckLocator extends DeckLocator {
 
+  getPositionDependencies(_location: Location, context: MaterialContext) {
+    return { fireflyExt: context.rules.remind(Memory.FireflyExt) }
+  }
+
   getCoordinates(_location: Location, context: MaterialContext) {
     if (!context.rules.remind(Memory.FireflyExt)) return { x: 5, y: 7 }
     return { x: 3, y: 7 }

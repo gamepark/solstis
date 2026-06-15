@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'

@@ -28,7 +28,7 @@ export class AreaScoringHelper extends MaterialRulesPart {
   get secondMaxArea(): string | undefined {
     const actualMaxArea = this.maxArea
     if (actualMaxArea === undefined) return undefined
-    const areaLength = omit(this.areaLength, [actualMaxArea])
+    const areaLength = omit(this.areaLength, [actualMaxArea]) as Record<string, number>
 
     let maxArea: string | undefined = undefined
     for (const key of Object.keys(areaLength)) {
