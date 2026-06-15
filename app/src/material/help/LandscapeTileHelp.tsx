@@ -1,6 +1,6 @@
 
 import { css } from '@emotion/react'
-import { MaterialHelpProps, PlayMoveButton, shadowCss, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { MaterialHelpProps, PlayMoveButton, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { isDeleteItemType, isMoveItemType } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
@@ -111,11 +111,10 @@ const iconCss = (icon: string) => css`
   display: inline-block;
   background: url(${icon}) no-repeat;
   background-size: cover;
-  border-radius: 5em;
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss}
+  filter: drop-shadow(0 0 0.05em black) drop-shadow(0 0 0.05em black);
 `
 
 const textWithIconCss = css`

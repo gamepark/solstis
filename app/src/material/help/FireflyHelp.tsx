@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { MaterialHelpProps, shadowCss } from '@gamepark/react-game'
+import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 import Victory from '../../images/icons/victory.png'
@@ -23,11 +23,10 @@ const iconCss = (icon: string) => css`
   display: inline-block;
   background: url(${icon}) no-repeat;
   background-size: cover;
-  border-radius: 5em;
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss}
+  filter: drop-shadow(0 0 0.05em black) drop-shadow(0 0 0.05em black);
 `
 
 const textWithIconCss = css`

@@ -1,11 +1,13 @@
 import { css } from '@emotion/react'
-import { MaterialTutorial, shadowCss, TutorialStep } from '@gamepark/react-game'
+import { MaterialTutorial, TutorialStep } from '@gamepark/react-game'
 import { isMoveItemType, isStartRule } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/solstis/material/LocationType'
 import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 import { MountainLandscape } from '@gamepark/solstis/material/MountainLandscape'
 import { Spirit } from '@gamepark/solstis/material/Spirit'
 import { PlayerId } from '@gamepark/solstis/PlayerId'
+import { PlaceCardHelper } from '@gamepark/solstis/rules/helper/PlaceCardHelper'
+import { panoramaLandscapes } from '@gamepark/solstis/rules/PanoramaLandscapes'
 import { RuleId } from '@gamepark/solstis/rules/RuleId'
 import { Trans } from 'react-i18next'
 import Fire from '../images/icons/fire.png'
@@ -150,6 +152,20 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => <Trans i18nKey="tuto.place"><strong/></Trans>,
         position: { x: 10 }
       },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: any) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id))
+        ],
+        locations: [
+          this.location(LocationType.Panorama).player(me).x(4).y(3).location,
+          this.location(LocationType.Panorama).player(me).x(5).y(2).location
+        ],
+        margin: {
+          left: 2,
+          top: 1,
+          bottom: 3
+        }
+      }),
       move: {
         filter: (move, game) => isMoveItemType(MaterialType.LandscapeTile)(move) && game.items[move.itemType]![move.itemIndex].location.type === LocationType.LandscapeQueue
       }
@@ -236,7 +252,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         ],
         margin: {
           top: 1,
-          left: 2
+          left: 2,
+          bottom: 3
         }
       }),
       move: {}
@@ -284,7 +301,27 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       popup: {
         text: () => <Trans i18nKey="tuto.rainbow"><strong/></Trans>,
-        position: { x: 20 }
+        position: { x: 40, y: -15 }
+      },
+      focus: (game) => {
+        const helper = new PlaceCardHelper(game, me)
+        const panorama = this.material(game, MaterialType.LandscapeTile).location(LocationType.Panorama).player(me)
+        return {
+          materials: [
+            this.material(game, MaterialType.LandscapeTile).id(MountainLandscape.Rainbow).location(LocationType.RainbowDeck)
+          ],
+          locations: panoramaLandscapes.flatMap((column, x) =>
+            column
+              .map((_, y) => y)
+              .filter((y) => helper.canPlaceAdjacentToLandscape(panorama, x, y))
+              .map((y) => this.location(LocationType.Panorama).player(me).x(x).y(y).location)
+          ),
+          margin: {
+            top: 1,
+            left: 2,
+            bottom: 3
+          }
+        }
       },
       move: {}
     },
@@ -363,11 +400,10 @@ const iconCss = (icon: string) => css`
   display: inline-block;
   background: url(${icon}) no-repeat;
   background-size: cover;
-  border-radius: 5em;
   height: 1.4em;
   width: 1.4em;
   margin-left: 0.3em;
-  ${shadowCss}
+  filter: drop-shadow(0 0 0.05em black) drop-shadow(0 0 0.05em black);
 `
 
 const textWithIconCss = css`
