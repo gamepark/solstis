@@ -1,6 +1,5 @@
 import { PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
-import uniqBy from 'lodash/uniqBy'
+import { isEqual, uniqBy } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'
@@ -82,6 +81,6 @@ export class FireflyHelper extends PlayerTurnRule {
     }
 
 
-    this.memorize(Memory.Fireflies, (f: XYCoordinates[] = []) => uniqBy([...f, ...firefliesPlaces], JSON.stringify))
+    this.memorize(Memory.Fireflies, (f: XYCoordinates[] = []) => uniqBy([...f, ...firefliesPlaces], (c) => JSON.stringify(c)))
   }
 }

@@ -1,5 +1,5 @@
 import { MaterialItem } from '@gamepark/rules-api'
-import uniq from 'lodash/uniq'
+import { uniq } from 'es-toolkit'
 import { AbstractScoringRule } from './AbstractScoringRule'
 
 export class WolfScoring extends AbstractScoringRule {

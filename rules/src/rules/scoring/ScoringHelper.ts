@@ -1,6 +1,6 @@
 import { MaterialGame, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
 import equal from 'fast-deep-equal'
-import sum from 'lodash/sum'
+import { sum } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Spirit } from '../../material/Spirit'

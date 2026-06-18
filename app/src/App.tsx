@@ -1,4 +1,4 @@
-import { DevToolsHub, FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, MaterialImageLoader, Menu, useGame } from '@gamepark/react-game'
+import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, MaterialImageLoader, Menu, useGame } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
 import { GameDisplay } from './GameDisplay'
@@ -22,7 +22,6 @@ export default function App() {
       <Menu/>
       <FailuresDialog/>
       <FullscreenDialog/>
-      { import.meta.env.DEV && <DevToolsHub/> }
     </>
   )
 }

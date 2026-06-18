@@ -1,7 +1,5 @@
 import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import groupBy from 'lodash/groupBy'
-import omit from 'lodash/omit'
-import mapValues from 'lodash/mapValues'
+import { groupBy, mapValues, omit } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'
@@ -43,8 +41,8 @@ export class AreaScoringHelper extends MaterialRulesPart {
     return this.areas.flat()
   }
 
-  get areaLength() {
-    return  mapValues(groupBy(this.areaNumbers, (areaNumber) => areaNumber), (v) => v.length)
+  get areaLength(): Record<string, number> {
+    return mapValues(groupBy(this.areaNumbers, (areaNumber) => `${areaNumber}`), (v) => v.length)
   }
 
   getScoreWithoutRainbows(areaNumber: string) {

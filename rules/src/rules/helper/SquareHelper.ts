@@ -1,5 +1,5 @@
 import { Location, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import minBy from 'lodash/minBy'
+import { minBy } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'

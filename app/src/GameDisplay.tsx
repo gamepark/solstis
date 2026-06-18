@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { GameTable, GameTableNavigation } from '@gamepark/react-game'
+import { DevToolsHub, GameTable, GameTableNavigation } from '@gamepark/react-game'
 import { FC } from 'react'
 import { PlayerPanels } from './panels/PlayerPanels'
 
@@ -15,10 +15,10 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
       yMin={-25}
       yMax={15}
       margin={{ top: 7, left: 0, right: 0, bottom: 0 }}
-      //css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
       <GameTableNavigation css={navigationCss} scaleStep={0.08}/>
       <PlayerPanels/>
+      {process.env.NODE_ENV === 'development' && <DevToolsHub fabBottom="calc(5em)"/>}
     </GameTable>
   </>
 }
