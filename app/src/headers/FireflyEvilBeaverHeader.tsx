@@ -8,7 +8,7 @@ export const FireflyEvilBeaverHeader = () => {
   const player = usePlayerId()
   const activePlayer = rules.getActivePlayer()
   const itsMe = player && player === activePlayer
-  const opponent = rules.game.players.find((p) => p !== player)
+  const opponent = rules.game.players.find((p) => p !== activePlayer)
   const playerName = usePlayerName(activePlayer)
   const targetName = usePlayerName(opponent)
 
