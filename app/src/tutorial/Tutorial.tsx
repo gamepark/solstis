@@ -138,7 +138,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.LandscapeTile).location(LocationType.PlayArea),
-          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: any) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id))
+          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: MountainLandscape) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id))
         ],
         margin: {
           left: 2,
@@ -154,7 +154,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: any) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id))
+          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: MountainLandscape) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id))
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(4).y(3).location,
@@ -247,7 +247,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.LandscapeTile).location(LocationType.PlayArea),
-          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: any) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id)),
+          this.material(game, MaterialType.LandscapeTile).location(LocationType.LandscapeQueue).id((id: MountainLandscape) => [MountainLandscape.Landscape_4_5, MountainLandscape.Landscape_3_6].includes(id)),
           this.material(game, MaterialType.LandscapeTile).location(LocationType.Panorama).player(me)
         ],
         margin: {

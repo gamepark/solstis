@@ -13,7 +13,7 @@ export class SquareHelper extends MaterialRulesPart {
     this.item = this.material(MaterialType.LandscapeTile).getItem(this.itemIndex)
   }
 
-  get encounterSpiritMoves(): MaterialMove[] {
+  encounterSpiritMoves(): MaterialMove[] {
     const topLeftSquare = this.getTopLeftSquare()
     const bottomLeftSquare = this.getBottomLeftSquare()
     const topRightSquare = this.getTopRightSquare()

@@ -27,7 +27,7 @@ export class PlaceRainbowRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
-    new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
+    new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves()
     return this.afterRainbowPlaced()
   }
 

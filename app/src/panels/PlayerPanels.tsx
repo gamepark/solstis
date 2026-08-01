@@ -8,7 +8,7 @@ import Victory from '../images/icons/victory.png'
 import Player1BG from '../images/panels/player-1.jpg'
 import Player2BG from '../images/panels/player-2.jpg'
 
-export const PlayerPanels: FC<any> = () => {
+export const PlayerPanels: FC = () => {
   const players = usePlayers({ sortFromMe: true })
   const rules = useRules<SolstisRules>()!
   const playerId = usePlayerId()

@@ -16,7 +16,6 @@ export class SelectHandTileRule extends PlayerTurnRule {
 
   onRuleEnd() {
     this.forget(Memory.CardToPlay, this.player)
-    return []
   }
 
   canPlay(player: PlayerId) {

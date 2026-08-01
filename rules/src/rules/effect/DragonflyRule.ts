@@ -81,7 +81,6 @@ export class DragonflyRule extends DrawableEffectRule {
 
   onRuleEnd() {
     this.forget(Memory.CardDrawn)
-    return []
   }
 
 

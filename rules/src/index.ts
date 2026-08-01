@@ -1,3 +1,3 @@
 export { SolstisRules } from './SolstisRules'
-export { SolstisOptionsSpec } from './SolstisOptions'
+export { SolstisOptionsSpec, SolstisOptionsSpecV2 } from './SolstisOptions'
 export { SolstisSetup } from './SolstisSetup'

@@ -63,7 +63,7 @@ export class CaptureRule extends PlayerTurnRule {
     if (isDeleteItemType(MaterialType.LandscapeTile)(move)) return this.afterCardMove
     if (!isMoveItemType(MaterialType.LandscapeTile)(move) || move.location.type !== LocationType.Panorama) return []
 
-    new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves
+    new SquareHelper(this.game, move.itemIndex, move.location).encounterSpiritMoves()
     const rule = new PlaceCardHelper(this.game)
     const moves: MaterialMove[] = rule.afterItemMove(move)
     const willGetRainbow = moves.some((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea && this.material(MaterialType.LandscapeTile).getItem(move.itemIndex).id === MountainLandscape.Rainbow)

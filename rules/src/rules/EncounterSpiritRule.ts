@@ -200,8 +200,9 @@ export class EncounterSpiritRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
-    if (!this.landscapeIdsForSpirit.length) this.forget(Memory.MustEncounterSpiritOn)
-    return []
+    if (!this.landscapeIdsForSpirit.length) {
+      this.forget(Memory.MustEncounterSpiritOn)
+    }
   }
 
   private persistFirefliesPlaces(move: MoveItem) {
