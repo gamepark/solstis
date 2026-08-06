@@ -1,4 +1,4 @@
-import { OptionsSpec, OptionsSpecV2, OptionsValidationError, TFunction } from '@gamepark/rules-api'
+import { OptionsSpecV2 } from '@gamepark/rules-api'
 
 /**
  * This is the type of object that the game receives when a new game is started.
@@ -41,31 +41,4 @@ export const SolstisOptionsSpecV2: OptionsSpecV2 = {
       message: 'firefly-no-beginner'
     }
   ]
-}
-
-/**
- * The legacy declaration, superseded by `SolstisOptionsSpecV2`.
- *
- * Kept exported only because a few platform screens still read the v1 spec for
- * its labels; nothing here should be edited any more, and the whole object goes
- * once those screens have moved. `validate` is dead code for game creation
- * already: the platform generates from the v2 spec, whose cross rule the search
- * honours, so it can no longer produce a pair this function would refuse.
- */
-export const SolstisOptionsSpec: OptionsSpec<SolstisOptions> = {
-  beginner: {
-    label: (t) => t('beginner'),
-    help: (t) => t('beginner.help'),
-    competitiveDisabled: true
-  },
-  firefly: {
-    label: (t) => t('firefly'),
-    help: (t) => t('firefly.help')
-  },
-  validate: (options: Partial<SolstisOptions>, t: TFunction) => {
-    if (options.beginner && options.firefly) {
-      throw new OptionsValidationError(t('firefly-no-beginner'), ['beginner', 'firefly'])
-    }
-  },
-  subscriberRequired: true
 }

@@ -1,6 +1,6 @@
 import { css, Global } from '@emotion/react'
 import { GameProvider } from '@gamepark/react-game'
-import { SolstisOptionsSpec } from '@gamepark/solstis/SolstisOptions'
+import { SolstisOptionsSpecV2 } from '@gamepark/solstis/SolstisOptions'
 import { SolstisRules } from '@gamepark/solstis/SolstisRules'
 import { SolstisSetup } from '@gamepark/solstis/SolstisSetup'
 import { StrictMode } from 'react'
@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
     <GameProvider
       game="solstis"
       Rules={SolstisRules}
-      optionsSpec={SolstisOptionsSpec}
+      optionsSpec={SolstisOptionsSpecV2}
       GameSetup={SolstisSetup}
       material={Material}
       locators={Locators}
