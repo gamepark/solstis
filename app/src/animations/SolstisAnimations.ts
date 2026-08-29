@@ -5,34 +5,34 @@ import { MaterialType } from '@gamepark/solstis/material/MaterialType'
 
 export const solstisAnimations = new MaterialGameAnimations()
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Hand)
-  .duration(0.6)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Hand)
+  .duration(600)
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.SpiritDeck)
-  .duration(0.6)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.SpiritDeck)
+  .duration(600)
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.SpiritInMountain)
-  .duration(0.6)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.SpiritInMountain)
+  .duration(600)
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.Hand)
-  .duration(0.6)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.Hand)
+  .duration(600)
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea)
-  .duration(0.6)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.PlayArea)
+  .duration(600)
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama)
-  .duration(0.8)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.Panorama)
+  .duration(800)
 
-solstisAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.LandscapeQueue)
-  .duration(0.8)
+solstisAnimations
+  .configure((move) => isMoveItemType(MaterialType.LandscapeTile)(move) && move.location.type === LocationType.LandscapeQueue)
+  .duration(800)
 
-solstisAnimations.when()
-  .move(isDeleteItemType(MaterialType.LandscapeTile))
-  .duration(0)
+solstisAnimations
+  .configure(isDeleteItemType(MaterialType.LandscapeTile))
+  .skip()
