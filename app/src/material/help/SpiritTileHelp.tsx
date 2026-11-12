@@ -12,7 +12,7 @@ import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Fire from '../../images/icons/fire.png'
 import Victory from '../../images/icons/victory.png'
-import equal from 'fast-deep-equal'
+import { isEqual } from 'es-toolkit'
 
 export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const { t } = useTranslation()
@@ -22,7 +22,7 @@ export const SpiritTileHelp: FC<MaterialHelpProps> = (props) => {
   const drawSpirits = legalMoves.find((move) => isCustomMoveType(CustomMoveType.DrawSpirits)(move) && item.location?.type === LocationType.SpiritDeck)
   const canPlaceSpirit = itemIndex !== undefined && legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move) && move.location.type === LocationType.SpiritInMountain && itemIndex === move.itemIndex)
   const canCoverSpirit = legalMoves.find((move) => isMoveItemType(MaterialType.SpiritTile)(move)
-    && equal(move.location, item.location)
+    && isEqual(move.location, item.location)
     && rules.material(MaterialType.SpiritTile).getItem(move.itemIndex).id === Spirit.EvilBeaver
   )
   const isFirefly = !!rules.remind(Memory.Fireflies)

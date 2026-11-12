@@ -1,5 +1,5 @@
 import { getDistanceBetweenSquares, isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
+import { isEqual } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getLine, getValue, MountainLandscape } from '../../material/MountainLandscape'
@@ -111,7 +111,7 @@ export class PlaceCardHelper extends PlayerTurnRule {
     if (item.id === MountainLandscape.Rainbow) return []
     const rainbowOnPlace = this
       .material(MaterialType.LandscapeTile)
-      .location((l) => equal(l, item.location))
+      .location((l) => isEqual(l, item.location))
       .id(MountainLandscape.Rainbow)
 
     const moves: MaterialMove[] = []

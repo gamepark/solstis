@@ -1,5 +1,5 @@
 import { isDeleteItemType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
+import { isEqual } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { MountainLandscape } from '../../material/MountainLandscape'
@@ -33,7 +33,7 @@ export class SquirrelRule extends PlayerTurnRule {
       if (item.id !== MountainLandscape.Rainbow) {
         const rainbowOnPlace = this
           .material(MaterialType.LandscapeTile)
-          .location((l) => equal(l, item.location))
+          .location((l) => isEqual(l, item.location))
           .id(MountainLandscape.Rainbow)
 
         moves.push(

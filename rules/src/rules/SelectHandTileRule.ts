@@ -1,5 +1,5 @@
  import { isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
+import { isEqual } from 'es-toolkit'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getLine, getValue, MountainLandscape } from '../material/MountainLandscape'
@@ -120,7 +120,7 @@ export class SelectHandTileRule extends PlayerTurnRule {
       .location(LocationType.SpiritInMountain)
       .player(player)
     return allSpirits
-      .filter((item) => allSpirits.location((l) => equal(l, item.location)).length === 1)
+      .filter((item) => allSpirits.location((l) => isEqual(l, item.location)).length === 1)
       .getItems()
   }
 }

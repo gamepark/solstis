@@ -1,6 +1,5 @@
 import { MaterialGame, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
-import { sum } from 'es-toolkit'
+import { isEqual, sum } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Spirit } from '../../material/Spirit'
@@ -28,7 +27,7 @@ export class ScoringHelper extends MaterialRulesPart {
       .location(LocationType.SpiritInMountain)
       .player(this.player)
     this.spirits = allSpirits
-      .filter((item) => allSpirits.location((l) => equal(l, item.location)).length === 1)
+      .filter((item) => allSpirits.location((l) => isEqual(l, item.location)).length === 1)
       .getItems()
   }
 
